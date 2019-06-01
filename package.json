@@ -1,0 +1,19 @@
+{
+  "name": "mut-ci-project",
+  "version": "1.0.0",
+  "description": "Management Utility Tool",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/John-Mcilroy/mut-ci-project.git"
+  },
+  "author": "John Mcilroy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/John-Mcilroy/mut-ci-project/issues"
+  },
+  "homepage": "https://github.com/John-Mcilroy/mut-ci-project#readme"
+}
