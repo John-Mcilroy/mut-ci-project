@@ -1,42 +1,25 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const graphqlHttp = require('express-graphql')
-const { buildSchema } = require('graphql');
+const mongoose = require('mongoose');
 
-// Keys holding sensitive data
+const partnerRecord = require('./routes/api/partner-record');
+
+// Import sensitive data
 const keys = require('./config/keys');
 
 const app = express();
 
+// BodyParsere Middleware
 app.use(bodyParser.json());
 
-app.use('/graphql', graphqlHttp({
-  schema: buildSchema(`
-    type RootQuery {
-      viewFigures(date: String!): [Object!]
-    }
+// Database Config
+const db = require('./config/keys').DB_URI;
 
-    type RootMutation {
-      uploadFigures(records: [Object!]): [String!]
-    }
+// Connect to Mongo Database
+mongoose.connect(db)
+  .then(() => console.log('Mongo connected'))
+  .catch(err => console.log(err));
 
-    schema {
-      query: RootQuery
-      mutation: RootMutation
-    }
-  `),
-  rootValue: {
-    // Get figures to display
-    viewFigures: () => {
-
-    },
-
-    // Upload a record of figures and work into a JSON Object
-    uploadFigures: (args) => {
-      const records = args.records;
-    }
-  },
-  graphiql = true
-}));
+app.use('/api/partner-record', partnerRecord);
 
 app.listen(keys.PORT, () => console.log(`Listening on port: ${keys.PORT}`));
