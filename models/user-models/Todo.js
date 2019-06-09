@@ -1,4 +1,5 @@
-const { Schema } = require('mongoose');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 // Create Schema
 const TodoSchema = new Schema({
@@ -9,16 +10,16 @@ const TodoSchema = new Schema({
   content: {
     type: String,
   },
-  creationDate: {
+  created: {
     type: Date,
     default: Date.now,
     required: true,
   },
-  lastUpdated: {
+  updated: {
     type: Date,
     default: Date.now,
   },
-  expireDate: {
+  expires: {
     type: Date,
   }
 });

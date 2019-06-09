@@ -1,14 +1,12 @@
-const { Schema } = require('mongoose');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 // Create Schema
 const UserSchema = new Schema({
-  _id: { 
-    type: Schema.Types.ObjectId, 
-    required: true,
-  },
   name: { 
     type: String, 
     required: true,
+    trim: true,
   },
   password: { 
     type: String, 
@@ -18,21 +16,14 @@ const UserSchema = new Schema({
   refWord: { 
     type: String, 
     required: true,
+    unique: true,
+    trim: true,
   },
   privateWord: { 
-    type: String, 
-    required: true,
+    type: String,
     lowercase: true,
     trim: true,
   },
-  notes: [{ 
-    type: Schema.Types.ObjectId,
-    ref: 'Note',
-  }],
-  todos: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Todo',
-  }]
 });
 
 module.exports = User = mongoose.model('user', UserSchema);

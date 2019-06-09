@@ -1,25 +1,20 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-
-const partnerRecord = require('./routes/api/partner-record');
-
-// Import sensitive data
-const keys = require('./config/keys');
+const connectDB = require('./config/connectDB');
 
 const app = express();
 
 // BodyParsere Middleware
 app.use(bodyParser.json());
 
-// Database Config
-const db = require('./config/keys').DB_URI;
+// Connect to Database
+connectDB();
 
-// Connect to Mongo Database
-mongoose.connect(db)
-  .then(() => console.log('Mongo connected'))
-  .catch(err => console.log(err));
-
-app.use('/api/partner-record', partnerRecord);
+// Define Routes
+app.use('/api/users', require('./routes/api/users'));
+app.use('/api/records', require('./routes/api/records'));
+app.use('/api/auth', require('./routes/api/auth'));
+app.use('/api/notes', require('./routes/api/notes'));
+app.use('/api/todos', require('./routes/api/todos'));
 
 app.listen(keys.PORT, () => console.log(`Listening on port: ${keys.PORT}`));
