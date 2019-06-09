@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
+// const { check, validationResult } = require('express-validator/check');
 
 const Profile = require('../../models/user-models/Profile');
 const User = require('../../models/user-models/User');
@@ -33,5 +34,44 @@ router.get(
         .send('Server Error');
     }
   });
+
+  // @route   POST api/profile
+  // @desc    Create or update user profile
+  // @access  Private
+  router.post('/', auth, async (req, res) => {
+
+    // Build profile object
+    const profileFields = {};
+
+    profileFields.user = req.user.id;
+
+    try {
+      let profile = await Profile.findOne({ user: req.user.id });
+
+      if(profile) {
+        // Update profile
+        profile = await Profile.findOneAndUpdate(
+          { user: req.user.id }, 
+          { $set: profileFields },
+          { new: true }
+        );
+
+        return res.json(profile);
+      }
+
+      // Create profile
+      profile = new Profile(profileFields);
+      await profile.save()
+      res.json(profile);
+      
+    } catch(err) {
+      console
+        .error(err.message);
+
+      res
+        .status(500)
+        .json({ msg: 'Server Error'});
+    }
+  })
 
 module.exports = router;
