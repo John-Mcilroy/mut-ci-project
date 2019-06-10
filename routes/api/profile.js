@@ -70,7 +70,7 @@ router.get(
 
       res
         .status(500)
-        .json({ msg: 'Server Error'});
+        .send('Server Error');
     }
   })
 
