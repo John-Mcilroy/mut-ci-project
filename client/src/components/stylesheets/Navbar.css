@@ -1,0 +1,41 @@
+nav {
+  height: 10vh;
+}
+
+.nav__logo {
+  float: left;
+  width: 15vw;
+  padding: 15px 15px;
+}
+
+.nav__list {
+  float: left;
+  margin: 1.45vw 0;
+}
+
+.nav__list-item {
+  display: inline;
+  list-style-type: none;
+  font-size: 1.5em;
+  margin: 0 7vh;
+  padding: 0;
+  cursor: pointer;
+}
+
+.nav__list-item:hover {
+  opacity: .6;
+}
+
+.nav__list-item__active {
+  text-decoration: underline;
+  color: var(--blue-dark);
+}
+
+.nav__list-item__active:hover {
+  color: var(--blue-dark-hover);
+}
+
+.nav__logout {
+  float: right;
+  margin-top: 1.2em;
+}

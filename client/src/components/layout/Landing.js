@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
-import logo from '../assets/placeholder-logo.png';
-import landingImg from '../assets/landingImg.png';
+import logo from '../../assets/placeholder-logo.png';
+import landingImg from '../../assets/landingImg.png';
+import '../stylesheets/Landing.css';
 
 class Landing extends Component {
   state = {
