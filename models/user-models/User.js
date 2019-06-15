@@ -13,7 +13,7 @@ const UserSchema = new Schema({
     required: true,
     trim: true,
   },
-  refWord: { 
+  reference: { 
     type: String, 
     required: true,
     unique: true,

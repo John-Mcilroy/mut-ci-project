@@ -76,7 +76,7 @@ router.post('/', auth, async (req, res) => {
     // Parse into JSON
     const sheetData = xlsx.utils.sheet_to_json(worksheet);
 
-    records.date = new Date.now();
+    records.date = new Date();
 
     sheetData.forEach(record => {
       if (record.__EMPTY_1) {

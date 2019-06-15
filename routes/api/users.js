@@ -24,7 +24,7 @@ router.post(
       .isLength({ min: 6 }),
 
     // Validate Reference Word
-    check('refWord', 'Please enter your Reference')
+    check('reference', 'Please enter your Reference')
       .not()
       .isEmpty(),
   ],
@@ -36,7 +36,7 @@ router.post(
         .json({ errors: errors.array() });
     }
 
-    const { name, password, refWord } = req.body;
+    const { name, password, reference } = req.body;
 
     try {
       // See if user currently exists
@@ -53,7 +53,7 @@ router.post(
       user = new User({
         name,
         password,
-        refWord
+        reference
       })
 
       // Encrypt password
@@ -77,7 +77,7 @@ router.post(
         { expiresIn: 360000 },
         (err, token) => {
           if(err) throw err;
-          res.json({ token });
+          res.json({ ...payload, token });
         }
       );
 
