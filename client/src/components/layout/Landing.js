@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
+// Redux Actions
 import { setAlert } from '../../actions/alert';
+import { register } from '../../actions/auth';
 
 import logo from '../../assets/placeholder-logo.png';
 import landingImg from '../../assets/landingImg.png';
@@ -9,7 +13,7 @@ import landingImg from '../../assets/landingImg.png';
 import '../stylesheets/Landing.css';
 
 
-const Landing = ({ setAlert }) => {
+const Landing = ({ setAlert, register }) => {
   const [ formType, setFormType ] = useState({ isLogin: true });
   const [ nameValue, setNameValue ] = useState('');
   const [ passwordValue, setPasswordValue ] = useState('');
@@ -57,8 +61,8 @@ const Landing = ({ setAlert }) => {
 
       if (!isLogin) {
         // Register user
-        const res = await axios.post('/api/users', body, config);
-        setAlert('Registration Successful', 'success');
+        register({ name, password, reference })
+        //setAlert('Registration Successful', 'success');
       } else {
         // Login user
         const res = await axios.post('/api/auth', body, config);
@@ -66,6 +70,7 @@ const Landing = ({ setAlert }) => {
       }
     } catch(err) {
       console.error(err.response.data);
+      setAlert('Invalid Credentials', 'fail')
     }
   }
 
@@ -129,5 +134,10 @@ const Landing = ({ setAlert }) => {
 </div>
 }
 
-export default connect(null, { setAlert })(Landing);
+Landing.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+}
+
+export default connect(null, { setAlert, register })(Landing);
 
