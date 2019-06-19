@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // Redux Actions
 import { setAlert } from '../../actions/alert';
-import { register } from '../../actions/auth';
+import { register, login } from '../../actions/auth';
 
 import logo from '../../assets/placeholder-logo.png';
 import landingImg from '../../assets/landingImg.png';
@@ -13,7 +12,7 @@ import landingImg from '../../assets/landingImg.png';
 import '../stylesheets/Landing.css';
 
 
-const Landing = ({ setAlert, register }) => {
+const Landing = ({ setAlert, register, login }) => {
   const [ formType, setFormType ] = useState({ isLogin: true });
   const [ nameValue, setNameValue ] = useState('');
   const [ passwordValue, setPasswordValue ] = useState('');
@@ -53,20 +52,14 @@ const Landing = ({ setAlert, register }) => {
         }
         
     try {
-      const config = {
-        headers: { 'Content-Type': 'application/json' }
-      }
-
-      const body = JSON.stringify(newUser);
-
+      
       if (!isLogin) {
         // Register user
-        register({ name, password, reference })
+        register({ name, password, reference });
         //setAlert('Registration Successful', 'success');
       } else {
         // Login user
-        const res = await axios.post('/api/auth', body, config);
-        setAlert('Login Successful', 'success');
+        login({ name, password });
       }
     } catch(err) {
       console.error(err.response.data);
@@ -137,7 +130,8 @@ const Landing = ({ setAlert, register }) => {
 Landing.propTypes = {
   setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
 }
 
-export default connect(null, { setAlert, register })(Landing);
+export default connect(null, { setAlert, register, login })(Landing);
 
