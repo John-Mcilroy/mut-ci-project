@@ -1,7 +1,6 @@
 import React from 'react'
 
 import logo from '../assets/placeholder-logo.png';
-import './css/Navbar.css';
 
 function Navbar() {
   return (

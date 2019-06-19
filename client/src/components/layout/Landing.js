@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -12,7 +13,7 @@ import landingImg from '../../assets/landingImg.png';
 import '../stylesheets/Landing.css';
 
 
-const Landing = ({ setAlert, register, login }) => {
+const Landing = ({ setAlert, register, login, isAuthenticated }) => {
   const [ formType, setFormType ] = useState({ isLogin: true });
   const [ nameValue, setNameValue ] = useState('');
   const [ passwordValue, setPasswordValue ] = useState('');
@@ -65,6 +66,11 @@ const Landing = ({ setAlert, register, login }) => {
       console.error(err.response.data);
       setAlert('Invalid Credentials', 'fail')
     }
+  }
+
+  // If user is logged in, redirect to users profile
+  if(isAuthenticated) {
+    return <Redirect to='/profile' />
   }
 
   return <div className="landing-container">      
@@ -131,7 +137,12 @@ Landing.propTypes = {
   setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
-}
+  isAuthenticated: PropTypes.bool,
+};
 
-export default connect(null, { setAlert, register, login })(Landing);
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+})
+
+export default connect(mapStateToProps, { setAlert, register, login })(Landing);
 
