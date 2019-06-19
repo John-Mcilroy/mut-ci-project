@@ -75,7 +75,6 @@ const Landing = ({ setAlert, register, login, isAuthenticated }) => {
 
   return <div className="landing-container">      
   
-  {/* Auth Form */}
   <div className="auth">
     
     <header className="auth-head">
