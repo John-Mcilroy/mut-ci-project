@@ -8,9 +8,12 @@ import store from './store';
 import { loadUser } from './actions/auth';
 
 // Components
-import Landing from './components/layout/Landing';
-import Profile from './components/layout/Profile';
+import Landing from './components/pages/Landing';
+import Profile from './components/pages/Profile';
 import setAuthToken from './utils/setAuthToken';
+
+// Redux Components
+import Alert from './components/layout/Alert';
 
 
 if (localStorage.token) {
@@ -26,6 +29,7 @@ const App = () =>{
     <Provider store={store}>
       <Router>
         <Fragment>
+          <Alert />
           <Switch>
             <Route exact path='/' component={Landing} />
             <Route path='/profile' component={Profile} />
