@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import Navbar from '../layout/Navbar';
 
 const Profile = ({ isAuthenticated }) => {
 
@@ -13,6 +14,7 @@ const Profile = ({ isAuthenticated }) => {
 
   return (
     <div>
+      <Navbar />
       <h1>Profile Page</h1>
     </div>
   )
