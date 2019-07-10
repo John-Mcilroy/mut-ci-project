@@ -1,0 +1,88 @@
+/* Custom Properties */
+:root {
+  --blue-light: #dae3ff;
+  --blue-light-hover: #ccddff;
+
+  --blue-dark: #235aff;
+  --blue-dark-hover: #1c4ad1;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 5fr 2fr;
+}
+
+.nav {
+  display: flex;
+  margin-top: 5vh;
+  font-size: 1.15vw;
+}
+
+.nav > :first-child {
+  margin-left: 20vw;
+}
+
+.nav > :last-child {
+  margin-left: auto;
+}
+
+.nav > li > a:hover {
+  color: var(--blue-light);
+  transition: color 200ms;
+}
+
+li {
+  display: inline-block;
+  margin-right: 6vw;
+}
+
+a {
+  text-decoration: none;
+}
+
+.main-view {
+  height: 69vh;
+}
+
+.main-view__greeting {
+  margin: 20vh 0 0 20vh;
+  color: var(--blue-dark);
+  line-height: .75;
+}
+
+.main-view__sub-greeting {
+ color: var(--blue-light-hover);
+  padding-left: 15px;
+  font-size: 1em;
+}
+
+.sidenav-planner {
+  color: var(--blue-dark);
+  display: flex;
+  height: 50vh;
+  background-color: var(--blue-light);
+  border-radius: 25px 0 0 0;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 2vw;
+  font-weight: 900;
+}
+
+.sidenav-tracker {
+  color: var(--blue-light);
+  display: flex;
+  height: 50vh;
+  background-color: var(--blue-dark);
+  border-radius: 0 0 0 25px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 2vw;
+  font-weight: 900;
+}

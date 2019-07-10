@@ -1,7 +1,7 @@
 /* Custom Properties */
 :root {
   --blue-light: #dae3ff;
-  --blue-light-hover: #dae3ff83;
+  --blue-light-hover: #CCDDFF;
 
   --blue-dark: #235aff;
   --blue-dark-hover: #1c4ad1;
@@ -33,8 +33,18 @@
 }
 
 .auth-head__heading {
-  width: 15vw;
-  padding: 5px 15px;
+  margin: 25px 20px;
+  font-size: 2vw;
+  color: var(--blue-dark);
+  position: absolute;
+  line-height: 0.4;
+}
+
+.auth-head__title {
+  color: var(--blue-light-hover);
+  font-size: .6em;
+  position: relative;
+  left: 5px;
 }
 
 /* Form Styles */
@@ -43,7 +53,8 @@
   width: 100%;
   align-self: center;
   text-align: center;
-  padding-bottom: 15%; 
+  padding-bottom: 15%;
+  margin-top: auto;
 }
 
 .auth-form__input {
@@ -51,10 +62,9 @@
   background-color: var(--blue-light);
   border: none;
   border-radius: 5px;
-  height: 4em;
+  height: 3em;
   width: calc(60% - 15px);
   margin-bottom: 1em;
-  text-align: center;
   line-height: 2.15;
   padding-left: 15px;
   transition: background-color 300ms;
@@ -66,7 +76,7 @@
 }
 
 .auth-form__auth-code {
-  top: 60%;
+  top: 55%;
   position: absolute;
   width: 20vh;
   transition: transform 300ms;
@@ -74,11 +84,12 @@
 }
 
 .auth-form__auth-code__hidden {
-  top: 60%;
+  top: 55%;
   transform: translate(-200%);
   transition: transform 300ms;
   position: absolute;
   width: 20vh;
+  opacity: 0;
 }
 
 .auth-form__input::placeholder {
@@ -91,7 +102,7 @@
   align-self: center;
   background-color: var(--blue-dark);
   color: var(--blue-light);
-  height: 4em;
+  height: 3em;
   width: 60%;
   box-shadow: none;
   border: none;
@@ -111,7 +122,7 @@
   display: flex;
   align-self: end;
   padding-bottom: 1em;
-  font-size: 1.5em;
+  font-size: 20px;
 }
 
 .footer-list__register {
@@ -133,8 +144,13 @@
 /* Right Image Styles */
 
 .landing-logo {
-  margin: auto;
-  max-height: 60%;
+  align-self: center;
+  justify-self: center;
+  max-height: 60vh;
   max-width: 60%;
   background-color: var(--blue-light);
+}
+
+.alert {
+  position: absolute;
 }

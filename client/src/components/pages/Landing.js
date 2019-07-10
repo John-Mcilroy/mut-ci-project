@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 import { setAlert } from '../../actions/alert';
 import { register, login } from '../../actions/auth';
 
-import logo from '../../assets/placeholder-logo.png';
 import landingImg from '../../assets/landingImg.png';
 
 import '../stylesheets/Landing.css';
@@ -77,14 +76,12 @@ const Landing = ({ setAlert, register, login, isAuthenticated }) => {
   
   <div className="auth">
     
-    <header className="auth-head">
-      <img
-        src={logo} 
-        alt="Performance Tracker Logo" className="auth-head__heading"
-      />
-    </header>
+    <div className="auth">
+      <header className="auth-head__heading">
+        MUT <br /> <span className="auth-head__title">Management Utility Tool</span>
+      </header>
 
-    <form className="auth-form" onSubmit={onChange}>
+    <form className="auth-form" onSubmit={onChange} autoComplete='off'>
       <input 
         id="auth-code"
         className={isLogin ? "auth-form__input auth-form__auth-code__hidden" : "auth-form__input auth-form__auth-code "}
@@ -121,11 +118,10 @@ const Landing = ({ setAlert, register, login, isAuthenticated }) => {
     
     <ul className="footer-list">
       <li className="footer-list__register"><h6>Report a Bug</h6></li>
-      <li className="footer-list__copy"><h6>&copy; 2019 MUT. All Rights Reserved</h6></li>
+      <li className="footer-list__copy"><h6>&copy; 2019</h6></li>
     </ul>
+    </div>
   </div>
-  
-  {/* Showcase Image */}
   
   <img className="landing-logo" src={landingImg} alt="Landing Logo" />
   

@@ -5,7 +5,7 @@ import { logout } from '../../actions/auth';
 
 import logo from '../../assets/placeholder-logo.png';
 
-const Navbar = ({ auth: { isAuthenticated, loading },  logout }) => {
+const Navbar = ({ logout }) => {
 
   return (
     <nav>
@@ -31,8 +31,4 @@ Navbar.propTypes = {
   auth: PropTypes.object.isRequired,
 };
 
-const mapStatetoProps = state => ({
-  auth: state.auth,
-});
-
-export default connect(mapStatetoProps, { logout })(Navbar);
+export default connect(null, { logout })(Navbar);
