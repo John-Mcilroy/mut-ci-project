@@ -11,6 +11,7 @@ import { loadUser } from './actions/auth';
 import Landing from './components/pages/Landing';
 import Profile from './components/pages/Profile';
 import setAuthToken from './utils/setAuthToken';
+import PrivateRoute from './components/routing/PrivateRoute';
 
 // Redux Components
 import Alert from './components/layout/Alert';
@@ -32,7 +33,7 @@ const App = () =>{
           <Alert />
           <Switch>
             <Route exact path='/' component={Landing} />
-            <Route path='/profile' component={Profile} />
+            <PrivateRoute path='/profile' component={Profile} />
           </Switch>
         </Fragment>
       </Router>

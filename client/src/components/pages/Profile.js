@@ -1,17 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/auth';
+import { getCurrentProfile } from '../../actions/profile';
 
 import '../stylesheets/Profile.css';
 
-const Profile = ({ isAuthenticated, logout }) => {
-
-  // Redirect user if not authenticated
-  if(!isAuthenticated) {
-    return <Redirect exact to='/' />
-  }
+const Profile = ({ logout, getCurrentProfile, auth, profile }) => {
+  useEffect(() => {
+    getCurrentProfile();
+  }, []);
 
   return (
     <div className="container">
@@ -59,24 +58,26 @@ const Profile = ({ isAuthenticated, logout }) => {
             Planning<br /> Tool
           </p>
         </div>
-        <div className="sidenav-tracker">
+        <Link to='/performance' className="sidenav-tracker">
           <p className="verticle-center">
             Performance<br />Tracker
           </p>
-        </div>
+        </Link>
       </aside>
     </div>
   );
 }
-
+console.log(localStorage);
 Profile.propTypes = {
-  isAuthenticated: PropTypes.bool,
+  getCurrentProfile: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  profile: state.profile,
+  auth: state.auth,
 })
 
-export default connect(mapStateToProps, { logout })(Profile);
+export default connect(mapStateToProps, { getCurrentProfile, logout })(Profile);

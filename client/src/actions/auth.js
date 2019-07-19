@@ -23,7 +23,7 @@ export const loadUser = () => async dispatch => {
     dispatch({
       type: USER_LOADED,
       payload: res.data
-      });
+    });
     
   } catch(err) {
 
@@ -31,7 +31,7 @@ export const loadUser = () => async dispatch => {
 }
 
 // Register User
-export const register =({ name, password, reference }) => async dispatch => {
+export const register = ({ name, password, reference }) => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json'

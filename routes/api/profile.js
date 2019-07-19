@@ -28,7 +28,7 @@ router.get(
 
     } catch(err) {
       console
-        .error(err.msg);
+        .error('Error Messaged');
       res
         .status(500)
         .send('Server Error');
