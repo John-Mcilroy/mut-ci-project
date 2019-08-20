@@ -21,19 +21,19 @@ const Upload = () => {
     try {
       const res = await axios.post('/api/upload', formData, {
         headers: {
-          'Content-Type': 'multipart/from-data'
+          'Content-Type': 'multipart/form-data'
         }
       })
 
       const { fileName, filePath } = res.data;
       setUploadedFile({ fileName, filePath });
 
-      console.log(res.data);
+      console.log(res.data); //*********** */
       setMessage('File Uploaded');
 
     } catch(err) {
       if( err.response.status === 500 ) {
-        setMessage('Threre was a problem with the Server');
+        setMessage('There was a problem with the Server');
       } else {
         setMessage(err.response.data.msg);
       }
