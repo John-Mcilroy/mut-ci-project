@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { logout } from '../../actions/auth';
 import { getCurrentProfile } from '../../actions/profile';
 
+import Logo from '../layout/Logo';
 import '../stylesheets/Profile.css';
 
 const Profile = ({ logout, getCurrentProfile, auth, profile }) => {
@@ -16,10 +17,7 @@ const Profile = ({ logout, getCurrentProfile, auth, profile }) => {
 
   return (
     <div className="container">
-      <header className="auth-head__heading">
-        MUT <br />
-        <span className="auth-head__title">Management Utility Tool</span>
-      </header>
+      <Logo />
       <main>
         <ul className="nav">
           <li>

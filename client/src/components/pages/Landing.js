@@ -8,6 +8,7 @@ import { setAlert } from '../../actions/alert';
 import { register, login } from '../../actions/auth';
 
 import landingImg from '../../assets/landingImg.png';
+import Logo from '../layout/Logo';
 
 import '../stylesheets/Landing.css';
 
@@ -77,9 +78,7 @@ const Landing = ({ setAlert, register, login, isAuthenticated }) => {
   <div className="auth">
     
     <div className="auth">
-      <header className="auth-head__heading">
-        MUT <br /> <span className="auth-head__title">Management Utility Tool</span>
-      </header>
+      <Logo />
 
     <form className="auth-form" onSubmit={onChange} autoComplete='off'>
       <input 

@@ -32,21 +32,6 @@
   height: 3rem;
 }
 
-.auth-head__heading {
-  margin: 25px 20px;
-  font-size: 2vw;
-  color: var(--blue-dark);
-  position: absolute;
-  line-height: 0.4;
-}
-
-.auth-head__title {
-  color: var(--blue-light-hover);
-  font-size: .6em;
-  position: relative;
-  left: 5px;
-}
-
 /* Form Styles */
 
 .auth-form {

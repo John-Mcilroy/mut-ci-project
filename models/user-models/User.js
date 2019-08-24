@@ -13,12 +13,6 @@ const UserSchema = new Schema({
     required: true,
     trim: true,
   },
-  reference: { 
-    type: String, 
-    required: true,
-    unique: true,
-    trim: true,
-  },
   privateWord: { 
     type: String,
     lowercase: true,

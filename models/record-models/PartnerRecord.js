@@ -23,7 +23,7 @@ const PartnerRecordSchema = new Schema({
     max: [ 8, 'Not a valid Partner Number.' ],
     required: [true, 'Partner Number was not supplied']
   },
-  records: {
+  dateRecord: {
     type: Schema.Types.ObjectId,
     ref: 'DateRecord'
   }

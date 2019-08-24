@@ -21,12 +21,7 @@ router.post(
 
     // Validate Password
     check('password', 'Please enter a password with 6 or more characters')
-      .isLength({ min: 6 }),
-
-    // Validate Reference Word
-    check('reference', 'Please enter your Reference')
-      .not()
-      .isEmpty(),
+      .isLength({ min: 6 })
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -36,7 +31,7 @@ router.post(
         .json({ errors: errors.array() });
     }
 
-    const { name, password, reference } = req.body;
+    const { name, password } = req.body;
 
     try {
       // See if user currently exists
@@ -52,8 +47,7 @@ router.post(
       // create user
       user = new User({
         name,
-        password,
-        reference
+        password
       })
 
       // Encrypt password

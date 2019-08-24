@@ -3,26 +3,30 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const DateRecordSchema = new Schema({
-  chillPick: [{
+  date: {
+    type: Date,
+    required: true 
+  },
+  chillPick: {
     type: Schema.Types.ObjectId,
     ref: 'ChillPick',
-  }],
-  chillReceiving: [{
+  },
+  chillReceiving: {
     type: Schema.Types.ObjectId,
     ref: 'ChillReceiving',
-  }],
-  frvPick: [{
+  },
+  frvPick: {
     type: Schema.Types.ObjectId,
     ref: 'FRVPick',
-  }],
-  frvReceiving: [{
+  },
+  frvReceiving: {
     type: Schema.Types.ObjectId,
     ref: 'FRVReceiving',
-  }],
-  ambientPick: [{
+  },
+  ambientPick: {
     type: Schema.Types.ObjectId,
     ref: 'AmbientPick',
-  }],
+  },
   overall: {
     performance: {
       type: Number,

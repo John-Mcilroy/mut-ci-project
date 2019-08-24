@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const connectDB = require('./config/connectDB');
-const fileUpload = require('express-fileupload')
+const fileUpload = require('express-fileupload');
 
 const app = express();
 

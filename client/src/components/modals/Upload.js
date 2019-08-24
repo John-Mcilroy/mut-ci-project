@@ -44,7 +44,7 @@ const Upload = () => {
     <div>
       {message}
       <form onSubmit={onSubmit}>
-        <input type="file" id="customFile" onChange={onChange} />
+        <input type="file" onChange={onChange} />
         <br />
         <input type="submit" value="Upload" />
       </form>

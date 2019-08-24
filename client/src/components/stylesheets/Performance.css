@@ -1,0 +1,15 @@
+.performance {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+
+.performance-view {
+  height: 100vh;
+  background: var(--blue-light);
+}
+
+.performance-view__title {
+  color: var(--blue-dark);
+  margin-top: 25px;
+  margin-left: 2.5vw;
+}
