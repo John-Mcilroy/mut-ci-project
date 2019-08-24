@@ -21,9 +21,9 @@ router.post('/', async (req, res) => {
     }
     const path = require('path').resolve(__dirname, `./uploads/${file.name}`);
   
-    performanceRecords(path);
+    const result = performanceRecords(path);
 
-    res.json(performanceRecords);
+    res.json(result);
   });
 });
 
