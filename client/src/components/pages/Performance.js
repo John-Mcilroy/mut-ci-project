@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Logo from '../layout/Logo';
+import PerformanceDisplay from '../layout/PerformanceDisplay';
 import '../stylesheets/Performance.css';
 
 const Performance = () => {
@@ -11,7 +12,7 @@ const Performance = () => {
       </div>
       <div className='performance-view'>
         <h1 className='performance-view__title'>Performance Overview</h1>
-
+        <PerformanceDisplay />
       </div>
     </div>
   )

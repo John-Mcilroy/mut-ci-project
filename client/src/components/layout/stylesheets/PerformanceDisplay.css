@@ -1,0 +1,35 @@
+.performance-display {
+  border-radius: 20px;
+  width: 55%;
+  height: 80%;
+  margin: 4%;
+  background: #235aff35;
+  position: relative;
+}
+
+.performance-display__tags-list {
+  top: -1.7em;
+  color: white;
+  display: flex;
+  position: absolute;
+  left: 1.5em;
+  height: 1.7em;
+  z-index: 0;
+}
+
+.performance-display__tag {
+  background: var(--blue-dark);
+  width: 100px;
+  border-radius: 10px 10px 0 0;
+  padding-top: 5px;
+  margin: 0;
+  text-align: center;
+  margin-left: 1px;
+  cursor: pointer;
+}
+
+.performance-display__tag-active {
+  color: var(--blue-dark);
+  background: #235aff35;
+  cursor: default;
+}

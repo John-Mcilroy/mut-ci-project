@@ -12,12 +12,7 @@ const UserSchema = new Schema({
     type: String, 
     required: true,
     trim: true,
-  },
-  privateWord: { 
-    type: String,
-    lowercase: true,
-    trim: true,
-  },
+  }
 });
 
 module.exports = User = mongoose.model('user', UserSchema);

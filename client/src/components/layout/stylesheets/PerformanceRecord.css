@@ -1,0 +1,58 @@
+.overview-record {
+  display: flex;
+  position: relative;
+  top: 25px;
+  left: 4%;
+  background-color: var(--blue-dark);
+  opacity: 0.6;
+  height: 75px;
+  width: 638px;
+  border-radius: 15px 45px 45px 15px;
+  margin-top: 7px;
+}
+
+.partner-record__container {
+  align-self: center;
+  margin-left: 10px;
+  height: 50px;
+  width: 130px;
+  background-color: var(--blue-light);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--blue-dark);
+  min-width: 130px;
+}
+
+.partner-record__name {
+  text-align: center;
+  font-size: 14px;
+  list-style: none;
+  margin-bottom: 6px;
+  font-weight: 900;
+}
+
+.partner-record__number {
+  margin-top: 6px;
+  font-size: 14px;
+  text-align: center;
+  list-style: none;
+  font-weight: 900;
+}
+
+circle {
+  transition: stroke-dashoffset 4s;
+  transform: rotate(90deg) scaleX(-1);
+  transform-origin: 50% 50%;
+}
+
+.performance-records {
+  margin-left: 13px;
+  margin-top: 0.27em;
+}
+
+text {
+  stroke: transparent;
+  fill: var(--blue-light);
+}
