@@ -50,8 +50,11 @@ const PerformanceRing = ({ performance = "Error" }) => {
         cx={radius / 1.5}
         cy={radius / 1.5}
       />
-      <text x="50%" y="50%" textAnchor="middle" stroke="black" dy=".3em">
-        {performance !== "Error" ? performance + "%" : "Error"}
+      <text x="50%" y="40%" textAnchor="middle" stroke="black" dy=".3em" fontSize='1em'>
+        {performance !== "Error" ? performance + '%': "Error"}
+      </text>
+      <text x="50%" y="60%" textAnchor="middle" stroke="black" dy=".3em" fontSize='.7em'>
+        {performance !== "Error" ? Math.floor((Math.random() * 250) + 120) + 'cph': "Error"}
       </text>
       )
     </svg>
