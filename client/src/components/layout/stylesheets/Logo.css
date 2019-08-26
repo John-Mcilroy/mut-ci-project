@@ -6,6 +6,7 @@
   color: var(--blue-dark);
   position: absolute;
   line-height: 0.4;
+  cursor: default;
 }
 
 .logo {

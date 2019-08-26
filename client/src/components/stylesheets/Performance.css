@@ -9,7 +9,27 @@
 }
 
 .performance-view__title {
+  position: relative;
+  cursor: default;
   color: var(--blue-dark);
-  margin-top: 25px;
+  top: 25px;
   margin-left: 2.5vw;
+}
+
+.performance-view__upload-button {
+  position: absolute;
+  line-height: 2em;
+  text-align: center;
+  top: 25px;
+  right: 25px;
+  border-radius: 10px;
+  height: 2em;
+  width: 15em;
+  cursor: pointer;
+  background: var(--blue-dark);
+  color: var(--blue-light); 
+}
+
+.performance-view__upload-button:hover {
+  background: var(--blue-dark-hover);
 }

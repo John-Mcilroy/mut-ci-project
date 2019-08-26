@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 const PerformanceRing = ({ performance = "Error" }) => {
-  const [radius, setRadius] = useState("53");
-  const [stroke, setStroke] = useState("13");
+  const [radius] = useState("53");
+  const [stroke] = useState("13");
 
   let currentPerformance;
   if (performance === "Error") {
@@ -25,7 +25,7 @@ const PerformanceRing = ({ performance = "Error" }) => {
     <svg height={radius * 1.3} width={radius * 1.3}>
       <circle
         className="circle"
-        style={{ stroke: "var(--blue-dark-hover)" }}
+        style={{ stroke: "grey", opacity: ".4" }}
         fill="transparent"
         strokeWidth={stroke}
         strokeDasharray={circumference + " " + circumference}

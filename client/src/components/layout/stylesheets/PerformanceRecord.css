@@ -1,4 +1,5 @@
 .overview-record {
+  cursor: default;
   display: flex;
   position: relative;
   top: 25px;
@@ -9,6 +10,10 @@
   width: 638px;
   border-radius: 15px 45px 45px 15px;
   margin-top: 7px;
+}
+
+.overview-record:hover {
+  background: var(--blue-dark-hover);
 }
 
 .partner-record__container {

@@ -1,4 +1,5 @@
 .performance-display {
+  top: 3%;
   border-radius: 20px;
   width: 55%;
   height: 80%;
@@ -28,8 +29,16 @@
   cursor: pointer;
 }
 
+.performance-display__tag:hover {
+  background: var(--blue-dark-hover);
+}
+
 .performance-display__tag-active {
   color: var(--blue-dark);
   background: #235aff35;
   cursor: default;
+}
+
+.performance-display__tag-active:hover {
+  background: #235aff35;
 }
