@@ -13,8 +13,6 @@ const Profile = ({ logout, getCurrentProfile, auth, profile }) => {
     getCurrentProfile();
   }, [getCurrentProfile]);
 
-  debugger;
-
   return (
     <div className="container">
       <Logo />

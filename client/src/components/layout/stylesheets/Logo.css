@@ -1,4 +1,6 @@
 .logo-container {
+  position: absolute;
+  top: 0;
   margin: 25px 20px;
   font-size: 2vw;
   color: var(--blue-dark);

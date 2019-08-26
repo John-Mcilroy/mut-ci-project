@@ -29,7 +29,6 @@ const PerformanceRing = ({ performance = "Error" }) => {
         fill="transparent"
         strokeWidth={stroke}
         strokeDasharray={circumference + " " + circumference}
-        stroke-width={stroke}
         r={normalizedRadius}
         cx={radius / 1.5}
         cy={radius / 1.5}
@@ -47,12 +46,11 @@ const PerformanceRing = ({ performance = "Error" }) => {
         strokeWidth={stroke}
         strokeDasharray={circumference + " " + circumference}
         style={{ strokeDashoffset }}
-        stroke-width={stroke}
         r={normalizedRadius}
         cx={radius / 1.5}
         cy={radius / 1.5}
       />
-      <text x="50%" y="50%" text-anchor="middle" stroke="black" dy=".3em">
+      <text x="50%" y="50%" textAnchor="middle" stroke="black" dy=".3em">
         {performance !== "Error" ? performance + "%" : "Error"}
       </text>
       )
