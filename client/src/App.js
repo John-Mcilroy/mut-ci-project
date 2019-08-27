@@ -8,9 +8,9 @@ import store from './store';
 import { loadUser } from './actions/auth';
 
 // Components
-import Landing from './components/pages/Landing';
-import Profile from './components/pages/Profile';
-import Performance from './components/pages/Performance';
+import Landing from './components/pages/landing/Landing';
+import Profile from './components/pages/profile/Profile';
+import Performance from './components/pages/performance/Performance';
 import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './components/routing/PrivateRoute';
 

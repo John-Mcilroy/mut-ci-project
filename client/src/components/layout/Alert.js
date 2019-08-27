@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import './styles/Alert.css';
+
 const Alert = ({ alerts }) => 
   alerts !== null && 
   alerts.length > 0 && 
@@ -9,8 +11,9 @@ const Alert = ({ alerts }) =>
     <div
       key={alert.id} 
       className={`alert alert-${alert.alertType}`}>
-      
-      { alert.msg }
+      <p className='alert-text'>
+        { alert.msg }
+      </p>
     </div>
 ))
 

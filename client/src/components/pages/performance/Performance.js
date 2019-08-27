@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Logo from '../layout/Logo';
-import PerformanceDisplay from '../layout/PerformanceDisplay';
-import PerformanceSearch from '../layout/PerformanceSearch';
+import Logo from '../../layout/Logo';
+import PerformanceDisplay from './PerformanceDisplay';
+import PerformanceSearch from './PerformanceSearch';
 
-import '../stylesheets/Performance.css';
+import './styles/Performance.css';
 
 const Performance = () => {
   return (

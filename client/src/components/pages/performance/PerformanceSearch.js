@@ -1,5 +1,5 @@
 import React from 'react';
-import './stylesheets/PerformanceSearch.css';
+import './styles/PerformanceSearch.css';
 
 const PerformanceSearch = () => {
   const onSubmit = (e) => {

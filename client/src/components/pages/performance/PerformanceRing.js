@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-const PerformanceRing = ({ performance = "Error" }) => {
+const PerformanceRing = ({ performance = "error" }) => {
   const [radius] = useState("53");
   const [stroke] = useState("13");
 
   let currentPerformance;
-  if (performance === "Error") {
+  if (performance === "error") {
     currentPerformance = "100";
   } else {
     currentPerformance = performance;
@@ -36,8 +36,8 @@ const PerformanceRing = ({ performance = "Error" }) => {
       <circle
         className="circle"
         stroke={
-          performance === "Error"
-            ? "black"
+          performance === "error"
+            ? null
             : currentPerformance >= 90
               ? "green"
               : currentPerformance >= 80 ? "orange" : "red"
@@ -50,11 +50,26 @@ const PerformanceRing = ({ performance = "Error" }) => {
         cx={radius / 1.5}
         cy={radius / 1.5}
       />
-      <text x="50%" y="40%" textAnchor="middle" stroke="black" dy=".3em" fontSize='1em'>
-        {performance !== "Error" ? performance + '%': "Error"}
+      <text 
+        x="50%" 
+        y="40%" 
+        textAnchor="middle" 
+        stroke="black" 
+        dy=".25em" 
+        fontSize='1em'
+      >
+        {performance !== "error" ? performance + '%': "No"}
       </text>
-      <text x="50%" y="60%" textAnchor="middle" stroke="black" dy=".3em" fontSize='.7em'>
-        {performance !== "Error" ? Math.floor((Math.random() * 250) + 120) + 'cph': "Error"}
+      
+      <text 
+        x="50%" 
+        y="60%" 
+        textAnchor="middle" 
+        stroke="black" 
+        dy=".2em" 
+        fontSize={performance !== "error" ? ".7em" : "1em"}
+      >
+        {performance !== "error" ? Math.floor((Math.random() * 250) + 120) + "cph": "Data"}
       </text>
       )
     </svg>

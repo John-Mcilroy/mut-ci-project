@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logout } from '../../actions/auth';
-import { getCurrentProfile } from '../../actions/profile';
+import { logout } from '../../../actions/auth';
+import { getCurrentProfile } from '../../../actions/profile';
 
-import Logo from '../layout/Logo';
-import '../stylesheets/Profile.css';
+import Logo from '../../layout/Logo';
+import './styles/Profile.css';
 
 const Profile = ({ logout, getCurrentProfile, auth, profile }) => {
   useEffect(() => {

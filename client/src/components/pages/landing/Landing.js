@@ -4,14 +4,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // Redux Actions
-import { setAlert } from '../../actions/alert';
-import { register, login } from '../../actions/auth';
+import { setAlert } from '../../../actions/alert';
+import { register, login } from '../../../actions/auth';
 
-import landingImg from '../../assets/landingImg.png';
-import Logo from '../layout/Logo';
+import landingImg from './assets/landingImg.png';
 
-import '../stylesheets/Landing.css';
-
+import Logo from '../../layout/Logo';
+import './styles/Landing.css';
 
 const Landing = ({ setAlert, register, login, isAuthenticated }) => {
   const [ formType, setFormType ] = useState({ isLogin: true });
@@ -87,7 +86,7 @@ const Landing = ({ setAlert, register, login, isAuthenticated }) => {
         type="password"
         value={reference}
         onChange={e => setReferenceValue(e.target.value)}
-        placeholder="Registration Code" 
+        placeholder="Registration Code"
       />
       <input 
         id="username"

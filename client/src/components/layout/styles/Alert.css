@@ -1,0 +1,42 @@
+@keyframes alert-in-out {
+  0% {
+    transform: translateX(-300%);
+  }
+  25% {
+    transform: translateX(0)
+  }
+  75% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-300%);
+  }
+}
+
+.alert {
+  display: flex;
+  top: 55%;
+  width: 20%;
+  height: 4em;
+  z-index: 99;
+  border-radius: 0 25px 25px 0;
+  animation: alert-in-out 2000ms ease-in-out;
+}
+
+/* KEYFRAMES!!  */
+
+.alert-fail {
+  background: red;
+}
+
+.alert-success {
+  background: green;
+}
+
+.alert-text {
+  position: relative;
+  font-size: 1.1em;
+  margin: auto;
+  color: white;
+  justify-self: right;
+}

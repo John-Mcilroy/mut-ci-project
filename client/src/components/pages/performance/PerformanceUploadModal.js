@@ -6,7 +6,6 @@ const Upload = () => {
   const [ fileName, setFileName ] = useState('Choose File');
   const [ uploadedFile, setUploadedFile ] = useState({});
   const [ message, setMessage ] = useState('');
-  const [ recentRecords, setRecentRecords ] = useState([]);
   
   const onChange = e => {
     setFile(e.target.files[0]);
@@ -41,14 +40,6 @@ const Upload = () => {
     }
   }
 
-  const backgroundChange = (rate) => {
-    if(rate > 80) {
-      return 'rgb(50, 200, 50)';
-    } else {
-      return 'rgb(200, 50, 50)';
-    }
-  }
-
   return (
     <div>
       {message}
@@ -57,34 +48,6 @@ const Upload = () => {
         <br />
         <input type="submit" value="Upload" />
       </form>
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)'
-      }}>
-        {recentRecords.length !== 0 ? recentRecords.map(record => <div style={{
-          minWidth: '350px',
-          margin: '15px auto',
-          textAlign: 'center',
-          padding: '15px 0 10px 0',
-          background: backgroundChange(record.pickrate)
-        }}>
-            <h3>Partner Number: <span>{record.number}</span></h3>
-            <br />
-            <h5>Performance (%): </h5><span>{record.pickrate}</span>
-            <br />
-            <h5>Time Taken (goal): </h5><span>{record.goalTime}</span>
-            <br />
-            <h5>Time Taken (actual): </h5><span>{record.actualTime}</span>
-            <br />
-            <h5>Total Picks: </h5><span>{record.totalPicks}</span>
-            <br />
-            <h5>Total Units (cases): </h5><span>{record.totalCases}</span>
-            <br />
-            <h5>Units per Hour (cases): </h5><span>{record.unitsPerHour}</span>
-            <br />
-          </div>
-        ) : null}
-      </div>
     </div>
   )
 }
