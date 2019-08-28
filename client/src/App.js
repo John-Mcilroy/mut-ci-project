@@ -11,6 +11,7 @@ import { loadUser } from './actions/auth';
 import Landing from './components/pages/landing/Landing';
 import Profile from './components/pages/profile/Profile';
 import Performance from './components/pages/performance/Performance';
+import PerformanceUploadModal from './components/pages/performance/PerformanceUploadModal';
 import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './components/routing/PrivateRoute';
 
@@ -22,7 +23,7 @@ if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
-const App = () =>{
+const App = ({ match }) =>{
   useEffect(() => {
     store.dispatch(loadUser());
   }, []);
@@ -32,6 +33,7 @@ const App = () =>{
       <Router>
         <Fragment>
           <Alert />
+          <PerformanceUploadModal />
           <Switch>
             <Route exact path='/' component={Landing} />
             <PrivateRoute path='/profile' component={Profile} />

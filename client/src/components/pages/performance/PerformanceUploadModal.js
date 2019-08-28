@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { hideUpload } from '../../../actions/upload';
 
-const Upload = () => {
+const Upload = ({ upload, hideUpload }) => {
   const [ file, setFile ] = useState('');
   const [ fileName, setFileName ] = useState('Choose File');
   const [ uploadedFile, setUploadedFile ] = useState({});
@@ -28,7 +31,6 @@ const Upload = () => {
       const { fileName, filePath } = res.data;
 
       setUploadedFile({ fileName, filePath });
-      setRecentRecords(res.data);
       setMessage('File Uploaded');
 
     } catch(err) {
@@ -40,8 +42,8 @@ const Upload = () => {
     }
   }
 
-  return (
-    <div>
+  return upload !== false && (
+    <div onClick={() => { hideUpload() }}>
       {message}
       <form onSubmit={onSubmit}>
         <input type="file" onChange={onChange} />
@@ -52,4 +54,12 @@ const Upload = () => {
   )
 }
 
-export default Upload;
+Upload.propTypes = {
+  upload: PropTypes.object.isRequired,
+}
+
+const mapStateToProps = state => ({
+  upload: state.upload,
+})
+
+export default connect(mapStateToProps, { hideUpload })(Upload);
