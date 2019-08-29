@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const ChillReceivingSchema = new Schema({
+  partner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'partnerRecord'
+  },
   unitsTotal: {
     type: Number,
     required: true,

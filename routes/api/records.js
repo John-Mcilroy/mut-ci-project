@@ -7,11 +7,10 @@ const auth = require('../../middleware/auth');
 const fileUpload = require('express-fileupload');
 
 // Import Models
-const Records = require('../../models/record-models/PartnerRecord');
+const partnerRecord = require('../../models/record-models/PartnerRecord');
 const ChillPick = require('../../models/record-models/ChillPick');
 const ChillReceiving = require('../../models/record-models/ChillReceiving');
 const FRVPick = require('../../models/record-models/FRVPick');
-const FRVReceiving = require('../../models/record-models/FRVReceiving');
 const AmbientPick = require('../../models/record-models/AmbientPick');
 
 // @route   GET api/records

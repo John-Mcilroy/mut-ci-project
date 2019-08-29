@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const FRVPickSchema = new Schema({
+  partner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'partnerRecord'
+  },
   performance: {
     type: Number,
     required: true,

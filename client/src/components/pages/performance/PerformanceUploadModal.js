@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { hideUpload } from '../../../actions/upload';
+import { hideUploadModal } from '../../../actions/uploadModal';
+import ModalBackdrop from '../../layout/ModalBackdrop';
+import './styles/PerformanceUploadModal.css';
 
-const Upload = ({ upload, hideUpload }) => {
+const Upload = ({ upload, hideUploadModal }) => {
   const [ file, setFile ] = useState('');
   const [ fileName, setFileName ] = useState('Choose File');
   const [ uploadedFile, setUploadedFile ] = useState({});
   const [ message, setMessage ] = useState('');
+  const [ partnerStats, setPartnerStats ] = useState([]);
   
   const onChange = e => {
     setFile(e.target.files[0]);
@@ -33,9 +36,12 @@ const Upload = ({ upload, hideUpload }) => {
       setUploadedFile({ fileName, filePath });
       setMessage('File Uploaded');
 
+      console.log(res.data);
+      setPartnerStats(res.data);
+
     } catch(err) {
       if( err.response.status === 500 ) {
-        setMessage('There was a problem with the Server');
+        setMessage('Upload Failed');
       } else {
         setMessage(err.response.data.msg);
       }
@@ -43,14 +49,32 @@ const Upload = ({ upload, hideUpload }) => {
   }
 
   return upload !== false && (
-    <div onClick={() => { hideUpload() }}>
-      {message}
-      <form onSubmit={onSubmit}>
-        <input type="file" onChange={onChange} />
-        <br />
-        <input type="submit" value="Upload" />
-      </form>
-    </div>
+    <ModalBackdrop>
+      <div 
+        className='performance-upload' 
+        onClick={() => { hideUploadModal() }}
+      >
+        {message}
+        <form 
+          className='performance-upload__form' 
+          onSubmit={onSubmit}
+        >
+          <label for='upload-btn'>Upload</label>
+          <input 
+            type="file" 
+            id='upload-btn' 
+            onChange={onChange} 
+            style={{display: 'none'}} 
+          />
+
+          <br />
+          <input 
+            type='submit' 
+            value='upload' 
+          />
+        </form>
+      </div>
+    </ModalBackdrop>
   )
 }
 
@@ -62,4 +86,4 @@ const mapStateToProps = state => ({
   upload: state.upload,
 })
 
-export default connect(mapStateToProps, { hideUpload })(Upload);
+export default connect(mapStateToProps, { hideUploadModal })(Upload);

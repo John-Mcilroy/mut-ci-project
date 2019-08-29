@@ -10,7 +10,6 @@ import {
   LOGOUT,
 } from './types'
 
-
 // Load User
 export const loadUser = () => async dispatch => {
   if (localStorage.token) {

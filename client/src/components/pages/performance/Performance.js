@@ -7,9 +7,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import './styles/Performance.css';
-import { setUpload } from '../../../actions/upload';
+import { showUploadModal } from '../../../actions/uploadModal';
 
-const Performance = ({ setUpload }) => {
+const Performance = ({ showUploadModal }) => {
   return (
     <div className='performance'>
       <div className='performance-controls'>
@@ -18,14 +18,14 @@ const Performance = ({ setUpload }) => {
       </div>
       <div className='performance-view'>
         <h1 className='performance-view__title'>Performance Overview</h1>
-        <p className='performance-view__upload-button' onClick={() => { setUpload('true') }}>Upload Records</p>
+        <p className='performance-view__upload-button' onClick={() => { showUploadModal('true') }}>Upload Records</p>
         <PerformanceDisplay />
       </div>
     </div>
   )
 }
 
-const propTypes = {
+Performance.propTypes = {
   upload: PropTypes.bool.isRequired,
 }
 
@@ -33,4 +33,4 @@ const mapStateToProps = (state) => ({
   upload: state.upload
 })
 
-export default connect(mapStateToProps, { setUpload })(Performance);
+export default connect(mapStateToProps, { showUploadModal })(Performance);

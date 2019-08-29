@@ -38,6 +38,7 @@ const App = ({ match }) =>{
             <Route exact path='/' component={Landing} />
             <PrivateRoute path='/profile' component={Profile} />
             <PrivateRoute path='/performance' component={Performance} />
+            {/* DEV */}<Route path='/dev' /> 
           </Switch>
         </Fragment>
       </Router>

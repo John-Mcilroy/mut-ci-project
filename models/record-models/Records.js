@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Create Schema
-const DateRecordSchema = new Schema({
+const RecordsSchema = new Schema({
+  partner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'partnerRecord'
+  },
   date: {
     type: Date,
     required: true 
@@ -18,10 +22,6 @@ const DateRecordSchema = new Schema({
   frvPick: {
     type: Schema.Types.ObjectId,
     ref: 'FRVPick',
-  },
-  frvReceiving: {
-    type: Schema.Types.ObjectId,
-    ref: 'FRVReceiving',
   },
   ambientPick: {
     type: Schema.Types.ObjectId,
@@ -47,4 +47,4 @@ const DateRecordSchema = new Schema({
   }
 });
 
-module.exports = DateRecord = mongoose.model('dateRecord', DateRecordSchema);
+module.exports = Records = mongoose.model('Records', RecordsSchema);

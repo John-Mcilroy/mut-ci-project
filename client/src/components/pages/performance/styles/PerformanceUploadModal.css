@@ -1,0 +1,13 @@
+.performance-upload {
+  width: 50vw;
+  height: 50vh;
+  margin: auto;
+  background: white;
+  display: flex;
+  justify-content: center;
+}
+
+.performance-upload__form {
+  display: flex;
+  margin: auto;
+}

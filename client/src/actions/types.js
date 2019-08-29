@@ -20,5 +20,5 @@ export const GET_PROFILE = 'GET_PROFILE';
 export const PROFILE_ERROR = 'PROFILE_ERROR';
 
 // @Upload (Performance)
-export const SHOW_UPLOAD = 'SHOW_UPLOAD';
-export const HIDE_UPLOAD = 'HIDE_UPLOAD';
+export const SHOW_UPLOAD_MODAL = 'SHOW_UPLOAD_MODAL';
+export const HIDE_UPLOAD_MODAL = 'HIDE_UPLOAD_MODAL';

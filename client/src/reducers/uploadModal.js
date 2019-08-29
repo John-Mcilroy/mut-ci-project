@@ -1,14 +1,14 @@
-import { SHOW_UPLOAD, HIDE_UPLOAD } from '../actions/types';
+import { SHOW_UPLOAD_MODAL, HIDE_UPLOAD_MODAL } from '../actions/types';
 
-const initialState = false;
+const initialState = true;
 
 export default function(state = initialState, action) {
   const { type } = action;
 
   switch(type) {
-    case SHOW_UPLOAD:
+    case SHOW_UPLOAD_MODAL:
       return state = true;
-    case HIDE_UPLOAD:
+    case HIDE_UPLOAD_MODAL:
       return state = false;
     default:
       return state;
