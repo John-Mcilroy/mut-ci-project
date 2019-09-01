@@ -18,6 +18,8 @@ const validatePartner = require('./validation/validatePartner');
 const ignoredWords = require('./utilities/ignoredWords');
 const getWorkCategory = require('./utilities/getWorkCategory');
 
+const PartnerRecord = require('../models/record-models/PartnerRecord');
+
 module.exports = (path) => {
   
   const workbook = xlsx.readFile(path);
@@ -36,9 +38,10 @@ module.exports = (path) => {
   let workCategory = '';
   let partnerName = '';
   let partnerNumber = '';
-  let currentPartner = {};
   let nameContainsNumber = true;
   
+  let currentPartner = {};
+
   if( validReportType && validDates && validWorkTeam) {
     // Is valid sheet
     sheetData.forEach(record => {
@@ -50,7 +53,8 @@ module.exports = (path) => {
       const recordWorkCategory = record.__EMPTY         || null;
       const recordPartner = record.__EMPTY_1        || null;
       const recordPerformance = record.__EMPTY_2    || null;
-      const recordDirect = record.__EMPTY_4         || null;
+      const recordDirect = record.__EMPTY_4        || null;
+      if(recordDirect == null && recordDirect == 'Measured' && recordDirect == 'Direct') return;
       const recordUnits = record.__EMPTY_14         || null;
       const recordUnitsPerHour = /[0-9]{3}/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null;
       
@@ -76,7 +80,6 @@ module.exports = (path) => {
 
             currentPartner.name = partnerName;
             currentPartner.number = partnerNumber;
-            console.log(currentPartner);
 
           } else {
             // [ 'Last name, First name', number ]
@@ -96,7 +99,6 @@ module.exports = (path) => {
 
             currentPartner.name = partnerName;
             currentPartner.number = partnerNumber;
-            console.log(currentPartner);
           }
 
         } else {
@@ -114,24 +116,35 @@ module.exports = (path) => {
         if(records.find(findUser => {
           return findUser.number == currentPartner.number;
         })) {
+          if(recordPerformance === 'Perf') return;
           if(recordPerformance === null) return;
           const userIndex = records.findIndex(indexed => indexed.number == currentPartner.number);
-          records[userIndex][workCategory] = {};
-          records[userIndex][workCategory].performance = recordPerformance;
-          records[userIndex][workCategory].direct = recordDirect;
-          records[userIndex][workCategory].unitsTotal = recordUnits;
-          records[userIndex][workCategory].unitsPH = recordUnitsPerHour;
+          const createPerformanceRecord = {};
+          createPerformanceRecord.performance = recordPerformance;
+          createPerformanceRecord.direct = recordDirect;
+          createPerformanceRecord.unitsTotal = recordUnits;
+          createPerformanceRecord.unitsPH = recordUnitsPerHour;
+
+          records[userIndex].records[0][workCategory] = createPerformanceRecord;
         } else {
-          currentPartner[workCategory] = {};
-          currentPartner[workCategory].performance = recordPerformance;
-          currentPartner[workCategory].direct = recordDirect;
-          currentPartner[workCategory].unitsTotal = recordUnits;
-          currentPartner[workCategory].unitsPH = recordUnitsPerHour;
+          const createPerformanceRecord = {
+            [workCategory]: {
+              performance: ''
+            }
+          };
+          createPerformanceRecord[workCategory].performance = recordPerformance;
+          createPerformanceRecord[workCategory].direct = recordDirect;
+          createPerformanceRecord[workCategory].unitsTotal = recordUnits;
+          createPerformanceRecord[workCategory].unitsPH = recordUnitsPerHour;
+
+          currentPartner.records = [];
+          currentPartner.records.push(createPerformanceRecord);
+
 
           records.push(currentPartner);
           currentPartner = {};
         }
-        return records;
+        
       }
     )
   } else {
@@ -142,7 +155,29 @@ module.exports = (path) => {
     return errors;
   }
 
+  const newRecords = records.splice(0, 1);
 
+  records.forEach(record => {
+    const partnerRecord = new PartnerRecord(record);
+    
+    partnerRecord.save();
+    return records;
+  })
+
+  // // Author
+  // const savePartner = new PartnerRecord({
+  //   name: 'Test Name',
+  //   number: 86425976,
+  //   records: [{
+  //     chillPick: {
+  //       performance: 103.46,
+  //       direct: 3.75
+  //     }
+  //   }]
+  // });
+
+  // savePartner.save()
+  
   console.log(`
     Valid Report Type: ${validReportType}
     Valid Dates: ${validDates}

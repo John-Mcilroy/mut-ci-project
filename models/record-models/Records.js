@@ -1,50 +1,21 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const AmbientPickSchema = require('./AmbientPickSchema');
+const AmbientPutawaySchema = require('./AmbientPutawaySchema');
+const ChillPickSchema = require('./ChillPickSchema');
+const ChillReceivingSchema = require('./ChillReceivingSchema');
+const FrvPickSchema = require('./FrvPickSchema');
+const LoadingSchema = require('./LoadingSchema');
+
 // Create Schema
 const RecordsSchema = new Schema({
-  partner: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'partnerRecord'
-  },
-  date: {
-    type: Date,
-    required: true 
-  },
-  chillPick: {
-    type: Schema.Types.ObjectId,
-    ref: 'ChillPick',
-  },
-  chillReceiving: {
-    type: Schema.Types.ObjectId,
-    ref: 'ChillReceiving',
-  },
-  frvPick: {
-    type: Schema.Types.ObjectId,
-    ref: 'FRVPick',
-  },
-  ambientPick: {
-    type: Schema.Types.ObjectId,
-    ref: 'AmbientPick',
-  },
-  overall: {
-    performance: {
-      type: Number,
-      required: true,
-    },
-    direct: {
-      type: Number,
-      required: true,
-    },
-    unitsTotal: {
-      type: Number,
-      required: true,
-    },
-    unitsPH: {
-      type: Number,
-      required: true,
-    }
-  }
+  chillPick: ChillPickSchema,
+  chillReceiving: ChillReceivingSchema,
+  frvPick: FrvPickSchema,
+  ambientPick: AmbientPickSchema,
+  ambientPutaway: AmbientPutawaySchema,
+  loading: LoadingSchema
 });
 
-module.exports = Records = mongoose.model('Records', RecordsSchema);
+module.exports = RecordsSchema;
