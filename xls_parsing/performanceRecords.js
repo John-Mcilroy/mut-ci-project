@@ -14,7 +14,9 @@ const xlsx = require('xlsx');
 const validateReportType = require('./validation/validateReportType');
 const validateDateInput = require('./validation/validateDateInput');
 const validateWorkTeam = require('./validation/validateWorkTeam');
+const validatePartner = require('./validation/validatePartner');
 const ignoredWords = require('./utilities/ignoredWords');
+const getWorkCategory = require('./utilities/getWorkCategory');
 
 module.exports = (path) => {
   
@@ -28,49 +30,110 @@ module.exports = (path) => {
   const validReportType = validateReportType(sheetData[0]);
   const validDates = validateDateInput(sheetData[1]);
   const validWorkTeam = validateWorkTeam(sheetData);
+
+  let dataPersist = false;
   let records = [];
   let workCategory = '';
+  let partnerName = '';
+  let partnerNumber = '';
+  let currentPartner = {};
+  let nameContainsNumber = true;
   
   if( validReportType && validDates && validWorkTeam) {
     // Is valid sheet
     sheetData.forEach(record => {
-      //cycle each record
-      if(record.__EMPTY) {
-        // find what work catagory is current
-        if (record.__EMPTY === 'Work Category:  AMBIENT PICKING') workCategory = 'ambientPick'; 
-        if (record.__EMPTY === 'Work Category:  AMBIENT PUTAWAY') workCategory = 'ambientPutaway';
-        if (record.__EMPTY === 'Work Category:  CHILLED PICKING') workCategory = 'chillPick'; 
-        if (record.__EMPTY === 'Work Category:  CHLLLED RECEIVING') workCategory = 'chillReceiving'; 
-        if (record.__EMPTY === 'Work Category:  FRVH PICKING') workCategory = 'frvPick'; 
-        if (record.__EMPTY === 'Work Category:  LEYLAND ALL LOADING') workCategory = 'loading';
+
+      if(!dataPersist) {
+        partnerName = null;
       }
+
+      const recordWorkCategory = record.__EMPTY         || null;
+      const recordPartner = record.__EMPTY_1        || null;
+      const recordPerformance = record.__EMPTY_2    || null;
+      const recordDirect = record.__EMPTY_4         || null;
+      const recordUnits = record.__EMPTY_14         || null;
+      const recordUnitsPerHour = /[0-9]{3}/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null;
       
-      if(record.__EMPTY_1) {
-        let currentPartner = {};
+      //cycle each record
+      if(recordWorkCategory) {
+        workCategory = getWorkCategory(recordWorkCategory) || workCategory;
+        return;
+      }
+
+      if(recordPartner) {
         // Ignore unused cells
-        if(ignoredWords.includes(record.__EMPTY_1)) return;
+        if(ignoredWords.includes(recordPartner)) return;
         
+        nameContainsNumber = validatePartner(recordPartner);
+
+        // Set Name ++ Number
+        if(nameContainsNumber) {
+
+          if(partnerName !== null) {
+            partnerNumber = recordPartner;
+
+            dataPersist = false;
+
+            currentPartner.name = partnerName;
+            currentPartner.number = partnerNumber;
+            console.log(currentPartner);
+
+          } else {
+            // [ 'Last name, First name', number ]
+            const splitNameAndNumber = recordPartner.split('-');
+            
+            // [ 'Last name', 'First name' ]
+            const getName = splitNameAndNumber[0].split(',');
+            
+            // '(First name) (Last name)'
+            partnerName = getName[1].trim() + ' ' + getName[0].trim();
+
+            // Number
+            const getNumber = splitNameAndNumber[1].toString().trim();
+
+            // Number
+            partnerNumber = getNumber;
+
+            currentPartner.name = partnerName;
+            currentPartner.number = partnerNumber;
+            console.log(currentPartner);
+          }
+
+        } else {
+          // [ 'Last name', 'First name' ]
+          const getName = recordPartner.split(',');
+
+          // '(First name) (Last name)'
+          partnerName = getName[1].trim() + ' ' + getName[0].trim();
+
+          dataPersist = true;
+          return;
+          }
+        }
+
         if(records.find(findUser => {
-          return findUser.user == record.__EMPTY_1;
+          return findUser.number == currentPartner.number;
         })) {
-          const userIndex = records.findIndex(indexed => indexed.user == record.__EMPTY_1);
+          if(recordPerformance === null) return;
+          const userIndex = records.findIndex(indexed => indexed.number == currentPartner.number);
           records[userIndex][workCategory] = {};
-          records[userIndex][workCategory].performance = record.__EMPTY_2;
-          records[userIndex][workCategory].direct = record.__EMPTY_4;
-          records[userIndex][workCategory].unitsTotal = record.__EMPTY_14;
-          records[userIndex][workCategory].unitsPH = record.__EMPTY_16;
+          records[userIndex][workCategory].performance = recordPerformance;
+          records[userIndex][workCategory].direct = recordDirect;
+          records[userIndex][workCategory].unitsTotal = recordUnits;
+          records[userIndex][workCategory].unitsPH = recordUnitsPerHour;
         } else {
           currentPartner[workCategory] = {};
-          currentPartner.user = record.__EMPTY_1;
-          currentPartner[workCategory].performance = record.__EMPTY_2;
-          currentPartner[workCategory].direct = record.__EMPTY_4;
-          currentPartner[workCategory].unitsTotal = record.__EMPTY_14;
-          currentPartner[workCategory].unitsPH = record.__EMPTY_16;
+          currentPartner[workCategory].performance = recordPerformance;
+          currentPartner[workCategory].direct = recordDirect;
+          currentPartner[workCategory].unitsTotal = recordUnits;
+          currentPartner[workCategory].unitsPH = recordUnitsPerHour;
 
           records.push(currentPartner);
+          currentPartner = {};
         }
+        return records;
       }
-    })
+    )
   } else {
     if(!validReportType)  errors.reportType = 'Invalid report type entered';
     if(!validDates)       errors.dates = 'Invalid dates entered';
