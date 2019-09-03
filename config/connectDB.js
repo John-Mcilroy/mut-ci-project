@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Database Config
-const db = process.env.MLAB_DB_KEY || require('./keys').DB_URI;
+const db = process.env.MLAB_DB_KEY;
 
 const connectDB = async () => {
   try {
