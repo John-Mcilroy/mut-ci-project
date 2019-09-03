@@ -18,7 +18,9 @@ const validatePartner = require('./validation/validatePartner');
 const ignoredWords = require('./utilities/ignoredWords');
 const getWorkCategory = require('./utilities/getWorkCategory');
 
+
 const PartnerRecord = require('../models/record-models/PartnerRecord');
+const Record = require('../models/record-models/Record');
 
 module.exports = (path) => {
   
@@ -33,12 +35,13 @@ module.exports = (path) => {
   const validDates = validateDateInput(sheetData[1]);
   const validWorkTeam = validateWorkTeam(sheetData);
 
+
   let dataPersist = false;
   let records = [];
   let workCategory = '';
   let partnerName = '';
   let partnerNumber = '';
-  let nameContainsNumber = true;
+  let nameContainsNumber = true; 
   
   let currentPartner = {};
 
@@ -155,28 +158,42 @@ module.exports = (path) => {
     return errors;
   }
 
-  const newRecords = records.splice(0, 1);
+  records.splice(0, 1);
 
-  records.forEach(record => {
-    const partnerRecord = new PartnerRecord(record);
-    
-    partnerRecord.save();
-    return records;
-  })
+    records.forEach(record => {
+      const accCheck = record.records[0];
+      const newDate = new Date();
 
-  // // Author
-  // const savePartner = new PartnerRecord({
-  //   name: 'Test Name',
-  //   number: 86425976,
-  //   records: [{
-  //     chillPick: {
-  //       performance: 103.46,
-  //       direct: 3.75
-  //     }
-  //   }]
-  // });
+      const saveData = async data => {
+        const findPartner = await PartnerRecord.findOne({ number: data.number });
 
-  // savePartner.save()
+        if(!findPartner) {
+          const partnerRecord = new PartnerRecord(record);
+          const perfRecord = new Record({
+            chillPick: {
+              performance: record.records[0].performance,
+              direct: record.records[0].direct
+            }
+          })
+
+          console.log(perfRecord);
+
+          perfRecord.save();
+
+          partnerRecord.records.push(perfRecord);
+          
+          partnerRecord.save();
+          return records;
+          
+        } else {
+          findPartner.records.push(record.records[0]);
+          findPartner.save();
+        }
+      }    
+      saveData(record);
+    })
+  
+  
   
   console.log(`
     Valid Report Type: ${validReportType}

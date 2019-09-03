@@ -9,7 +9,9 @@ const FrvPickSchema = require('./FrvPickSchema');
 const LoadingSchema = require('./LoadingSchema');
 
 // Create Schema
-const RecordsSchema = new Schema({
+const RecordSchema = new Schema({
+  partnerNumber: Number,
+  date: Date,
   chillPick: ChillPickSchema,
   chillReceiving: ChillReceivingSchema,
   frvPick: FrvPickSchema,
@@ -18,4 +20,4 @@ const RecordsSchema = new Schema({
   loading: LoadingSchema
 });
 
-module.exports = RecordsSchema;
+module.exports = Record = mongoose.model('record', RecordSchema);

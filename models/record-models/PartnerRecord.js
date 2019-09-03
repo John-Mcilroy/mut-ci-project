@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const RecordsSchema = require('./Records');
 
 // Create Schema
 const PartnerRecordSchema = new Schema({
@@ -10,7 +9,10 @@ const PartnerRecordSchema = new Schema({
   number: {
     type: Number,
   },
-  records: [RecordsSchema]
+  records: [{
+    type: Schema.Types.ObjectId,
+    ref: 'record'
+  }]
 });
 
 module.exports = PartnerRecord = mongoose.model('partnerRecord', PartnerRecordSchema);
