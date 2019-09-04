@@ -161,38 +161,38 @@ module.exports = (path) => {
 
   records.splice(0, 1);
 
-    records.forEach(record => {
-      const accCheck = record.records[0];
-      const newDate = new Date();
+    // records.forEach(record => {
+    //   const accCheck = record.records[0];
+    //   const newDate = new Date();
 
-      const saveData = async data => {
-        const findPartner = await PartnerRecord.findOne({ number: data.number });
+    //   const saveData = async data => {
+    //     const findPartner = await PartnerRecord.findOne({ number: data.number });
 
-        if(!findPartner) {
-          const partnerRecord = new PartnerRecord(record);
-          const perfRecord = new Record({
-            chillPick: {
-              performance: record.records[0].performance,
-              direct: record.records[0].direct
-            }
-          })
+    //     if(!findPartner) {
+    //       const partnerRecord = new PartnerRecord(record);
+    //       const perfRecord = new Record({
+    //         chillPick: {
+    //           performance: record.records[0].performance,
+    //           direct: record.records[0].direct
+    //         }
+    //       })
 
-          //console.log(perfRecord);
+    //       //console.log(perfRecord);
 
-          //perfRecord.save();
+    //       //perfRecord.save();
 
-          partnerRecord.records.push(perfRecord);
+    //       partnerRecord.records.push(perfRecord);
           
-          //partnerRecord.save();
-          //return records;
+    //       //partnerRecord.save();
+    //       //return records;
           
-        } else {
-          findPartner.records.push(record.records[0]);
-          //findPartner.save();
-        }
-      }    
-      saveData(record);
-    })
+    //     } else {
+    //       findPartner.records.push(record.records[0]);
+    //       //findPartner.save();
+    //     }
+    //   }    
+    //   saveData(record);
+    // })
   
   
   
