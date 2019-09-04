@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Database Config
-const db = `mongodb://dev:Js56720546@ds217078.mlab.com:17078/managersutilitytool`;
+const db = `mongodb://dev:js56720546@ds217078.mlab.com:17078/managersutilitytool`;
 
 const connectDB = async () => {
   try {
