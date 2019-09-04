@@ -48,10 +48,11 @@ const Upload = ({ upload, hideUploadModal }) => {
     }
   }
 
-  return upload !== false && (
+  return upload === true && upload !== null (
     <ModalBackdrop>
       <div 
-        className='performance-upload'
+        className='performance-upload' 
+        onClick={() => { hideUploadModal() }}
       >
         {message}
         <form 
@@ -70,7 +71,6 @@ const Upload = ({ upload, hideUploadModal }) => {
           <input 
             type='submit' 
             value='upload'
-            onClick={() => { hideUploadModal() }}
           />
         </form>
       </div>
