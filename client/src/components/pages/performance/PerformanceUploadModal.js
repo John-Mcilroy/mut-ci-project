@@ -48,7 +48,7 @@ const Upload = ({ uploadModal, hideUploadModal }) => {
     }
   }
 
-  return uploadModal === true && (
+  return uploadModal === false ? null : (
     <ModalBackdrop>
       <div 
         className='performance-upload' 
