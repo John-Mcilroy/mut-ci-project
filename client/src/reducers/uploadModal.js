@@ -1,6 +1,6 @@
 import { SHOW_UPLOAD_MODAL, HIDE_UPLOAD_MODAL } from '../actions/types';
 
-const initialState = '';
+const initialState = false;
 
 export default function(state = initialState, action) {
   const { type } = action;
