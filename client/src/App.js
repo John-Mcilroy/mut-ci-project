@@ -11,12 +11,12 @@ import { loadUser } from './actions/auth';
 import Landing from './components/pages/landing/Landing';
 import Profile from './components/pages/profile/Profile';
 import Performance from './components/pages/performance/Performance';
-import PerformanceUploadModal from './components/pages/performance/PerformanceUploadModal';
 import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './components/routing/PrivateRoute';
 
 // Redux Components
 import Alert from './components/layout/Alert';
+import PerformanceUploadModal from './components/pages/performance/PerformanceUploadModal';
 
 
 if (localStorage.token) {
@@ -36,9 +36,9 @@ const App = ({ match }) =>{
           <PerformanceUploadModal />
           <Switch>
             <Route exact path='/' component={Landing} />
+            
             <PrivateRoute path='/profile' component={Profile} />
             <PrivateRoute path='/performance' component={Performance} />
-            {/* DEV */}<Route path='/dev' /> 
           </Switch>
         </Fragment>
       </Router>

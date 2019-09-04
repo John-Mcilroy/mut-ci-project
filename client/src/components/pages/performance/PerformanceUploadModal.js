@@ -6,7 +6,7 @@ import { hideUploadModal } from '../../../actions/uploadModal';
 import ModalBackdrop from '../../layout/ModalBackdrop';
 import './styles/PerformanceUploadModal.css';
 
-const Upload = ({ upload, hideUploadModal }) => {
+const Upload = ({ uploadModal, hideUploadModal }) => {
   const [ file, setFile ] = useState('');
   const [ fileName, setFileName ] = useState('Choose File');
   const [ uploadedFile, setUploadedFile ] = useState({});
@@ -48,7 +48,7 @@ const Upload = ({ upload, hideUploadModal }) => {
     }
   }
 
-  return upload !== false && (
+  return uploadModal === true && (
     <ModalBackdrop>
       <div 
         className='performance-upload' 
@@ -79,11 +79,11 @@ const Upload = ({ upload, hideUploadModal }) => {
 }
 
 Upload.propTypes = {
-  upload: PropTypes.object.isRequired,
+  uploadModal: PropTypes.string.isRequired,
 }
 
 const mapStateToProps = state => ({
-  upload: state.upload,
+  uploadModal: state.upload,
 })
 
 export default connect(mapStateToProps, { hideUploadModal })(Upload);
