@@ -33,7 +33,7 @@ const Profile = ({ logout, getCurrentProfile, auth, profile }) => {
         </ul>
         <div className="main-view">
           <div className="main-view__greeting">
-            <h1>Hello, {'John Mcilroy' || profile.profile && profile.profile.user.name}</h1>
+            <h1>Hello, John Mcilroy{profile.profile && profile.profile.user.name}</h1>
             <h6 className="main-view__sub-greeting">
               How can I help you today?
             </h6>
