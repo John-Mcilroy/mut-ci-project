@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Database Config
-const db = `mongodb://mcilroy1990:Js56720546@ds217078.mlab.com:17078/managersutilitytool`;
+const db = process.env.MONGODB_URI;
 
 const connectDB = async () => {
   try {
