@@ -150,6 +150,7 @@ module.exports = (path) => {
         
       }
     )
+    
   } else {
     if(!validReportType)  errors.reportType = 'Invalid report type entered';
     if(!validDates)       errors.dates = 'Invalid dates entered';
@@ -176,18 +177,18 @@ module.exports = (path) => {
             }
           })
 
-          console.log(perfRecord);
+          //console.log(perfRecord);
 
-          perfRecord.save();
+          //perfRecord.save();
 
           partnerRecord.records.push(perfRecord);
           
-          partnerRecord.save();
-          return records;
+          //partnerRecord.save();
+          //return records;
           
         } else {
           findPartner.records.push(record.records[0]);
-          findPartner.save();
+          //findPartner.save();
         }
       }    
       saveData(record);
