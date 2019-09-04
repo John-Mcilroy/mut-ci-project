@@ -79,7 +79,7 @@ const Upload = ({ uploadModal, hideUploadModal }) => {
 }
 
 Upload.propTypes = {
-  uploadModal: PropTypes.string.isRequired,
+  uploadModal: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = state => ({
