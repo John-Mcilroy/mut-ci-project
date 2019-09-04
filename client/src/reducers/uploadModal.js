@@ -7,9 +7,9 @@ export default function(state = initialState, action) {
 
   switch(type) {
     case SHOW_UPLOAD_MODAL:
-      return state = true;
+      return {...state, upload: true};
     case HIDE_UPLOAD_MODAL:
-      return state = false;
+      return {...state, upload: false};
     default:
       return state;
   }
