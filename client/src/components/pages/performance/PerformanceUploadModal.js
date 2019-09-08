@@ -70,7 +70,7 @@ const Upload = ({ uploadModal, hideUploadModal }) => {
           <br />
           <input 
             type='submit' 
-            value='upload' 
+            value='upload'
           />
         </form>
       </div>

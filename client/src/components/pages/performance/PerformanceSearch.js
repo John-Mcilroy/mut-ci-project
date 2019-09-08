@@ -5,7 +5,6 @@ const PerformanceSearch = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    console.log('clicked');
   }
 
   return (

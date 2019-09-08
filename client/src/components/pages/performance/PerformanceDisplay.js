@@ -48,8 +48,8 @@ const PerformanceDisplay = () => {
           <li>Overall</li>
         </ul> */}
         <PerformanceRecord 
-          partnerName='John Mcilroy' 
-          partnerNumber='83251693' 
+          partnerName='Partner Name' 
+          partnerNumber='87654321' 
           performance={[
             Math.floor(Math.random() * 100 + 15),
             'error',
@@ -61,8 +61,8 @@ const PerformanceDisplay = () => {
           ]} 
         />
         <PerformanceRecord 
-          partnerName='John Mcilroy' 
-          partnerNumber='83251693' 
+          partnerName='Another Partner' 
+          partnerNumber='87654321' 
           performance={[
             Math.floor(Math.random() * 100 + 15),
             'error',
@@ -74,8 +74,8 @@ const PerformanceDisplay = () => {
           ]} 
         />
         <PerformanceRecord 
-          partnerName='John Mcilroy' 
-          partnerNumber='83251693' 
+          partnerName='Lotsa Partners' 
+          partnerNumber='87654321' 
           performance={[
             'error',
             Math.floor(Math.random() * 100 + 15),
@@ -87,8 +87,8 @@ const PerformanceDisplay = () => {
           ]} 
         />
         <PerformanceRecord 
-          partnerName='John Mcilroy' 
-          partnerNumber='83251693' 
+          partnerName='Moar Partners' 
+          partnerNumber='87654321' 
           performance={[
             Math.floor(Math.random() * 100 + 15),
             Math.floor(Math.random() * 100 + 15),
@@ -100,8 +100,8 @@ const PerformanceDisplay = () => {
           ]} 
         />
         <PerformanceRecord 
-          partnerName='John Mcilroy' 
-          partnerNumber='83251693' 
+          partnerName='Toomuch Partners' 
+          partnerNumber='87654321' 
           performance={[
             Math.floor(Math.random() * 100 + 15),
             Math.floor(Math.random() * 100 + 15),
@@ -112,10 +112,10 @@ const PerformanceDisplay = () => {
             Math.floor(Math.random() * 100 + 15)
           ]} 
         />
-        <PerformanceRecord partnerName='John Mcilroy' partnerNumber='83251693' />
+        <PerformanceRecord partnerName='Cantfind Partners' partnerNumber='87654321' />
         <PerformanceRecord 
-          partnerName='John Mcilroy' 
-          partnerNumber='83251693' 
+          partnerName='Imback Now' 
+          partnerNumber='87654321' 
           performance={[
             'error',
             Math.floor(Math.random() * 100 + 15),
