@@ -11,7 +11,7 @@ const PartnerRecordSchema = new Schema({
   },
   records: [{
     type: Schema.Types.ObjectId,
-    ref: 'record'
+    ref: 'records'
   }]
 });
 

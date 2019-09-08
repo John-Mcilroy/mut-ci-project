@@ -7,6 +7,9 @@ const path = require('path');
 
 const app = express();
 
+// Use port 5000 if in development environment
+const PORT = process.env.PORT || 5000;
+
 // BodyParsere Middleware
 app.use(bodyParser.json());
 app.use(fileUpload());
@@ -28,4 +31,4 @@ if(process.env.NODE_ENV === 'production') {
   })
 }
 
-app.listen(process.env.PORT);
+app.listen(PORT);

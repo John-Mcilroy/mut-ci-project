@@ -48,7 +48,7 @@ const Upload = ({ uploadModal, hideUploadModal }) => {
     }
   }
 
-  return uploadModal === true && (
+  return uploadModal === false ? null : (
     <ModalBackdrop>
       <div 
         className='performance-upload' 
@@ -79,7 +79,7 @@ const Upload = ({ uploadModal, hideUploadModal }) => {
 }
 
 Upload.propTypes = {
-  uploadModal: PropTypes.object.isRequired,
+  uploadModal: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = state => ({

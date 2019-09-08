@@ -11,6 +11,8 @@
 //----------------------------------------------------------------------------//
 
 const xlsx = require('xlsx');
+
+// Validation && Utilities
 const validateReportType = require('./validation/validateReportType');
 const validateDateInput = require('./validation/validateDateInput');
 const validateWorkTeam = require('./validation/validateWorkTeam');
@@ -18,9 +20,9 @@ const validatePartner = require('./validation/validatePartner');
 const ignoredWords = require('./utilities/ignoredWords');
 const getWorkCategory = require('./utilities/getWorkCategory');
 
-
+// Models
 const PartnerRecord = require('../models/record-models/PartnerRecord');
-const Record = require('../models/record-models/Record');
+const Record = require('../models/record-models/Records');
 
 module.exports = (path) => {
   
@@ -169,26 +171,78 @@ module.exports = (path) => {
         const findPartner = await PartnerRecord.findOne({ number: data.number });
 
         if(!findPartner) {
-          const partnerRecord = new PartnerRecord(record);
-          const perfRecord = new Record({
-            chillPick: {
-              performance: record.records[0].performance,
-              direct: record.records[0].direct
+
+          // Create new Partner
+          const newPartner = new PartnerRecord(record);
+          newPartner.records = [];
+
+          // Create new records for partner
+          const partnerPerformance = new Record({
+            date: Date.now()
+          });
+
+          record.records.forEach(category => {
+            if('ambientPick' in category) {
+              partnerPerformance.ambientPick = category.ambientPick;
             }
+            if('chillPick' in category) {
+              partnerPerformance.chillPick = category.chillPick;
+            }
+            if('frvPick' in category) {
+              partnerPerformance.frvPick = category.frvPick;
+            }
+            if('ambientPutaway' in category) {
+              partnerPerformance.ambientPutaway = category.ambientPutaway;
+            }
+            if('chillReceiving' in category) {
+              partnerPerformance.chillReceiving = category.chillReceiving;
+            }
+            if('loading' in category) {
+              partnerPerformance.loading = category.loading;
+            }
+
+            partnerPerformance.save();
+
+            newPartner.records.push(partnerPerformance);
+
+            newPartner.save();
           })
 
-          //console.log(perfRecord);
-
-          //perfRecord.save();
-
-          partnerRecord.records.push(perfRecord);
-          
-          //partnerRecord.save();
-          //return records;
-          
         } else {
-          findPartner.records.push(record.records[0]);
-          //findPartner.save();
+          // Update Existing Partner
+          const updatePartner = await PartnerRecord.findOne({ number: data.number })
+          
+          // Create new records for partner
+          const partnerPerformance = new Record({
+            date: Date.now()
+          });
+
+          record.records.forEach(category => {
+            if('ambientPick' in category) {
+              partnerPerformance.ambientPick = category.ambientPick;
+            }
+            if('chillPick' in category) {
+              partnerPerformance.chillPick = category.chillPick;
+            }
+            if('frvPick' in category) {
+              partnerPerformance.frvPick = category.frvPick;
+            }
+            if('ambientPutaway' in category) {
+              partnerPerformance.ambientPutaway = category.ambientPutaway;
+            }
+            if('chillReceiving' in category) {
+              partnerPerformance.chillReceiving = category.chillReceiving;
+            }
+            if('loading' in category) {
+              partnerPerformance.loading = category.loading;
+            }
+
+            partnerPerformance.save();
+
+            updatePartner.records.push(partnerPerformance);
+
+            updatePartner.save();
+          })
         }
       }    
       saveData(record);
