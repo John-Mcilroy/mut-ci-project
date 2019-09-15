@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Testing Database Key -- To be changed for env.variable in production build
-const db = `mongodb://dev:js56720546@ds217078.mlab.com:17078/managersutilitytool`;
+const db = 'mongodb://localhost/managersutility' || `mongodb://dev:js56720546@ds217078.mlab.com:17078/managersutilitytool`;
 
 // Connect to Database
 const connectDB = async () => {

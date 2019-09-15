@@ -53,14 +53,14 @@ const UploadModal = ({ handleUploadModal, uploadModal }) => {
   return (
     <ModalBackdrop>
       <div 
-        className='performance-upload' 
-        onClick={handleUploadModal}
+        className='performance-upload'
       >
         {message}
         <form 
           className='performance-upload__form' 
           onSubmit={onSubmit}
         >
+          <p class="close-modal" onClick={handleUploadModal}/>
           <label for='upload-btn'>Upload</label>
           <input 
             type="file" 

@@ -3,6 +3,25 @@
   grid-template-columns: 1fr 3fr;
 }
 
+.performance-controls {
+  position: relative;
+}
+
+.performance-controls__back-btn {
+  position: absolute;
+  z-index: 2;
+  line-height: 2em;
+  text-align: center;
+  top: 25px;
+  right: 25px;
+  padding: 0 15px;
+  border-radius: 10px;
+  height: 2em;
+  cursor: pointer;
+  background: var(--blue-dark);
+  color: var(--blue-light); 
+}
+
 .performance-view {
   height: 100vh;
   background: var(--blue-light);

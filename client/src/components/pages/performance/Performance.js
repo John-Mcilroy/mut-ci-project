@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Logo from '../../layout/Logo';
 import PerformanceDisplay from './PerformanceDisplay';
@@ -15,6 +16,7 @@ const Performance = ({ handleUploadModal, uploadModal }) => {
   return (
     <div className='performance'>
       <div className='performance-controls'>
+      <Link to='/profile' class="performance-controls__back-btn">{'< '} Go Back</Link>
         <PerformanceSearch />
         <Logo />
       </div>
