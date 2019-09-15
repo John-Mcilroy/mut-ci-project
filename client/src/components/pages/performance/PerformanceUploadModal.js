@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { hideUploadModal } from '../../../actions/uploadModal';
+import { createPortal } from 'react-dom';
+import axios from 'axios';
 import ModalBackdrop from '../../layout/ModalBackdrop';
 import './styles/PerformanceUploadModal.css';
+import PropTypes from 'prop-types';
+import { handleUploadModal } from '../../../actions/uploadModal';
 
-const Upload = ({ uploadModal, hideUploadModal }) => {
+const UploadModal = ({ handleUploadModal, uploadModal }) => {
   const [ file, setFile ] = useState('');
   const [ fileName, setFileName ] = useState('Choose File');
   const [ uploadedFile, setUploadedFile ] = useState({});
@@ -36,8 +37,9 @@ const Upload = ({ uploadModal, hideUploadModal }) => {
       setUploadedFile({ fileName, filePath });
       setMessage('File Uploaded');
 
-      console.log(res.data);
       setPartnerStats(res.data);
+
+      console.log(partnerStats);
 
     } catch(err) {
       if( err.response.status === 500 ) {
@@ -48,11 +50,11 @@ const Upload = ({ uploadModal, hideUploadModal }) => {
     }
   }
 
-  return uploadModal === false ? null : (
+  return (
     <ModalBackdrop>
       <div 
         className='performance-upload' 
-        onClick={() => { hideUploadModal() }}
+        onClick={handleUploadModal}
       >
         {message}
         <form 
@@ -78,12 +80,13 @@ const Upload = ({ uploadModal, hideUploadModal }) => {
   )
 }
 
-Upload.propTypes = {
-  uploadModal: PropTypes.bool.isRequired,
+UploadModal.propTypes = {
+  handleUploadModal: PropTypes.func.isRequired,
+  uploadModal: PropTypes.bool.isRequired
 }
 
-const mapStateToProps = state => ({
-  uploadModal: state.uploadModal,
-})
+const mapStateToProps = state =>  ({
+  uploadModal: state.uploadModal
+});
 
-export default connect(mapStateToProps, { hideUploadModal })(Upload);
+export default connect(mapStateToProps, { handleUploadModal })(UploadModal);

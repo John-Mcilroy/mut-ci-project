@@ -1,7 +1,9 @@
 .performance-upload {
+  z-index: 13;
   width: 25vw;
   height: 25vh;
   margin: auto;
+  opacity: 1;
   background: white;
   display: flex;
   justify-content: center;

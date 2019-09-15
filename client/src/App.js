@@ -38,7 +38,6 @@ const App = ({ match }) =>{
             
             <PrivateRoute path='/profile' component={Profile} />
             <PrivateRoute path='/performance' component={Performance} />
-            <PrivateRoute path='/upload' component={PerformanceUploadModal} />
           </Switch>
         </Fragment>
       </Router>

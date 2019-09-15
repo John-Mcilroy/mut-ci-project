@@ -1,16 +1,17 @@
 import React from 'react';
-
+import { connect } from 'react-redux';
 import Logo from '../../layout/Logo';
 import PerformanceDisplay from './PerformanceDisplay';
 import PerformanceSearch from './PerformanceSearch';
-import { connect } from 'react-redux';
+import PerformanceUploadModal from './PerformanceUploadModal';
+import Portal from '../../layout/Portal';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { handleUploadModal } from '../../../actions/uploadModal';
 
 import './styles/Performance.css';
-import { showUploadModal } from '../../../actions/uploadModal';
 
-const Performance = ({ uploadModal }) => {
+const Performance = ({ handleUploadModal, uploadModal }) => {
+
   return (
     <div className='performance'>
       <div className='performance-controls'>
@@ -19,7 +20,10 @@ const Performance = ({ uploadModal }) => {
       </div>
       <div className='performance-view'>
         <h1 className='performance-view__title'>Performance Overview</h1>
-        <Link className='performance-view__upload-button' to='/upload'>Upload Records</Link>
+        <p className='performance-view__upload-button' onClick={handleUploadModal}>Upload Records</p>
+        {uploadModal && <Portal>
+          <PerformanceUploadModal />
+        </Portal>}
         <PerformanceDisplay />
       </div>
     </div>
@@ -27,11 +31,12 @@ const Performance = ({ uploadModal }) => {
 }
 
 Performance.propTypes = {
-  uploadModal: PropTypes.bool.isRequired,
+  handleUploadModal: PropTypes.func.isRequired,
+  uploadModal: PropTypes.bool.isRequired
 }
 
-const mapStateToProps = (state) => ({
-  uploadModal: state.upload
-})
+const mapStateToProps = state =>  ({
+  uploadModal: state.uploadModal
+});
 
-export default connect(mapStateToProps, { showUploadModal })(Performance);
+export default connect(mapStateToProps, { handleUploadModal })(Performance);

@@ -25,7 +25,7 @@ export const loadUser = () => async dispatch => {
     });
     
   } catch(err) {
-
+    console.error('Authentication Failed');
   }
 }
 

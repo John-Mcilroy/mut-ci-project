@@ -4,9 +4,9 @@ const validateDateInput = (data) => {
   const getValidity = inputDates.toString().match(dateRegex);
 
   if(getValidity.length === 2) {
-    return true;
+    return getValidity;
   } else {
-    return false;
+    return null;
   }
 };
 

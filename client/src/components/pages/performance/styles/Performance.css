@@ -18,6 +18,7 @@
 
 .performance-view__upload-button {
   position: absolute;
+  z-index: 2;
   line-height: 2em;
   text-align: center;
   top: 25px;
