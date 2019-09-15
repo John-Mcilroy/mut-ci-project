@@ -22,6 +22,10 @@
   color: var(--blue-light); 
 }
 
+.performance-controls__back-btn:hover {
+  background: var(--blue-dark-hover);
+}
+
 .performance-view {
   height: 100vh;
   background: var(--blue-light);
