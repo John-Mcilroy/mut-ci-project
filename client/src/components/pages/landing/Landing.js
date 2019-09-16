@@ -16,46 +16,46 @@ const Landing = ({ setAlert, register, login, isAuthenticated }) => {
   const [ formType, setFormType ] = useState({ isLogin: true });
   const [ nameValue, setNameValue ] = useState('');
   const [ passwordValue, setPasswordValue ] = useState('');
-  const [ referenceValue, setReferenceValue ] = useState('');
+  // const [ referenceValue, setReferenceValue ] = useState('');
 
   const { isLogin } = formType;
   const name = nameValue;
   const password = passwordValue;
-  const reference = referenceValue;
+  // const reference = referenceValue;
   
   
   const onChange = async (event) => {
     event.preventDefault();
-    if(
-      // If both fields are empty
-      name.trim().length === 0 && 
-      password.trim().length === 0 && 
-      (
-        // Only if !isLogin, check reference is empty
-        isLogin === false ? reference.trim().length === 0 : true
-        )
-        ) {
-          setFormType({
-            isLogin: !formType.isLogin
-          });
-          return;
-        }
+    // if(
+    //   // If both fields are empty
+    //   name.trim().length === 0 && 
+    //   password.trim().length === 0 && 
+    //   (
+        // // Only if !isLogin, check reference is empty
+        // isLogin === false ? reference.trim().length === 0 : true
+        // )
+        // ) {
+        //   setFormType({
+        //     isLogin: !formType.isLogin
+        //   });
+        //   return;
+        // }
         
-        const newUser = {
-          name,
-          password,
-          reference,
-        }
+        // const newUser = {
+        //   name,
+        //   password,
+        //   reference,
+        // }
         
-        if (!isLogin) {
-          newUser.reference = reference;
-        }
+        // if (!isLogin) {
+        //   newUser.reference = reference;
+        // }
         
     try {
       
       if (!isLogin) {
         // Register user
-        register({ name, password, reference });
+        // register({ name, password, reference });
         //setAlert('Registration Successful', 'success');
       } else {
         // Login user
@@ -84,8 +84,8 @@ const Landing = ({ setAlert, register, login, isAuthenticated }) => {
         id="auth-code"
         className={isLogin ? "auth-form__input auth-form__auth-code__hidden" : "auth-form__input auth-form__auth-code "}
         type="password"
-        value={reference}
-        onChange={e => setReferenceValue(e.target.value)}
+        // value={reference}
+        // onChange={e => setReferenceValue(e.target.value)}
         placeholder="Registration Code"
       />
       <input 
