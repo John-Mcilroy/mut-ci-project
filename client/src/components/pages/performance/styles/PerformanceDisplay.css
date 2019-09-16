@@ -13,12 +13,17 @@
   color: blue;
 }
 
+.performance-display__tags-list::before {
+  transform: translateY(-1.5em);
+}
+
 .performance-display__tags-list {
-  top: -1.7em;
   color: white;
   display: flex;
-  position: absolute;
-  left: 1.5em;
+  position: relative;
+  float: left;
+  top: 5.8%;
+  left: 5em;
   height: 1.7em;
   z-index: 0;
 }
