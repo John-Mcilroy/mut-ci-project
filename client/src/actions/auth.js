@@ -8,7 +8,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-} from './types'
+} from './types';
 
 // Load User
 export const loadUser = () => async dispatch => {

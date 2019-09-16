@@ -6,8 +6,9 @@ import ModalBackdrop from '../../layout/ModalBackdrop';
 import './styles/PerformanceUploadModal.css';
 import PropTypes from 'prop-types';
 import { handleUploadModal } from '../../../actions/uploadModal';
+import { uploadPerformanceRecords } from '../../../actions/performanceUpload';
 
-const UploadModal = ({ handleUploadModal, uploadModal }) => {
+const UploadModal = ({ handleUploadModal, uploadModal, uploadPerformanceRecords }) => {
   const [ file, setFile ] = useState('');
   const [ fileName, setFileName ] = useState('Choose File');
   const [ uploadedFile, setUploadedFile ] = useState({});
@@ -22,32 +23,34 @@ const UploadModal = ({ handleUploadModal, uploadModal }) => {
   const onSubmit = async e => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append('file', file);
+    uploadPerformanceRecords({ file });
 
-    try {
-      const res = await axios.post('/api/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
+    // const formData = new FormData();
+    // formData.append('file', file);
 
-      const { fileName, filePath } = res.data;
-
-      setUploadedFile({ fileName, filePath });
-      setMessage('File Uploaded');
-
-      setPartnerStats(res.data);
-
-      console.log(partnerStats);
-
-    } catch(err) {
-      if( err.response.status === 500 ) {
-        setMessage('Upload Failed');
-      } else {
-        setMessage(err.response.data.msg);
-      }
-    }
+    // try {
+    //   const res = await axios.post('/api/upload', formData, {
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data'
+    //     }
+    //   })
+    
+    //   const { fileName, filePath } = res.data;
+    
+    //   setUploadedFile({ fileName, filePath });
+    //   setMessage('File Uploaded');
+    
+    //   setPartnerStats(res.data);
+    
+    //   console.log(partnerStats);
+    
+    // } catch(err) {
+    //   if( err.response.status === 500 ) {
+    //     setMessage('Upload Failed');
+    //   } else {
+    //     setMessage(err.response.data.msg);
+    //   }
+    // }
   }
 
   return (
@@ -81,6 +84,7 @@ const UploadModal = ({ handleUploadModal, uploadModal }) => {
 }
 
 UploadModal.propTypes = {
+  uploadPerformanceRecords: PropTypes.func.isRequired,
   handleUploadModal: PropTypes.func.isRequired,
   uploadModal: PropTypes.bool.isRequired
 }
@@ -89,4 +93,4 @@ const mapStateToProps = state =>  ({
   uploadModal: state.uploadModal
 });
 
-export default connect(mapStateToProps, { handleUploadModal })(UploadModal);
+export default connect(mapStateToProps, { handleUploadModal, uploadPerformanceRecords })(UploadModal);

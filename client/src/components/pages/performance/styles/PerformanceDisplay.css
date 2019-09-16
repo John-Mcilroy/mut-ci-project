@@ -6,6 +6,11 @@
   margin: 4%;
   background: #235aff35;
   position: relative;
+  overflow-y: scroll;
+}
+
+.performance-display::-webkit-scrollbar {
+  color: blue;
 }
 
 .performance-display__tags-list {
@@ -41,4 +46,12 @@
 
 .performance-display__tag-active:hover {
   background: #235aff35;
+}
+
+.no-data {
+  font-size: 1.5em;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin: 45% 0;
 }
