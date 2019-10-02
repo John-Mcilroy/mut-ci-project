@@ -2,7 +2,7 @@
   cursor: default;
   display: flex;
   position: relative;
-  top: 25px;
+  /* top: 25px; */
   left: 4%;
   background-color: var(--blue-dark);
   opacity: 0.6;

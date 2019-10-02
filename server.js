@@ -22,6 +22,7 @@ app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/profile', require('./routes/api/profile'));
 app.use('/api/upload', require('./routes/api/upload'));
+app.use('/api/performance', require('./routes/api/performance'));
 
 if(process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));

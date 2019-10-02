@@ -16,7 +16,7 @@ const Performance = ({ handleUploadModal, uploadModal }) => {
   return (
     <div className='performance'>
       <div className='performance-controls'>
-      <Link to='/profile' class="performance-controls__back-btn">{'< '} Go Back</Link>
+      <Link to='/profile' className="performance-controls__back-btn">{'< '} Go Back</Link>
         <PerformanceSearch />
         <Logo />
       </div>
