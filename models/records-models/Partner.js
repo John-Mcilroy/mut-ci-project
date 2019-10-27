@@ -3,13 +3,15 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const PartnerSchema = new Schema({
-  name: {
+  name: { 
+    type: String, 
     required: true,
-    type: String,
+    trim: true,
   },
-  number: {
+  number: { 
+    type: String, 
     required: true,
-    type: Number,
+    trim: true,
   }
 });
 
