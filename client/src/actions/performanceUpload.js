@@ -27,7 +27,7 @@ export const uploadPerformanceRecords = ({ file }) => async dispatch => {
     dispatch(handleUploadModal());
 
   } catch(err) {
-    console.log(err);
+    console.log(err.msg);
     dispatch(setAlert( 'Oops something went wrong...', 'fail' ));
 
     dispatch({

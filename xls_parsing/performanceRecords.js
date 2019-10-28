@@ -12,8 +12,6 @@ const validatePartner = require('./validation/validatePartner');
 const ignoredWords = require('./utilities/ignoredWords');
 const getWorkCategory = require('./utilities/getWorkCategory');
 
-const saveData = require('../xls_parsing/utilities/saveData');
-
 module.exports = async (path) => {
   
   const workbook = xlsx.readFile(path);
@@ -32,7 +30,8 @@ module.exports = async (path) => {
   let workCategory = '';
   let partnerName = '';
   let partnerNumber = '';
-  let nameContainsNumber = true; 
+  let nameContainsNumber = true;
+  let date = validDates[0];
   
   let currentPartner = {};
 
@@ -86,10 +85,7 @@ module.exports = async (path) => {
             partnerName = getName[1].trim() + ' ' + getName[0].trim();
 
             // Number
-            const getNumber = splitNameAndNumber[1].toString().trim();
-
-            // Number
-            partnerNumber = getNumber;
+            partnerNumber = splitNameAndNumber[1].toString().trim();
 
             currentPartner.name = partnerName;
             currentPartner.number = partnerNumber;
@@ -120,6 +116,7 @@ module.exports = async (path) => {
           createPerformanceRecord.direct = recordDirect;
           createPerformanceRecord.unitsTotal = recordUnits;
           createPerformanceRecord.unitsPH = recordUnitsPerHour;
+          createPerformanceRecord.date = date;
 
           records[userIndex].records.push(createPerformanceRecord);
         } else {
@@ -131,6 +128,7 @@ module.exports = async (path) => {
           createPerformanceRecord.direct = recordDirect;
           createPerformanceRecord.unitsTotal = recordUnits;
           createPerformanceRecord.unitsPH = recordUnitsPerHour;
+          createPerformanceRecord.date = date;
 
           currentPartner.records = [];
           currentPartner.records.push(createPerformanceRecord);
@@ -151,7 +149,5 @@ module.exports = async (path) => {
 
   records.splice(0, 1)
 
-  await saveData(records, validDates[0]);
-  
   return records;
 }

@@ -25,14 +25,10 @@ router.post('/', async (req, res) => {
       return res.status(500).send('Server Error');
     }
     const path = require('path').resolve(__dirname, `./uploads/${file.name}`);
-  
-    const result = performanceRecords(path);
-
-    res.json(result);
-    // Save data
-
-
     
+    const result = performanceRecords(path);
+    
+    res.json(result);
   });
 });
 

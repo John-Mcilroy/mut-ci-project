@@ -1,15 +1,15 @@
 const Partner = require('../../models/records-models/Partner');
 const Performance = require('../../models/records-models/Performance');
 
-module.exports = async (records, date) => {
-  const recordsAlreadyUploaded = await Performance.findOne({ date: date });
-
-  if(recordsAlreadyUploaded) {
-    console.log('Already Uploaded');
-    return;
-  }
-
+module.exports = async (records) => {
   records.forEach(async record => {
+    const recordsAlreadyUploaded = await Performance.findOne({ date: record.records.date });
+  
+    if(recordsAlreadyUploaded) {
+      throw new Error({ msg: 'Records have already been uploaded for this date' });
+    }
+
+
     const currentPartner = await Partner.findOne({ number: record.number });
     
     if(!currentPartner) {
@@ -24,24 +24,22 @@ module.exports = async (records, date) => {
         await record.records.forEach(async uploadedRecord => {
 
           try {
-          const performance = new Performance({
-            partner: partner,
-            workCategory: uploadedRecord.workCategory,
-            performance: uploadedRecord.performance,
-            direct: uploadedRecord.direct,
-            unitsPerHour: uploadedRecord.unitsPerHour,
-            unitsTotal: uploadedRecord.unitsTotal,
-            date
-          });
-          performance.save();
-        } catch(err) {
-          console.error(err);
-        }
-        });
+            const performance = new Performance({
+              partner: partner,
+              workCategory: uploadedRecord.workCategory,
+              performance: uploadedRecord.performance,
+              direct: uploadedRecord.direct,
+              unitsPerHour: uploadedRecord.unitsPerHour,
+              unitsTotal: uploadedRecord.unitsTotal
+            });
+              performance.save();
+            } catch(err) {
+              console.error(err);
+            }});
 
-      } catch(err) {
-        console.error('Error: ', record);
-      }
+        } catch(err) {
+          console.error('Error: ', record);
+        }
     } else {
       //
       try{
@@ -55,7 +53,6 @@ module.exports = async (records, date) => {
               direct: uploadedRecord.direct,
               unitsPerHour: uploadedRecord.unitsPerHour,
               unitsTotal: uploadedRecord.unitsTotal,
-              date
             });
             performance.save();
           } catch(err) {
@@ -67,6 +64,5 @@ module.exports = async (records, date) => {
         console.error('Error: ', record);
       }
     }
-
   })
 };
