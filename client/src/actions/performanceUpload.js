@@ -18,7 +18,7 @@ export const uploadPerformanceRecords = ({ file }) => async dispatch => {
     })
   
     dispatch(setAlert( 'Upload Successful', 'success' ));
-
+    console.log('Performance Action: ', res.data);
     dispatch({
       type: PERFORMANCE_UPLOAD_SUCCESS,
       payload: res.data

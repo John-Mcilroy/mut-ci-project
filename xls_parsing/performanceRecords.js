@@ -12,7 +12,7 @@ const validatePartner = require('./validation/validatePartner');
 const ignoredWords = require('./utilities/ignoredWords');
 const getWorkCategory = require('./utilities/getWorkCategory');
 
-module.exports = async (path) => {
+module.exports = (path) => {
   
   const workbook = xlsx.readFile(path);
   const worksheet = workbook.Sheets['Sheet1'];

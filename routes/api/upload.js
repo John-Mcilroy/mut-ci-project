@@ -11,6 +11,7 @@ const performanceRecords = require('../../xls_parsing/performanceRecords');
 router.get('/', (req, res) => res.send('Upload Route'));
 
 router.post('/', async (req, res) => {
+
   if( req.files === null) {
     return res
       .status(400)
@@ -25,9 +26,9 @@ router.post('/', async (req, res) => {
       return res.status(500).send('Server Error');
     }
     const path = require('path').resolve(__dirname, `./uploads/${file.name}`);
-    
+     
     const result = performanceRecords(path);
-    
+
     res.json(result);
   });
 });

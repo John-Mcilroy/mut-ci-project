@@ -3,12 +3,29 @@ import { connect } from 'react-redux';
 import './styles/PerformanceDisplay.css';
 
 import PerformanceRecord from './PerformanceRecord';
+import { check } from 'express-validator/check';
 
 const PerformanceDisplay = ({ performanceUpload }) => {
   const [ displayType, setDisplayType ] = useState('Chill Pick');
 
   const changeDisplayType = (type) => {
     return setDisplayType(type);
+  }
+
+  const checkWorkCategory = (partnerRecord, workCategory) => {
+    let performance;
+    
+    partnerRecord.forEach((record, index) => {
+      const recordValues = Object.values(record).includes(workCategory);
+      
+      if(recordValues) {
+        performance = record.performance;
+      } else {
+        return;
+      }
+    })
+
+    return performance;
   }
 
   return (
@@ -54,6 +71,8 @@ const PerformanceDisplay = ({ performanceUpload }) => {
           </ul>
           {performanceUpload.records.length > 0 ? performanceUpload.records.map((record, index) => {
             const { name, number, records } = record;
+
+            console.log(checkWorkCategory(records, 'chillPick'))
             if(displayType === 'Chill Pick') {
               // if(records[0].chillPick) {
                 return (
@@ -61,12 +80,12 @@ const PerformanceDisplay = ({ performanceUpload }) => {
                     partnerName={name}
                     partnerNumber={number}
                     performance={[
-                      (Object.keys(records[0]).includes('chillPick') ? records[0].chillPick.performance : undefined),
-                      (Object.keys(records[0]).includes('frvPick') ? records[0].frvPick.performance : undefined),
-                      (Object.keys(records[0]).includes('ambientPick') ? records[0].ambientPick.performance : undefined),
-                      (Object.keys(records[0]).includes('ambientPutaway') ? records[0].ambientPutaway.performance : undefined),
-                      (Object.keys(records[0]).includes('chillReceiving') ? (Math.round(records[0].chillReceiving.unitsPH / 450 * 100)) : undefined),
-                      (Object.keys(records[0]).includes('loading') ? records[0].loading.performance : undefined),
+                      (checkWorkCategory(records, 'chillPick')),
+                      (checkWorkCategory(records, 'frvPick')),
+                      (checkWorkCategory(records, 'ambientPick')),
+                      (checkWorkCategory(records, 'ambientPutaway')),
+                      (console.log(checkWorkCategory(records, 'chillReceiving'))),
+                      (checkWorkCategory(records, 'loading')),
                       (undefined),
                     ]}
                     key={index}

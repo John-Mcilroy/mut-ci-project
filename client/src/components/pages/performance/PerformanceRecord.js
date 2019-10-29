@@ -6,15 +6,7 @@ import './styles/PerformanceRecord.css';
 const PerformanceRecord = ({
   partnerName = "Naming Error",
   partnerNumber = "Error",
-  performance = [
-    'error',
-    'error',
-    'error',
-    'error',
-    'error',
-    'error',
-    'error',
-  ]
+  performance = []
 }) => {
   return (
     <div className="overview-record">
@@ -26,8 +18,8 @@ const PerformanceRecord = ({
       </div>
 
       <div className="performance-records">
-        {console.log(typeof performance)}
-        {typeof performance === 'object' ? performance.map(performance => {
+        
+        {performance.length > 0 ? performance.map(performance => {
           return <PerformanceRing performance={performance} />
         }) : <PerformanceRing />}
       </div>

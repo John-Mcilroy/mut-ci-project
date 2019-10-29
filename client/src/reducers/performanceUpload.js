@@ -4,7 +4,6 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  date: null,
   records: [],
   loading: false,
 };
