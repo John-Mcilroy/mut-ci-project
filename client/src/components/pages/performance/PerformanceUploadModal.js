@@ -6,9 +6,9 @@ import ModalBackdrop from '../../layout/ModalBackdrop';
 import './styles/PerformanceUploadModal.css';
 import PropTypes from 'prop-types';
 import { handleUploadModal } from '../../../actions/uploadModal';
-import { uploadPerformanceRecords } from '../../../actions/performanceUpload';
+import { uploadPerformance } from '../../../actions/setPerformance';
 
-const UploadModal = ({ handleUploadModal, uploadModal, uploadPerformanceRecords }) => {
+const UploadModal = ({ handleUploadModal, uploadModal, uploadPerformance }) => {
   const [ file, setFile ] = useState('');
   const [ fileName, setFileName ] = useState('Choose File');
   const [ uploadedFile, setUploadedFile ] = useState({});
@@ -23,7 +23,7 @@ const UploadModal = ({ handleUploadModal, uploadModal, uploadPerformanceRecords 
   const onSubmit = async e => {
     e.preventDefault();
 
-    uploadPerformanceRecords({ file });
+    uploadPerformance({ file }, 'Hello World');
 
     // const formData = new FormData();
     // formData.append('file', file);
@@ -63,8 +63,8 @@ const UploadModal = ({ handleUploadModal, uploadModal, uploadPerformanceRecords 
           className='performance-upload__form' 
           onSubmit={onSubmit}
         >
-          <p class="close-modal" onClick={handleUploadModal}/>
-          <label for='upload-btn'>Upload</label>
+          <p className="close-modal" onClick={handleUploadModal}/>
+          <label htmlFor='upload-btn'>Upload</label>
           <input 
             type="file" 
             id='upload-btn' 
@@ -84,7 +84,7 @@ const UploadModal = ({ handleUploadModal, uploadModal, uploadPerformanceRecords 
 }
 
 UploadModal.propTypes = {
-  uploadPerformanceRecords: PropTypes.func.isRequired,
+  uploadPerformance: PropTypes.func.isRequired,
   handleUploadModal: PropTypes.func.isRequired,
   uploadModal: PropTypes.bool.isRequired
 }
@@ -93,4 +93,4 @@ const mapStateToProps = state =>  ({
   uploadModal: state.uploadModal
 });
 
-export default connect(mapStateToProps, { handleUploadModal, uploadPerformanceRecords })(UploadModal);
+export default connect(mapStateToProps, { handleUploadModal, uploadPerformance })(UploadModal);

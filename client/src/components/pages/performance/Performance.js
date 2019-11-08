@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Logo from '../../layout/Logo';
 import PerformanceDisplay from './PerformanceDisplay';
@@ -8,15 +7,16 @@ import PerformanceUploadModal from './PerformanceUploadModal';
 import Portal from '../../layout/Portal';
 import PropTypes from 'prop-types';
 import { handleUploadModal } from '../../../actions/uploadModal';
+import { logout } from '../../../actions/auth';
 
 import './styles/Performance.css';
 
-const Performance = ({ handleUploadModal, uploadModal }) => {
+const Performance = ({ handleUploadModal, uploadModal, logout }) => {
 
   return (
     <div className='performance'>
       <div className='performance-controls'>
-      <Link to='/profile' className="performance-controls__back-btn">{'< '} Go Back</Link>
+      <p className="performance-controls__back-btn" onClick={logout}>{'< '} Logout</p>
         <PerformanceSearch />
         <Logo />
       </div>
@@ -34,11 +34,12 @@ const Performance = ({ handleUploadModal, uploadModal }) => {
 
 Performance.propTypes = {
   handleUploadModal: PropTypes.func.isRequired,
-  uploadModal: PropTypes.bool.isRequired
+  uploadModal: PropTypes.bool.isRequired,
+  logout: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state =>  ({
   uploadModal: state.uploadModal
 });
 
-export default connect(mapStateToProps, { handleUploadModal })(Performance);
+export default connect(mapStateToProps, { handleUploadModal, logout })(Performance);

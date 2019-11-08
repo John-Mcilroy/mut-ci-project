@@ -1,68 +1,82 @@
 const Partner = require('../../models/records-models/Partner');
 const Performance = require('../../models/records-models/Performance');
 
-module.exports = async (records) => {
-  records.forEach(async record => {
-    const recordsAlreadyUploaded = await Performance.findOne({ date: record.records.date });
-  
-    if(recordsAlreadyUploaded) {
-      throw new Error({ msg: 'Records have already been uploaded for this date' });
-    }
+module.exports = async (records, date) => {
+  const recordsAlreadyUploaded = await Performance.findOne({ date: date });
+  if(recordsAlreadyUploaded) {
+    return 'duplicate';
+  } else {
 
-
-    const currentPartner = await Partner.findOne({ number: record.number });
-    
-    if(!currentPartner) {
+    records.forEach(async record => {
+        const currentPartner = await Partner.findOne({ number: record.number });
       
-      try{
-        const partner = new Partner({
-          name: record.name,
-          number: record.number
-        })
-        partner.save();
-      
-        await record.records.forEach(async uploadedRecord => {
+      if(!currentPartner) {
+        
+        try{
+          const partner = new Partner({
+            name: record.name,
+            number: record.number
+          })
+          partner.save();
+        
+          await record.records.forEach(async uploadedRecord => {
 
-          try {
-            const performance = new Performance({
-              partner: partner,
-              workCategory: uploadedRecord.workCategory,
-              performance: uploadedRecord.performance,
-              direct: uploadedRecord.direct,
-              unitsPerHour: uploadedRecord.unitsPerHour,
-              unitsTotal: uploadedRecord.unitsTotal
-            });
-              performance.save();
-            } catch(err) {
-              console.error(err);
-            }});
+            let uploadedPerformance;
+            if(uploadedRecord.workCategory == 'chillReceiving') {
+              uploadedPerformance = Math.round(uploadedRecord.unitsPerHour / 500 * 100);
+            } else {
+              uploadedPerformance = uploadedRecord.performance;
+            }
 
-        } catch(err) {
-          console.error('Error: ', record);
-        }
-    } else {
-      //
-      try{
-        await record.records.forEach(async uploadedRecord => {
-  
+            try {
+              const performance = new Performance({
+                partner: partner,
+                workCategory: uploadedRecord.workCategory,
+                performance: uploadedPerformance,
+                direct: uploadedRecord.direct,
+                unitsPerHour: uploadedRecord.unitsPerHour,
+                unitsTotal: uploadedRecord.unitsTotal,
+                date
+              });
+                performance.save();
+              } catch(err) {
+                console.error(err);
+              }});
+
+          } catch(err) {
+            console.error('Error: ', record);
+          }
+      } else {
+        //
+        try{
+          await record.records.forEach(async uploadedRecord => {
+            let uploadedPerformance;
+            if(uploadedRecord.workCategory == 'chillReceiving') {
+              uploadedPerformance = Math.round(uploadedRecord.unitsPerHour / 500 * 100);
+            } else {
+              uploadedPerformance = uploadedRecord.performance;
+            }
+
             try {
             const performance = new Performance({
               partner: currentPartner,
               workCategory: uploadedRecord.workCategory,
-              performance: uploadedRecord.performance,
+              performance: uploadedPerformance,
               direct: uploadedRecord.direct,
               unitsPerHour: uploadedRecord.unitsPerHour,
               unitsTotal: uploadedRecord.unitsTotal,
+              date
             });
             performance.save();
-          } catch(err) {
-            console.error(err);
-          }
-        });
+            } catch(err) {
+              console.error(err);
+            }
+          });
 
-      } catch(err) {
-        console.error('Error: ', record);
+        } catch(err) {
+          console.error('Error: ', record);
+        }
       }
-    }
-  })
+    })
+  }
 };

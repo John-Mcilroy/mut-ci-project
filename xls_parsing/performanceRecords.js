@@ -11,6 +11,7 @@ const validateWorkTeam = require('./validation/validateWorkTeam');
 const validatePartner = require('./validation/validatePartner');
 const ignoredWords = require('./utilities/ignoredWords');
 const getWorkCategory = require('./utilities/getWorkCategory');
+const savePerformanceData = require('./utilities/savePerformanceData');
 
 module.exports = (path) => {
   
@@ -43,6 +44,7 @@ module.exports = (path) => {
         partnerName = null;
       }
 
+      
       const recordWorkCategory = record.__EMPTY         || null;
       const recordPartner = record.__EMPTY_1        || null;
       const recordPerformance = record.__EMPTY_2    || null;
@@ -56,24 +58,24 @@ module.exports = (path) => {
         workCategory = getWorkCategory(recordWorkCategory) || workCategory;
         return;
       }
-
+      
       if(recordPartner) {
         // Ignore unused cells
         if(ignoredWords.includes(recordPartner)) return;
         
         nameContainsNumber = validatePartner(recordPartner);
-
+        
         // Set Name ++ Number
         if(nameContainsNumber) {
-
+          
           if(partnerName !== null) {
             partnerNumber = recordPartner;
-
+            
             dataPersist = false;
-
+            
             currentPartner.name = partnerName;
             currentPartner.number = partnerNumber;
-
+            
           } else {
             // [ 'Last name, First name', number ]
             const splitNameAndNumber = recordPartner.split('-');
@@ -83,51 +85,59 @@ module.exports = (path) => {
             
             // '(First name) (Last name)'
             partnerName = getName[1].trim() + ' ' + getName[0].trim();
-
+            
             // Number
             partnerNumber = splitNameAndNumber[1].toString().trim();
-
+            
             currentPartner.name = partnerName;
             currentPartner.number = partnerNumber;
           }
-
+          
         } else {
           // [ 'Last name', 'First name' ]
           const getName = recordPartner.split(',');
-
+          
           // '(First name) (Last name)'
           partnerName = getName[1].trim() + ' ' + getName[0].trim();
-
+          
           dataPersist = true;
           return;
-          }
+        }
+      }
+      
+      if(records.find(findPartner => {
+        return findPartner.number == currentPartner.number;
+      })) {
+        if(recordPerformance === 'Perf') return;
+        if(recordPerformance === null) return;
+        const userIndex = records.findIndex(indexed => indexed.number == currentPartner.number);
+        const createPerformanceRecord = {};
+
+        let scanRecord;
+        if(workCategory == 'chillReceiving') {
+          scanRecord = Math.round(recordUnitsPerHour / 500 * 100);
         }
 
-        if(records.find(findUser => {
-          return findUser.number == currentPartner.number;
-        })) {
-          if(recordPerformance === 'Perf') return;
-          if(recordPerformance === null) return;
-          const userIndex = records.findIndex(indexed => indexed.number == currentPartner.number);
-          const createPerformanceRecord = {};
-
           createPerformanceRecord.workCategory = workCategory;
-          createPerformanceRecord.performance = recordPerformance;
+          createPerformanceRecord.performance = scanRecord || recordPerformance;
           createPerformanceRecord.direct = recordDirect;
           createPerformanceRecord.unitsTotal = recordUnits;
-          createPerformanceRecord.unitsPH = recordUnitsPerHour;
+          createPerformanceRecord.unitsPerHour = recordUnitsPerHour;
           createPerformanceRecord.date = date;
 
           records[userIndex].records.push(createPerformanceRecord);
         } else {
-          
           const createPerformanceRecord = {};
-          
+          let scanRecord;
+          if(workCategory == 'chillReceiving') {
+            scanRecord = Math.round(recordUnitsPerHour / 500 * 100);
+          }
+
           createPerformanceRecord.workCategory = workCategory;
-          createPerformanceRecord.performance = recordPerformance;
+          createPerformanceRecord.performance = scanRecord || recordPerformance;
           createPerformanceRecord.direct = recordDirect;
           createPerformanceRecord.unitsTotal = recordUnits;
-          createPerformanceRecord.unitsPH = recordUnitsPerHour;
+          createPerformanceRecord.unitsPerHour = recordUnitsPerHour;
           createPerformanceRecord.date = date;
 
           currentPartner.records = [];
@@ -148,6 +158,11 @@ module.exports = (path) => {
   }
 
   records.splice(0, 1)
+  const duplicate = savePerformanceData(records, date);
+
+  if(duplicate == 'duplicate') {
+    return 'duplicate';
+  }
 
   return records;
 }

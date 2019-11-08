@@ -69,7 +69,7 @@ const Landing = ({ setAlert, register, login, isAuthenticated }) => {
 
   // If user is logged in, redirect to users profile
   if(isAuthenticated) {
-    return <Redirect to='/profile' />
+    return <Redirect to='/performance' />
   }
 
   return <div className="landing-container">      

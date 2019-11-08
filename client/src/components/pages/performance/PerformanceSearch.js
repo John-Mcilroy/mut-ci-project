@@ -1,39 +1,37 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import './styles/PerformanceSearch.css';
+import { searchPerformance } from '../../../actions/setPerformance';
 
-const PerformanceSearch = () => {
+
+const PerformanceSearch = ({ setPerformance, searchPerformance }) => {
   const [ searchInput, setSearchInput ] = useState('');
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    let res;
-    let input = searchInput || '';
-    setSearchInput('');
-    if(input) res = await axios.get(`/api/performance/search/${input}`)
-
-    if ( res.data ) console.log(res.data);
-    setSearchInput('');
+    searchPerformance({date: searchInput});
   }
 
   const handleSearchInput = (e) => {
     setSearchInput(e.target.value);
-
-    console.log(`Search Input: ${searchInput}`);
   }
 
   return (
     <form className='performance-search' onSubmit={onSubmit}>
-      <input className='performance-search__input' type='text' placeholder='Search for Partner' onChange={handleSearchInput} value={searchInput} />
-      <select className='performance-search__select'>
-        <option value='all'>All Partners</option>
-        <option value='name'>by Name</option>
-        <option value='number'>by Number</option>
-      </select>
-      <input type='submit' hidden />
+      <input className='performance-search__input' type='text' placeholder='Date: DD/MM/YYYY' onChange={handleSearchInput} value={searchInput} />
+      <button type='submit' className='performance-search__select'>Search</button>
     </form>
   )
 }
 
-export default PerformanceSearch;
+PerformanceSearch.propTypes = {
+  searchPerformance: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  setPerformance: state.setPerformance
+});
+
+export default connect(mapStateToProps, { searchPerformance })(PerformanceSearch);

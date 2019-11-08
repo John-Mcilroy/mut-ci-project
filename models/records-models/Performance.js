@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Partner = require('./Partner');
+
 
 // Create Schema
 const PerformanceSchema = new Schema({
   partner: {
     type: Schema.Types.ObjectId,
-    ref: 'partner',
+    ref: Partner,
     required: true
   },
   workCategory: {

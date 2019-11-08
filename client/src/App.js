@@ -36,7 +36,7 @@ const App = ({ match }) =>{
           <Switch>
             <Route exact path='/' component={Landing} />
             
-            <PrivateRoute path='/profile' component={Profile} />
+            {/* <PrivateRoute path='/profile' component={Profile} /> */}
             <PrivateRoute path='/performance' component={Performance} />
           </Switch>
         </Fragment>
