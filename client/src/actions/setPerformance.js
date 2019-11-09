@@ -3,7 +3,7 @@ import {
   SHOW_UPLOADED_PERFORMANCE, SEARCH_PERFORMANCE
 } from './types';
 import { handleUploadModal } from './uploadModal';
-import { setAlert } from "./alert";
+import { setAlert } from './alert';
 import { set } from 'mongoose';
 
 export const uploadPerformance = ({ file }) => async dispatch => {
@@ -19,7 +19,7 @@ export const uploadPerformance = ({ file }) => async dispatch => {
 
     console.log(res.data);
     if(res.data === 'duplicate') {
-      dispatch(setAlert('No duplicate records allowed'));
+      dispatch(setAlert('No duplicate records allowed', 'fail'));
       return;
     }
     
@@ -52,7 +52,6 @@ export const searchPerformance = ({
   if(date) {
     try {
       res = await axios.get(`api/performance/search?date=${date}`);
-  
     } catch(err) {
       dispatch(setAlert('No Records Found', 'fail'));
       return;

@@ -6,7 +6,7 @@ import './styles/PerformanceRecord.css';
 const PerformanceRecord = ({
   partnerName = "Naming Error",
   partnerNumber = "Error",
-  performance = []
+  performance = [],
 }) => {
   return (
     <div className="overview-record">
@@ -20,7 +20,7 @@ const PerformanceRecord = ({
       <div className="performance-records">
         
         {performance.length > 0 ? performance.map(performance => {
-          return <PerformanceRing performance={performance} />
+          return <PerformanceRing data={performance} />
         }) : <PerformanceRing />}
       </div>
     </div>

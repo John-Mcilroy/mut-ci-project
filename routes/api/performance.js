@@ -13,7 +13,7 @@ router.get('/search', async (req, res) => {
     
     records.forEach(record => {
       const { name, number } = record.partner;
-      const { workCategory, performance, direct, unitsPerHour, unitsTotal } = record;
+      const { workCategory, performance, direct, unitsPerHour, unitsTotal, date } = record;
       const found = result.find(partner => {
         return partner.number == record.partner.number;
       })
@@ -28,7 +28,8 @@ router.get('/search', async (req, res) => {
                 performance,
                 direct,
                 unitsPerHour,
-                unitsTotal
+                unitsTotal,
+                date
               }
             ]
           }
@@ -40,7 +41,8 @@ router.get('/search', async (req, res) => {
             performance,
             direct,
             unitsPerHour,
-            unitsTotal
+            unitsTotal,
+            date
           })
         }
 

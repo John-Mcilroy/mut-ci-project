@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
-const PerformanceRing = ({ performance = "error" }) => {
+const PerformanceRing = ({data = 'error'}) => {
+  const performance = data.performance || 'error';
+  const unitsPerHour = data.unitsPerHour || 0
+
   const [radius] = useState("53");
   const [stroke] = useState("13");
 
@@ -69,7 +72,7 @@ const PerformanceRing = ({ performance = "error" }) => {
         dy=".2em" 
         fontSize={performance !== "error" ? ".7em" : "1em"}
       >
-        {performance !== "error" ? Math.floor((Math.random() * 250) + 120) + "cph": "Data"}
+        {unitsPerHour !== 0 ? `${unitsPerHour} cph` : performance !== 'error' ? 'no record' : "Data"}
       </text>
       )
     </svg>

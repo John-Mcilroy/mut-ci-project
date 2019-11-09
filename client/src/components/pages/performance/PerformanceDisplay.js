@@ -22,10 +22,26 @@ const PerformanceDisplay = ({ setPerformance }) => {
     return performance;
   }
 
+  const checkUnitsPerHour = (partnerRecord, workCategory) => {
+    let unitsPerHour;
+    
+    partnerRecord.forEach((record, index) => {
+      const recordValues = Object.values(record).includes(workCategory);
+      
+      if(recordValues) {
+        unitsPerHour = record.unitsPerHour;
+      } else {
+        return;
+      }
+    })
+
+    return unitsPerHour;
+  }
+
   return (
     <>
       <div className='performance-display'>
-          <h3 style={{padding: '1em 0 0 5%'}}>Viewing Records for: </h3>
+  <h3 style={{padding: '1em 0 0 5%'}}>Viewing Records for: {setPerformance.records.length > 0 ? setPerformance.records[0].records[0].date : null}</h3>
         <div className='performance-display__inner'>
           <ul className='performance-display__inner-tags'>
             <li></li>
@@ -45,13 +61,31 @@ const PerformanceDisplay = ({ setPerformance }) => {
                     partnerName={name}
                     partnerNumber={number}
                     performance={[
-                      (checkWorkCategory(records, 'chillPick')),
-                      (checkWorkCategory(records, 'frvPick')),
-                      (checkWorkCategory(records, 'ambientPick')),
-                      (checkWorkCategory(records, 'ambientPutaway')),
-                      (checkWorkCategory(records, 'chillReceiving')),
-                      (checkWorkCategory(records, 'loading')),
-                      (undefined),
+                      {
+                        performance: checkWorkCategory(records, 'chillPick'),
+                        unitsPerHour: checkUnitsPerHour(records, 'chillPick'),
+                      },
+                      {
+                        performance: checkWorkCategory(records, 'frvPick'),
+                        unitsPerHour: checkUnitsPerHour(records, 'frvPick'),
+                      },
+                      {
+                        performance: checkWorkCategory(records, 'ambientPick'),
+                        unitsPerHour: checkUnitsPerHour(records, 'ambientPick'),
+                      },
+                      {
+                        performance: checkWorkCategory(records, 'ambientPutaway'),
+                        unitsPerHour: checkUnitsPerHour(records, 'ambientPutaway'),
+                      },
+                      {
+                        performance: checkWorkCategory(records, 'chillReceiving'),
+                        unitsPerHour: checkUnitsPerHour(records, 'chillReceiving'),
+                      },
+                      {
+                        performance: checkWorkCategory(records, 'loading'),
+                        unitsPerHour: checkUnitsPerHour(records, 'loading'),
+                      },
+                      undefined,
                     ]}
                     key={index}
                   />

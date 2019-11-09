@@ -12,6 +12,7 @@ const PerformanceSearch = ({ setPerformance, searchPerformance }) => {
     e.preventDefault();
 
     searchPerformance({date: searchInput});
+    setSearchInput('');
   }
 
   const handleSearchInput = (e) => {
@@ -20,7 +21,7 @@ const PerformanceSearch = ({ setPerformance, searchPerformance }) => {
 
   return (
     <form className='performance-search' onSubmit={onSubmit}>
-      <input className='performance-search__input' type='text' placeholder='Date: DD/MM/YYYY' onChange={handleSearchInput} value={searchInput} />
+      <input className='performance-search__input' type='text' placeholder='DD/MM/YYYY' onChange={handleSearchInput} value={searchInput} />
       <button type='submit' className='performance-search__select'>Search</button>
     </form>
   )

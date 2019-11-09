@@ -4,48 +4,48 @@ const Performance = require('../../models/records-models/Performance');
 module.exports = async (records, date) => {
   const recordsAlreadyUploaded = await Performance.findOne({ date: date });
   if(recordsAlreadyUploaded) {
-    return 'duplicate';
+    return null;
   } else {
 
-    records.forEach(async record => {
-        const currentPartner = await Partner.findOne({ number: record.number });
+  records.forEach(async record => {
+    const currentPartner = await Partner.findOne({ number: record.number });
       
-      if(!currentPartner) {
+    if(!currentPartner) {
         
-        try{
-          const partner = new Partner({
-            name: record.name,
-            number: record.number
-          })
-          partner.save();
+      try{
+        const partner = new Partner({
+          name: record.name,
+          number: record.number
+        })
+        partner.save();
         
-          await record.records.forEach(async uploadedRecord => {
+        await record.records.forEach(async uploadedRecord => {
 
-            let uploadedPerformance;
-            if(uploadedRecord.workCategory == 'chillReceiving') {
-              uploadedPerformance = Math.round(uploadedRecord.unitsPerHour / 500 * 100);
-            } else {
-              uploadedPerformance = uploadedRecord.performance;
-            }
+          let uploadedPerformance;
+          if(uploadedRecord.workCategory == 'chillReceiving') {
+          uploadedPerformance = Math.round(uploadedRecord.unitsPerHour / 500 * 100);
+        } else {
+          uploadedPerformance = uploadedRecord.performance;
+        }
 
-            try {
-              const performance = new Performance({
-                partner: partner,
-                workCategory: uploadedRecord.workCategory,
-                performance: uploadedPerformance,
-                direct: uploadedRecord.direct,
-                unitsPerHour: uploadedRecord.unitsPerHour,
-                unitsTotal: uploadedRecord.unitsTotal,
-                date
-              });
-                performance.save();
-              } catch(err) {
-                console.error(err);
-              }});
-
+        try {
+          const performance = new Performance({
+            partner: partner,
+            workCategory: uploadedRecord.workCategory,
+            performance: uploadedPerformance,
+            direct: uploadedRecord.direct,
+            unitsPerHour: uploadedRecord.unitsPerHour,
+            unitsTotal: uploadedRecord.unitsTotal,
+            date
+          });
+            performance.save();
           } catch(err) {
-            console.error('Error: ', record);
-          }
+            console.error(err);
+          }});
+
+        } catch(err) {
+          console.error('Error: ', record);
+        }
       } else {
         //
         try{
