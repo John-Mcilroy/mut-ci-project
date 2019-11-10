@@ -23,60 +23,23 @@ const UploadModal = ({ handleUploadModal, uploadModal, uploadPerformance }) => {
   const onSubmit = async e => {
     e.preventDefault();
 
-    uploadPerformance({ file }, 'Hello World');
-
-    // const formData = new FormData();
-    // formData.append('file', file);
-
-    // try {
-    //   const res = await axios.post('/api/upload', formData, {
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data'
-    //     }
-    //   })
-    
-    //   const { fileName, filePath } = res.data;
-    
-    //   setUploadedFile({ fileName, filePath });
-    //   setMessage('File Uploaded');
-    
-    //   setPartnerStats(res.data);
-    
-    //   console.log(partnerStats);
-    
-    // } catch(err) {
-    //   if( err.response.status === 500 ) {
-    //     setMessage('Upload Failed');
-    //   } else {
-    //     setMessage(err.response.data.msg);
-    //   }
-    // }
+    uploadPerformance({ file });
   }
 
   return (
     <ModalBackdrop>
-      <div 
-        className='performance-upload'
-      >
-        {message}
-        <form 
-          className='performance-upload__form' 
-          onSubmit={onSubmit}
-        >
+      <div className='performance-upload'>
           <p className="close-modal" onClick={handleUploadModal}/>
-          <label htmlFor='upload-btn'>Upload</label>
-          <input 
-            type="file" 
-            id='upload-btn' 
-            onChange={onChange} 
-            style={{display: 'none'}} 
-          />
-
-          <br />
-          <input 
-            type='submit' 
-            value='upload'
-          />
+        <div className='performance-upload__header'>
+          <h1>UPLOAD RECORDS</h1>
+        </div>
+        <form onSubmit={onSubmit} className='upload-form'>
+        <div className='upload-container'>
+          <label htmlFor='file-upload' className='performance-upload__input'>Select File</label>
+          <input id='file-upload' onChange={onChange} type='file' hidden />
+          <p className='uploaded-file'>{fileName}</p>
+        </div>
+          <input type='submit' className='performance-upload__button' value='Upload' />
         </form>
       </div>
     </ModalBackdrop>

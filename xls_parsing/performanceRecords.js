@@ -157,12 +157,8 @@ module.exports = (path) => {
     return errors;
   }
 
-  records.splice(0, 1)
-  const duplicate = savePerformanceData(records, date);
-
-  if(duplicate == 'duplicate') {
-    return 'duplicate';
-  }
+  records.splice(0, 1);
+  savePerformanceData(records, date);
 
   return records;
 }

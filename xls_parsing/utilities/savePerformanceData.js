@@ -2,12 +2,7 @@ const Partner = require('../../models/records-models/Partner');
 const Performance = require('../../models/records-models/Performance');
 
 module.exports = async (records, date) => {
-  const recordsAlreadyUploaded = await Performance.findOne({ date: date });
-  if(recordsAlreadyUploaded) {
-    return null;
-  } else {
-
-  records.forEach(async record => {
+    records.forEach(async record => {
     const currentPartner = await Partner.findOne({ number: record.number });
       
     if(!currentPartner) {
@@ -78,5 +73,4 @@ module.exports = async (records, date) => {
         }
       }
     })
-  }
 };

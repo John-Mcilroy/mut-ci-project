@@ -16,7 +16,7 @@ export const uploadPerformanceRecords = ({ file }) => async dispatch => {
         'Content-Type': 'multipart/form-data'
       }
     })
-  
+    
     dispatch(setAlert( 'Upload Successful', 'success' ));
     dispatch({
       type: PERFORMANCE_UPLOAD_SUCCESS,

@@ -72,7 +72,7 @@ const PerformanceRing = ({data = 'error'}) => {
         dy=".2em" 
         fontSize={performance !== "error" ? ".7em" : "1em"}
       >
-        {unitsPerHour !== 0 ? `${unitsPerHour} cph` : performance !== 'error' ? 'no record' : "Data"}
+        {unitsPerHour !== 0 ? `${unitsPerHour} cph` : performance !== 'error' ? 'No Data' : "Data"}
       </text>
       )
     </svg>
