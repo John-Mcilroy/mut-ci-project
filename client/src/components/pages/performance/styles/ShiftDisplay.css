@@ -1,0 +1,27 @@
+.shift-display {
+  background: var(--blue-dark);
+  opacity: 0.6;
+  width: 638px;
+  margin: auto;
+  margin-top: 1.2em;
+  height: calc(132px + 1em + .5em);
+  border-radius: 10px;
+}
+
+.shift-display__title {
+  color: var(--blue-light-hover);
+  text-align: center;
+  padding-top: .5em;
+}
+
+.shift-display__record {
+  margin-top: .7em;
+  display: flex;
+  justify-content: center;
+}
+
+.shift-display__record-item {
+  margin: 0 48px;
+  color: var(--blue-light);
+  text-align: center;
+}

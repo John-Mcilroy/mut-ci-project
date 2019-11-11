@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './styles/PerformanceDisplay.css';
+import ShiftDisplay from './ShiftDisplay';
 
 import PerformanceRecord from './PerformanceRecord';
 
@@ -42,7 +43,9 @@ const PerformanceDisplay = ({ setPerformance }) => {
     <>
       <div className='performance-display'>
   <h3 style={{padding: '1em 0 0 5%'}}>Viewing Records for: {setPerformance.records.length > 0 ? setPerformance.records[0].records[0].date : null}</h3>
-        <div className='performance-display__inner'>
+          
+    <ShiftDisplay />
+          
           <ul className='performance-display__inner-tags'>
             <li></li>
             <li className='performance-display__inner-tag'>Chill<br/>Pick</li>
@@ -53,6 +56,7 @@ const PerformanceDisplay = ({ setPerformance }) => {
             <li className='performance-display__inner-tag'><br/>Loading</li>
             <li className='performance-display__inner-tag'><br/>Overall</li>
           </ul>
+        <div className='performance-display__inner'>
           {setPerformance.records.length > 0 ? setPerformance.records.map((record, index) => {
             const { name, number, records } = record;
 
