@@ -8,7 +8,6 @@ const PerformanceSchema = new Schema({
   partner: {
     type: Schema.Types.ObjectId,
     ref: Partner,
-    required: true
   },
   workCategory: {
     type: String,

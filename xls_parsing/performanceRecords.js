@@ -28,6 +28,7 @@ module.exports = (path) => {
 
   let dataPersist = false;
   let records = [];
+  let shiftRecords = [];
   let workCategory = '';
   let partnerName = '';
   let partnerNumber = '';
@@ -44,6 +45,74 @@ module.exports = (path) => {
         partnerName = null;
       }
 
+      if(record.__EMPTY == 'Subtotal:' && record.__EMPTY_1 !== 'PM\'s') {
+        let shiftRecord = {};
+        switch(record.__EMPTY_1) {
+          case 'AMBIENT PICKING':
+            shiftRecord = {
+              workCategory: 'shiftAmbientPicking',
+              performance: record.__EMPTY_2,
+              unitsPerHour: /[0-9]/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null,
+              date
+            }
+            shiftRecords.push(shiftRecord);
+            break;
+          
+          case 'AMBIENT':
+            shiftRecord = {
+              workCategory: 'shiftAmbientPutaway',
+              performance: record.__EMPTY_2,
+              unitsPerHour: /[0-9]/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null,
+              date
+            }
+            shiftRecords.push(shiftRecord);
+            break;
+          
+          case 'CHILLED PICKING':
+            shiftRecord = {
+              workCategory: 'shiftChilledPicking',
+              performance: record.__EMPTY_2,
+              unitsPerHour: /[0-9]/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null,
+              date
+            }
+            shiftRecords.push(shiftRecord);
+            break;
+          
+          case 'CHLLLED':
+            shiftRecord = {
+              workCategory: 'shiftChilledReceiving',
+              performance: record.__EMPTY_2,
+              unitsPerHour: /[0-9]/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null,
+              date
+            }
+            shiftRecords.push(shiftRecord);
+            break;
+          
+          case 'FRVH PICKING':
+            shiftRecord = {
+              workCategory: 'shiftFRVPicking',
+              performance: record.__EMPTY_2,
+              unitsPerHour: /[0-9]/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null,
+              date
+            }
+            shiftRecords.push(shiftRecord);
+            break;
+          
+          case 'LEYLAND ALL':
+            shiftRecord = {
+              workCategory: 'shiftLoading',
+              performance: record.__EMPTY_2,
+              unitsPerHour: /[0-9]/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null,
+              date
+            }
+            shiftRecords.push(shiftRecord);
+            break;
+          
+          default:
+            break;
+        }
+        return;
+      }
       
       const recordWorkCategory = record.__EMPTY         || null;
       const recordPartner = record.__EMPTY_1        || null;
@@ -51,7 +120,7 @@ module.exports = (path) => {
       const recordDirect = record.__EMPTY_4        || null;
       if(recordDirect == null && recordDirect == 'Measured' && recordDirect == 'Direct') return;
       const recordUnits = record.__EMPTY_14         || null;
-      const recordUnitsPerHour = /[0-9]{3}/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null;
+      const recordUnitsPerHour = /[0-9]/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null;
       
       //cycle each record
       if(recordWorkCategory) {
@@ -158,7 +227,7 @@ module.exports = (path) => {
   }
 
   records.splice(0, 1);
-  savePerformanceData(records, date);
-
+  savePerformanceData(records, shiftRecords, date);
+  
   return records;
 }

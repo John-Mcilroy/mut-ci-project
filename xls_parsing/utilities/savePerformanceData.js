@@ -1,7 +1,7 @@
 const Partner = require('../../models/records-models/Partner');
 const Performance = require('../../models/records-models/Performance');
 
-module.exports = async (records, date) => {
+module.exports = async (records, shift, date) => {
     records.forEach(async record => {
     const currentPartner = await Partner.findOne({ number: record.number });
       
@@ -18,10 +18,12 @@ module.exports = async (records, date) => {
 
           let uploadedPerformance;
           if(uploadedRecord.workCategory == 'chillReceiving') {
-          uploadedPerformance = Math.round(uploadedRecord.unitsPerHour / 500 * 100);
-        } else {
-          uploadedPerformance = uploadedRecord.performance;
-        }
+            uploadedPerformance = Math.round(uploadedRecord.unitsPerHour / 500 * 100);
+          } else {
+            uploadedPerformance = uploadedRecord.performance;
+          }
+
+
 
         try {
           const performance = new Performance({
@@ -73,4 +75,10 @@ module.exports = async (records, date) => {
         }
       }
     })
+
+    // shift.forEach(record => {
+    //   const shiftRecord =  new Performance(record);
+
+    //   shiftRecord.save();
+    // })
 };
