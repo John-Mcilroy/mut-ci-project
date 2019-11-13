@@ -1,7 +1,18 @@
 const Partner = require('../../models/records-models/Partner');
-const Performance = require('../../models/records-models/Performance');
+const ShiftRecord = require('../../models/records-models/ShiftRecord');
 
 module.exports = async (records, shift, date) => {
+
+  const isDuplicate = await ShiftRecord.findOne({ date });
+
+  if(isDuplicate) {
+    try {
+      if(isDuplicate) throw new Error({ msg: 'duplicate'});
+    } catch(err) {
+      return 'duplicate';
+    }
+  } else {
+    
     records.forEach(async record => {
     const currentPartner = await Partner.findOne({ number: record.number });
       
@@ -26,7 +37,7 @@ module.exports = async (records, shift, date) => {
 
 
         try {
-          const performance = new Performance({
+          const performance = new PartnerRecord({
             partner: partner,
             workCategory: uploadedRecord.workCategory,
             performance: uploadedPerformance,
@@ -55,7 +66,7 @@ module.exports = async (records, shift, date) => {
             }
 
             try {
-            const performance = new Performance({
+            const performance = new PartnerRecord({
               partner: currentPartner,
               workCategory: uploadedRecord.workCategory,
               performance: uploadedPerformance,
@@ -76,9 +87,10 @@ module.exports = async (records, shift, date) => {
       }
     })
 
-    // shift.forEach(record => {
-    //   const shiftRecord =  new Performance(record);
+    shift.forEach(record => {
+      const shiftRecord =  new ShiftRecord(record);
 
-    //   shiftRecord.save();
-    // })
+      shiftRecord.save();
+    });
+  }
 };

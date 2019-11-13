@@ -23,9 +23,10 @@ const Performance = ({ handleUploadModal, uploadModal, logout }) => {
       <div className='performance-view'>
         <h1 className='performance-view__title'>Performance Overview</h1>
         <p className='performance-view__upload-button' onClick={handleUploadModal}>Upload Records</p>
-        {uploadModal && <Portal>
-          <PerformanceUploadModal />
-        </Portal>}
+        {uploadModal && 
+          <Portal>
+            <PerformanceUploadModal />
+          </Portal>}
         <PerformanceDisplay />
       </div>
     </div>

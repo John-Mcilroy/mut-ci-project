@@ -6,7 +6,8 @@ import {
 const initialState = {
   viewType: 'day',
   loading: true,
-  records: []
+  records: [],
+  shiftRecords: []
 };
 
 export default (state = initialState, action) => {
@@ -17,13 +18,15 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        records: payload
+        records: payload.records,
+        shiftRecords: payload.shiftRecords
       };
     case SEARCH_PERFORMANCE:
       return {
         ...state,
         loading: false,
-        records: payload
+        records: payload.records,
+        shiftRecords: payload.shiftRecords
       }
     default: 
       return state;

@@ -28,7 +28,7 @@ const PerformanceRing = ({data = 'error'}) => {
     <svg height={radius * 1.3} width={radius * 1.3}>
       <circle
         className="circle"
-        style={{ stroke: "grey", opacity: ".4" }}
+        style={performance !== 'error' ? { stroke: "grey", opacity: ".4" } : { stroke: "var(--blue-dark)", opacity: ".4"}}
         fill="transparent"
         strokeWidth={stroke}
         strokeDasharray={circumference + " " + circumference}
@@ -61,7 +61,7 @@ const PerformanceRing = ({data = 'error'}) => {
         dy=".25em" 
         fontSize='1em'
       >
-        {performance !== "error" ? performance + '%': "No"}
+        {performance !== "error" ? performance + '%': ""}
       </text>
       
       <text 
@@ -72,7 +72,7 @@ const PerformanceRing = ({data = 'error'}) => {
         dy=".2em" 
         fontSize={performance !== "error" ? ".7em" : "1em"}
       >
-        {unitsPerHour !== 0 ? `${unitsPerHour} cph` : performance !== 'error' ? 'No Data' : "Data"}
+        {unitsPerHour !== 0 ? `${unitsPerHour} cph` : performance !== 'error' ? 'No Data' : ""}
       </text>
       )
     </svg>

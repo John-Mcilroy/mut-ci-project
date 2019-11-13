@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Performance = require('../../models/records-models/Performance');
+const PartnerRecord = require('../../models/records-models/PartnerRecord');
+const ShiftRecord = require('../../models/records-models/ShiftRecord');
 
 // @route   GET api/todos
 // @desc    Test Route
@@ -8,13 +9,15 @@ const Performance = require('../../models/records-models/Performance');
 router.get('/search', async (req, res) => {
   
   try {
-    let result = [];
-    let records = await Performance.find({ date: req.query.date }).populate('partner');
+    let combinedPartnerRecords = [];
+    const partnerRecords = await PartnerRecord.find({ date: req.query.date }).populate('partner');
+    const shiftRecords = await ShiftRecord.find({ date: req.query.date });
+
     
-    records.forEach(record => {
+    partnerRecords.forEach(record => {
       const { name, number } = record.partner;
       const { workCategory, performance, direct, unitsPerHour, unitsTotal, date } = record;
-      const found = result.find(partner => {
+      const found = combinedPartnerRecords.find(partner => {
         return partner.number == record.partner.number;
       })
       try {
@@ -34,7 +37,7 @@ router.get('/search', async (req, res) => {
             ]
           }
 
-          result.push(newRecord);
+          combinedPartnerRecords.push(newRecord);
         } else {
           found.records.push({
             workCategory,
@@ -51,6 +54,11 @@ router.get('/search', async (req, res) => {
       }
     })
    
+    const result = {
+      records: combinedPartnerRecords,
+      shiftRecords: shiftRecords
+    }
+
     res.json(result);
   } catch(err) {
     console.error(err);

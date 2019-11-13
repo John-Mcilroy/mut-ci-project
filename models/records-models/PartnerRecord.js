@@ -4,7 +4,7 @@ const Partner = require('./Partner');
 
 
 // Create Schema
-const PerformanceSchema = new Schema({
+const PartnerRecordSchema = new Schema({
   partner: {
     type: Schema.Types.ObjectId,
     ref: Partner,
@@ -30,4 +30,4 @@ const PerformanceSchema = new Schema({
   }
 });
 
-module.exports = Performance = mongoose.model('performance', PerformanceSchema);
+module.exports = PartnerRecord = mongoose.model('partnerRecord', PartnerRecordSchema);

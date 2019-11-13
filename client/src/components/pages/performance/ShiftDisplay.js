@@ -1,19 +1,30 @@
 import React from 'react';
 import './styles/ShiftDisplay.css';
 import PerformanceRing from './PerformanceRing';
+import { connect } from 'react-redux';
 
-function ShiftDisplay() {
+function ShiftDisplay({ setPerformance }) {
+
+  const chill = setPerformance.shiftRecords.find(record => record.workCategory === 'chilledPicking') || '';
+  const frv = setPerformance.shiftRecords.find(record => record.workCategory === 'FRVPicking') || '';
+  const ambient = setPerformance.shiftRecords.find(record => record.workCategory === 'ambientPicking') || '';
+
   return (
     <div className='shift-display'>
       <h2 className='shift-display__title'>Brief Shift Summary</h2>
       <hr style={{ margin: '.3em' }} />
+      {setPerformance.shiftRecords.length > 0 ? 
       <ul className='shift-display__record'>
-        <li className='shift-display__record-item'><p>Chill Pick</p><PerformanceRing /></li>
-        <li className='shift-display__record-item'><p>FRV Pick</p><PerformanceRing /></li>
-        <li className='shift-display__record-item'><p>Ambient Pick</p><PerformanceRing /></li>
-      </ul>
+        <li className='shift-display__record-item'><p>Chill Pick</p><PerformanceRing data={chill} /></li>
+        <li className='shift-display__record-item'><p>FRV Pick</p><PerformanceRing data={frv} /></li>
+        <li className='shift-display__record-item'><p>Ambient Pick</p><PerformanceRing data={ambient} /></li>
+      </ul> : <></>}
     </div>
   )
 }
 
-export default ShiftDisplay;
+const mapStateToProps = state => ({
+  setPerformance: state.setPerformance
+});
+
+export default connect(mapStateToProps)(ShiftDisplay);

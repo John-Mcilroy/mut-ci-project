@@ -17,7 +17,6 @@ export const uploadPerformance = ({ file }) => async dispatch => {
       }
     })
 
-    console.log(res.data);
     if(res.data === 'duplicate') {
       dispatch(setAlert('No duplicate records allowed', 'fail'));
       return;
@@ -36,13 +35,8 @@ export const uploadPerformance = ({ file }) => async dispatch => {
   }
 }
 
-export const searchPerformance = ({
-  name = null,
-  number = null,
-  date = null,
-  workCategory = null
-}) => async dispatch => {
-  if(!name && !number && !date && !workCategory) {
+export const searchPerformance = ({date = null}) => async dispatch => {
+  if(!date) {
     dispatch(setAlert('Please enter a date', 'fail'));
     return;
   }
@@ -57,7 +51,7 @@ export const searchPerformance = ({
       return;
     }
 
-    if(res.data.length === 0) {
+    if(!res.data.records[0]) {
       dispatch(setAlert('No records found', 'fail'));
       return;
     }
