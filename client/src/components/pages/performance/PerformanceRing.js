@@ -43,7 +43,7 @@ const PerformanceRing = ({data = 'error'}) => {
             ? null
             : currentPerformance >= 90
               ? "green"
-              : currentPerformance >= 80 ? "orange" : "red"
+              : "red"
         }
         fill="transparent"
         strokeWidth={stroke}
