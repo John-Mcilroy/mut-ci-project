@@ -8,8 +8,8 @@ const getWorkCategory = (data) => {
     case 'Work Category:  AMBIENT PICKING':
       return workCategory = 'ambientPick';
       
-    case 'Work Category:  AMBIENT PUTAWAY':
-      return workCategory = 'ambientPutaway';
+    case 'Work Category:  AMBIENT REPLENISHMENT':
+      return workCategory = 'ambientReplenishment';
       
     case 'Work Category:  CHILLED PICKING':
       return workCategory = 'chillPick';

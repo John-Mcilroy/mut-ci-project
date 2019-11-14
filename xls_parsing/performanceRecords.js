@@ -62,7 +62,7 @@ module.exports = (path) => {
             
             case 'AMBIENT':
               shiftRecord = {
-                workCategory: 'ambientPutaway',
+                workCategory: 'ambientReplenishment',
                 performance: record.__EMPTY_2,
                 unitsPerHour: /[0-9]/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null,
                 date

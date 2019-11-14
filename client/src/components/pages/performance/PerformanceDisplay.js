@@ -51,7 +51,7 @@ const PerformanceDisplay = ({ setPerformance }) => {
             <li className='performance-display__inner-tag'>Chill<br/>Pick</li>
             <li className='performance-display__inner-tag'>FRV<br/>Pick</li>
             <li className='performance-display__inner-tag'>Ambient<br/>Pick</li>
-            <li className='performance-display__inner-tag'>Ambient<br/>Putaway</li>
+            <li className='performance-display__inner-tag'>Ambient<br/>Replen.</li>
             <li className='performance-display__inner-tag'>Chill<br/>Receiving</li>
             <li className='performance-display__inner-tag'><br/>Loading</li>
             <li className='performance-display__inner-tag'><br/>Overall</li>
@@ -78,8 +78,8 @@ const PerformanceDisplay = ({ setPerformance }) => {
                         unitsPerHour: checkUnitsPerHour(records, 'ambientPick'),
                       },
                       {
-                        performance: checkWorkCategory(records, 'ambientPutaway'),
-                        unitsPerHour: checkUnitsPerHour(records, 'ambientPutaway'),
+                        performance: checkWorkCategory(records, 'ambientReplenishment'),
+                        unitsPerHour: checkUnitsPerHour(records, 'ambientReplenishment'),
                       },
                       {
                         performance: checkWorkCategory(records, 'chillReceiving'),

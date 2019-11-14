@@ -2,7 +2,7 @@ module.exports = [
   'User',
   'AMBIENT PICKING',
   'AMBIENT',
-  'PUTAWAY',
+  'REPLENISHMENT',
   'CHILLED PICKING',
   'CHLLLED',
   'RECEIVING',
