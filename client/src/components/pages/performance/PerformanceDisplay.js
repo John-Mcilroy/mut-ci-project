@@ -9,7 +9,7 @@ const PerformanceDisplay = ({ setPerformance }) => {
 
   const checkWorkCategory = (partnerRecord, workCategory) => {
     let performance;
-    
+
     partnerRecord.forEach((record, index) => {
       const recordValues = Object.values(record).includes(workCategory);
       
@@ -18,10 +18,10 @@ const PerformanceDisplay = ({ setPerformance }) => {
       } else {
         return;
       }
-    })
+    });
 
     return performance;
-  }
+  };
 
   const checkUnitsPerHour = (partnerRecord, workCategory) => {
     let unitsPerHour;
@@ -42,7 +42,6 @@ const PerformanceDisplay = ({ setPerformance }) => {
   return (
     <>
       <div className='performance-display'>
-  <h3 style={{padding: '1em 0 0 5%'}}>Viewing Records for: {setPerformance.records.length > 0 ? setPerformance.records[0].records[0].date : null}</h3>
           
     <ShiftDisplay />
           
@@ -91,7 +90,7 @@ const PerformanceDisplay = ({ setPerformance }) => {
                       },
                       undefined,
                     ]}
-                    key={index}
+                    key={number}
                   />
                 )
             

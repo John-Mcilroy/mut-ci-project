@@ -65,7 +65,7 @@ const Profile = ({ logout, getCurrentProfile, auth, profile }) => {
     </div>
   );
 }
-console.log(localStorage);
+
 Profile.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,

@@ -60,9 +60,57 @@ module.exports = (path) => {
             shiftRecords.push(shiftRecord);
             break;
             
-            case 'AMBIENT':
+          case 'AMBIENT':
+            shiftRecord = {
+              workCategory: 'ambientReplenishment',
+              performance: record.__EMPTY_2,
+              unitsPerHour: /[0-9]/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null,
+              date
+            }
+            shiftRecords.push(shiftRecord);
+            break;
+            
+          case 'CHILLED PICKING':
+            if(__EMPTY_4 <= 0.5 || __EMPTY_4 === null) {
+              // Return no value if less than half an hour direct time
+              return;
+            }
+            shiftRecord = {
+              workCategory: 'chilledPicking',
+              performance: record.__EMPTY_2,
+              unitsPerHour: /[0-9]/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null,
+              date
+            }
+            shiftRecords.push(shiftRecord);
+            break;
+              
+          case 'CHLLLED':
               shiftRecord = {
-                workCategory: 'ambientReplenishment',
+                workCategory: 'chilledReceiving',
+                performance: record.__EMPTY_2,
+                unitsPerHour: /[0-9]/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null,
+                date
+              }
+              shiftRecords.push(shiftRecord);
+              break;
+                  
+          case 'FRVH PICKING':
+            if(__EMPTY_4 <= 0.5 || __EMPTY_4 === null) {
+              // Return no value if less than half an hour direct time
+              return;
+            }
+            shiftRecord = {
+              workCategory: 'FRVPicking',
+              performance: record.__EMPTY_2,
+              unitsPerHour: /[0-9]/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null,
+              date
+            }
+            shiftRecords.push(shiftRecord);
+            break;
+            
+            case 'LEYLAND ALL':
+              shiftRecord = {
+                workCategory: 'loading',
                 performance: record.__EMPTY_2,
                 unitsPerHour: /[0-9]/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null,
                 date
@@ -70,109 +118,70 @@ module.exports = (path) => {
               shiftRecords.push(shiftRecord);
               break;
               
-              case 'CHILLED PICKING':
-                shiftRecord = {
-                  workCategory: 'chilledPicking',
-                  performance: record.__EMPTY_2,
-                  unitsPerHour: /[0-9]/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null,
-                  date
-                }
-                shiftRecords.push(shiftRecord);
+              default:
                 break;
-                
-                case 'CHLLLED':
-                  shiftRecord = {
-                    workCategory: 'chilledReceiving',
-                    performance: record.__EMPTY_2,
-                    unitsPerHour: /[0-9]/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null,
-                    date
-                  }
-                  shiftRecords.push(shiftRecord);
-                  break;
-                  
-                  case 'FRVH PICKING':
-                    shiftRecord = {
-                      workCategory: 'FRVPicking',
-                      performance: record.__EMPTY_2,
-                      unitsPerHour: /[0-9]/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null,
-                      date
-                    }
-                    shiftRecords.push(shiftRecord);
-                    break;
+            }
+
+            return;
+          }
                     
-                    case 'LEYLAND ALL':
-                      shiftRecord = {
-                        workCategory: 'loading',
-                        performance: record.__EMPTY_2,
-                        unitsPerHour: /[0-9]/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null,
-                        date
-                      }
-                      shiftRecords.push(shiftRecord);
-                      break;
-                      
-                      default:
-                        break;
-                      }
-                      return;
-                    }
-                    
-                    const recordWorkCategory = record.__EMPTY || null;
-                    const recordPartner = record.__EMPTY_1 || null;
-                    const recordPerformance = record.__EMPTY_2 || null;
-                    const recordDirect = record.__EMPTY_4 || null;
-                    if(recordDirect == null && recordDirect == 'Measured' && recordDirect == 'Direct') return;
-                    const recordUnits = record.__EMPTY_14 || null;
-                    const recordUnitsPerHour = /[0-9]/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null;
-                    
-                    //cycle each record
-                    if(recordWorkCategory) {
-                      workCategory = getWorkCategory(recordWorkCategory) || workCategory;
-                      return;
-                    }
-                    
-                    if(recordPartner) {
-                      // Ignore unused cells
-                      if(ignoredWords.includes(recordPartner)) return;
-                      
-                      nameContainsNumber = validatePartner(recordPartner);
-                      
-                      // Set Name ++ Number
-                      if(nameContainsNumber) {
-                        
-                        if(partnerName !== null) {
-                          partnerNumber = recordPartner;
-                          
-                          dataPersist = false;
-                          
-                          currentPartner.name = partnerName;
-                          currentPartner.number = partnerNumber;
-                          
-                        } else {
-                          // [ 'Last name, First name', number ]
-                          const splitNameAndNumber = recordPartner.split('-');
-                          
-                          // [ 'Last name', 'First name' ]
-                          const getName = splitNameAndNumber[0].split(',');
-                          
-                          // '(First name) (Last name)'
-                          partnerName = getName[1].trim() + ' ' + getName[0].trim();
-                          
-                          // Number
-                          partnerNumber = splitNameAndNumber[1].toString().trim();
-                          
-                          currentPartner.name = partnerName;
-                          currentPartner.number = partnerNumber;
-                        }
-                        
-                      } else {
-                        // [ 'Last name', 'First name' ]
-                        const getName = recordPartner.split(',');
-                        
-                        // '(First name) (Last name)'
-                        partnerName = getName[1].trim() + ' ' + getName[0].trim();
-                        
-                        dataPersist = true;
-                        return;
+      const recordWorkCategory = record.__EMPTY || null;
+      const recordPartner = record.__EMPTY_1 || null;
+      const recordPerformance = record.__EMPTY_2 || null;
+      const recordDirect = record.__EMPTY_4 || null;
+        if(recordDirect == null && recordDirect == 'Measured' && recordDirect == 'Direct') return;
+      const recordUnits = record.__EMPTY_14 || null;
+      const recordUnitsPerHour = /[0-9]/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null;
+      
+      //cycle each record
+      if(recordWorkCategory) {
+        workCategory = getWorkCategory(recordWorkCategory) || workCategory;
+        return;
+      }
+      
+      if(recordPartner) {
+        // Ignore unused cells
+        if(ignoredWords.includes(recordPartner)) return;
+        
+        nameContainsNumber = validatePartner(recordPartner);
+        
+        // Set Name ++ Number
+        if(nameContainsNumber) {
+          
+          if(partnerName !== null) {
+            partnerNumber = recordPartner;
+            
+            dataPersist = false;
+            
+            currentPartner.name = partnerName;
+            currentPartner.number = partnerNumber;
+            
+          } else {
+            // [ 'Last name, First name', number ]
+            const splitNameAndNumber = recordPartner.split('-');
+            
+            // [ 'Last name', 'First name' ]
+            const getName = splitNameAndNumber[0].split(',');
+            
+            // '(First name) (Last name)'
+            partnerName = getName[1].trim() + ' ' + getName[0].trim();
+            
+            // Number
+            partnerNumber = splitNameAndNumber[1].toString().trim();
+            
+            currentPartner.name = partnerName;
+            currentPartner.number = partnerNumber;
+          }
+          
+        } else {
+          // [ 'Last name', 'First name' ]
+          const getName = recordPartner.split(',');
+          
+          // '(First name) (Last name)'
+          partnerName = getName[1].trim() + ' ' + getName[0].trim();
+          
+          dataPersist = true;
+          return;
         }
       }
       

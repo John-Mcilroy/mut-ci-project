@@ -6,22 +6,34 @@ import { searchPerformance } from '../../../actions/setPerformance';
 
 
 const PerformanceSearch = ({ setPerformance, searchPerformance }) => {
-  const [ searchInput, setSearchInput ] = useState('');
+  const [ partnerNumberInput, setPartnerNumberInput ] = useState('');
+  const [ dateFromInput, setDateFromInput ] = useState('');
+  const [ dateToInput, setDateToInput ] = useState('');
 
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
 
-    searchPerformance({date: searchInput});
-    setSearchInput('');
+    searchPerformance({ dateFrom: dateFromInput, dateTo: dateToInput, partner: partnerNumberInput });
+    setPartnerNumberInput('');
+    setDateFromInput('');
+    setDateToInput('');
   }
 
-  const handleSearchInput = (e) => {
-    setSearchInput(e.target.value);
+  const handlePartnerNumberInput = (e) => {
+    setPartnerNumberInput(e.target.value);
+  }
+  const handleDateFromInput = (e) => {
+    setDateFromInput(e.target.value);
+  }
+  const handleDateToInput = (e) => {
+    setDateToInput(e.target.value);
   }
 
   return (
-    <form className='performance-search' onSubmit={onSubmit}>
-      <input className='performance-search__input' type='text' placeholder='DD/MM/YYYY' id='search' onChange={handleSearchInput} value={searchInput} />
+    <form className='performance-search' onSubmit={onSubmit} autoComplete='off'>
+      <input className='performance-search__input' type='text' placeholder='Partner Number' id='search' onChange={handlePartnerNumberInput} value={partnerNumberInput} />
+      <input className='performance-search__input' type='text' placeholder='Date From' id='search' onChange={handleDateFromInput} value={dateFromInput} />
+      <input className='performance-search__input' type='text' placeholder='Date To' id='search' onChange={handleDateToInput} value={dateToInput} />
       <button type='submit' className='performance-search__select'>Search</button>
     </form>
   )

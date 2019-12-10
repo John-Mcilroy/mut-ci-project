@@ -62,7 +62,6 @@ const Landing = ({ setAlert, register, login, isAuthenticated }) => {
         login({ name, password });
       }
     } catch(err) {
-      console.error(err.response.data);
       setAlert('Invalid Credentials', 'fail')
     }
   }

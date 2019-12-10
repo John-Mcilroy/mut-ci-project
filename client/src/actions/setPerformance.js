@@ -35,27 +35,42 @@ export const uploadPerformance = ({ file }) => async dispatch => {
   }
 }
 
-export const searchPerformance = ({date = null}) => async dispatch => {
-  if(!date) {
-    dispatch(setAlert('Please enter a date', 'fail'));
-    return;
+export const searchPerformance = ({
+  partner = null,
+  workCategory = null,
+  dateFrom = null,
+  dateTo = null
+}) => async dispatch => {
+  
+  let queryPartner = partner ? `partner=${partner}` : null;
+  let queryWorkCategory = workCategory ? `work-category=${workCategory}` : null;
+  let queryDateFrom = dateFrom ? `date-from=${dateFrom}` : null;
+  let queryDateto = dateTo ? `date-to=${dateTo}` : null;
+  let queries = [];
+
+  const searchString = (queryArray) => {
+    let result = '/api/performance/search?'
+
+    queryArray.forEach((query, index) => {
+      if(index >= 1) {
+        query = `&&${query}`;
+      }
+
+      result = result + query;
+    })
+
+    return result;
   }
 
-  let res;
+  if(queryPartner) queries.push(queryPartner);
+  if(queryWorkCategory) queries.push(queryWorkCategory);
+  if(queryDateFrom) queries.push(queryDateFrom);
+  if(queryDateto) queries.push(queryDateto);
 
-  if(date) {
-    try {
-      res = await axios.get(`api/performance/search?date=${date}`);
-    } catch(err) {
-      dispatch(setAlert('No Records Found', 'fail'));
-      return;
-    }
-
-    if(!res.data.records[0]) {
-      dispatch(setAlert('No records found', 'fail'));
-      return;
-    }
+  if(queries <= 0) {
+    dispatch(setAlert('Please enter search criteria'));
   }
+  const res = await axios.get(searchString(queries))
 
   dispatch({
     type: SEARCH_PERFORMANCE,

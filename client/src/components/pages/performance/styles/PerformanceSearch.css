@@ -1,19 +1,23 @@
 .performance-search {
+  padding: 1em 0;
   width: 70%;
-  display: flex;
   margin: auto;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   position: relative;
-  top: 15vh;
-  height: 2em;
+  top: 25vh;
+  height: 20%;
   border: var(--blue-dark) 0.5px solid;
-  border-radius: 10px;
+  border-radius: 15px;
 }
 
 .performance-search__input {
+  margin: auto;
+  height: 1.5em;
   width: calc(65% - 10px);
   padding-left: 10px;
-  border-radius: 8px 0 0 8px;
+  border-radius: 8px;
   background: var(--blue-light);
   outline: none;
   color: var(--blue-dark);
@@ -29,13 +33,15 @@
 }
 
 .performance-search__select {
+  height: 1.5em;
+  margin: auto;
   cursor: pointer;
   background: var(--blue-dark);
   color: var(--blue-light);
   width: 35%;
   padding-right: 5px;
   border: none;
-  border-radius: 0 8px 8px 0;
+  border-radius: 8px;
   direction: rtl;
   outline: none;
 }

@@ -17,11 +17,10 @@
 .shift-display__record {
   margin-top: .7em;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .shift-display__record-item {
-  margin: 0 48px;
   color: var(--blue-light);
   text-align: center;
 }

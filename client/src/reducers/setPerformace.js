@@ -12,7 +12,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   const { type,  payload } = action;
-
+  
   switch(type) {
     case SHOW_UPLOADED_PERFORMANCE:
       return {
@@ -21,14 +21,16 @@ export default (state = initialState, action) => {
         records: payload.records,
         shiftRecords: payload.shiftRecords
       };
-    case SEARCH_PERFORMANCE:
-      return {
-        ...state,
-        loading: false,
-        records: payload.records,
-        shiftRecords: payload.shiftRecords
-      }
-    default: 
-      return state;
+      case SEARCH_PERFORMANCE:
+        const shiftRecords = payload[0] || [];
+        const partnerRecords = payload[1] || payload;
+        return {
+          ...state,
+          loading: false,
+          records: partnerRecords,
+          shiftRecords: shiftRecords
+        }
+      default: 
+        return state;
   }
 }

@@ -1,6 +1,7 @@
 .performance-display {
   top: 3%;
   border-radius: 20px;
+  padding-top: 1em;
   width: 60%;
   height: 83%;
   margin: 4%;
@@ -65,7 +66,7 @@
 }
 
 .performance-display__inner-tags {
-  margin-top: 1.5em;
+  margin-top: 3em;
   display: grid;
   width: 84%;
   grid-template-columns: 2fr .9fr .9fr .9fr .9fr .9fr .9fr .9fr;
