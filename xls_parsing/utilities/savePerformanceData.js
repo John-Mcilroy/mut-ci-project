@@ -17,7 +17,7 @@ module.exports = async (records, shift, date) => {
     const currentPartner = await Partner.findOne({ number: record.number });
       
     if(!currentPartner) {
-        
+      
       try{
         const partner = new Partner({
           name: record.name,
@@ -26,9 +26,15 @@ module.exports = async (records, shift, date) => {
         partner.save();
         
         await record.records.forEach(async uploadedRecord => {
-
+          if(
+            (uploadedRecord.workCategory == 'chillPick' && uploadedRecord.direct < 0.5 ) ||
+            (uploadedRecord.workCategory == 'frvPick' && uploadedRecord.direct < 0.5 ) ||
+            (uploadedRecord.workCategory == 'ambientPick' && uploadedRecord.direct < 0.5 )) {
+              console.log(uploadedRecord);
+              return;
+            }
           let uploadedPerformance;
-          if(uploadedRecord.workCategory == 'chillReceiving') {
+          if(uploadedRecord.workCategory === 'chillReceiving') {
             uploadedPerformance = Math.round(uploadedRecord.unitsPerHour / 500 * 100);
           } else {
             uploadedPerformance = uploadedRecord.performance;
@@ -58,6 +64,21 @@ module.exports = async (records, shift, date) => {
         //
         try{
           await record.records.forEach(async uploadedRecord => {
+
+            if(
+              (uploadedRecord.workCategory == 'chillPick' && uploadedRecord.direct < 0.5 ) ||
+              (uploadedRecord.workCategory == 'frvPick' && uploadedRecord.direct < 0.5 ) ||
+              (uploadedRecord.workCategory == 'ambientPick' && uploadedRecord.direct < 0.5 ))
+            {
+              return;
+            } else if(
+              (uploadedRecord.workCategory == 'chillPick' && uploadedRecord.direct === undefined || null ) ||
+              (uploadedRecord.workCategory == 'frvPick' && uploadedRecord.direct === undefined || null ) ||
+              (uploadedRecord.workCategory == 'ambientPick' && uploadedRecord.direct === undefined || null )) 
+            {
+              return;
+            }
+
             let uploadedPerformance;
             if(uploadedRecord.workCategory == 'chillReceiving') {
               uploadedPerformance = Math.round(uploadedRecord.unitsPerHour / 500 * 100);
@@ -88,7 +109,7 @@ module.exports = async (records, shift, date) => {
     })
 
     shift.forEach(record => {
-      const shiftRecord =  new ShiftRecord(record);
+      const shiftRecord = new ShiftRecord(record);
 
       shiftRecord.save();
     });

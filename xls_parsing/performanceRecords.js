@@ -53,7 +53,7 @@ module.exports = (path) => {
           switch(record.__EMPTY_1) {
             case 'AMBIENT PICKING':
               shiftRecord = {
-                workCategory: 'ambientPicking',
+                workCategory: 'ambientPick',
                 performance: record.__EMPTY_2,
                 unitsPerHour: /[0-9]/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null,
                 date
@@ -73,7 +73,7 @@ module.exports = (path) => {
               
             case 'CHILLED PICKING':
               shiftRecord = {
-                workCategory: 'chilledPicking',
+                workCategory: 'chillPick',
                 performance: record.__EMPTY_2,
                 unitsPerHour: /[0-9]/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null,
                 date
@@ -83,23 +83,23 @@ module.exports = (path) => {
                 
             case 'CHLLLED':
                 shiftRecord = {
-                  workCategory: 'chilledReceiving',
-                  performance: record.__EMPTY_2,
+                  workCategory: 'chillReceiving',
+                  performance: Math.round((record.__EMPTY_16 / 500) * 100) || Math.round((record.__EMPTY_17 / 500) * 100) || null,
                   unitsPerHour: /[0-9]/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null,
                   date
                 }
                 shiftRecords.push(shiftRecord);
                 break;
                     
-            case 'FRVH PICKING':
-              shiftRecord = {
-                workCategory: 'FRVPicking',
-                performance: record.__EMPTY_2,
-                unitsPerHour: /[0-9]/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null,
-                date
-              }
-              shiftRecords.push(shiftRecord);
-              break;
+              case 'FRVH PICKING':
+                shiftRecord = {
+                  workCategory: 'frvPick',
+                  performance: record.__EMPTY_2,
+                  unitsPerHour: /[0-9]/.test(record.__EMPTY_16) ? record.__EMPTY_16 : record.__EMPTY_17 || null,
+                  date
+                }
+                shiftRecords.push(shiftRecord);
+                break;
               
               case 'LEYLAND ALL':
                 shiftRecord = {
@@ -111,15 +111,15 @@ module.exports = (path) => {
                 shiftRecords.push(shiftRecord);
                 break;
                 
-                default:
-                  break;
-              }
+              default:
+                break;
+            }
 
               return;
             } catch(err) {
-              console.log(record);
+              console.log(err.message);
             }
-            }
+          }
                       
         const recordWorkCategory = record.__EMPTY || null;
         const recordPartner = record.__EMPTY_1 || null;

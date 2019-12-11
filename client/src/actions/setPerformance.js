@@ -4,7 +4,6 @@ import {
 } from './types';
 import { handleUploadModal } from './uploadModal';
 import { setAlert } from './alert';
-import { set } from 'mongoose';
 
 export const uploadPerformance = ({ file }) => async dispatch => {
   const formData = new FormData();
@@ -16,11 +15,6 @@ export const uploadPerformance = ({ file }) => async dispatch => {
         'Content-Type': 'multipart/form-data'
       }
     })
-
-    if(res.data === 'duplicate') {
-      dispatch(setAlert('No duplicate records allowed', 'fail'));
-      return;
-    }
     
     dispatch(setAlert( 'Upload Successful', 'success' ));
     dispatch({
@@ -45,8 +39,23 @@ export const searchPerformance = ({
   let queryPartner = partner ? `partner=${partner}` : null;
   let queryWorkCategory = workCategory ? `work-category=${workCategory}` : null;
   let queryDateFrom = dateFrom ? `date-from=${dateFrom}` : null;
-  let queryDateto = dateTo ? `date-to=${dateTo}` : null;
+  let queryDateTo = dateTo ? `date-to=${dateTo}` : null;
   let queries = [];
+
+  if(queryPartner) queries.push(queryPartner);
+  if(queryWorkCategory) queries.push(queryWorkCategory);
+  if(queryDateFrom) queries.push(queryDateFrom);
+  if(queryDateTo) queries.push(queryDateTo);
+
+  if(queries.length <= 0) {
+    dispatch(setAlert( 'Please enter search criteria', 'fail' ));
+    return;
+  }
+
+  if(queryPartner && (dateFrom === dateTo)) {
+    dispatch(setAlert( 'Unable to display one user for a set day', 'fail' ));
+    return;
+  }
 
   const searchString = (queryArray) => {
     let result = '/api/performance/search?'
@@ -62,20 +71,16 @@ export const searchPerformance = ({
     return result;
   }
 
-  if(queryPartner) queries.push(queryPartner);
-  if(queryWorkCategory) queries.push(queryWorkCategory);
-  if(queryDateFrom) queries.push(queryDateFrom);
-  if(queryDateto) queries.push(queryDateto);
-
-  if(queries <= 0) {
-    dispatch(setAlert('Please enter search criteria'));
-  }
   const res = await axios.get(searchString(queries))
 
-  dispatch({
-    type: SEARCH_PERFORMANCE,
-    payload: res.data
-  });
-
-  dispatch(setAlert( 'Search Success', 'success' ))
+  if(res.data[0].length <= 0 && res.data[1].length <= 0) {
+    dispatch(setAlert( 'No Records Found', 'fail' ));
+  } else {
+    dispatch({
+      type: SEARCH_PERFORMANCE,
+      payload: res.data
+    });
+    
+    dispatch(setAlert( 'Search Success', 'success' ))
+  }
 }

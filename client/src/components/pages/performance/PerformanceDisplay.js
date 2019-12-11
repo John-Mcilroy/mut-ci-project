@@ -51,7 +51,7 @@ const PerformanceDisplay = ({ setPerformance }) => {
             <li className='performance-display__inner-tag'>FRV<br/>Pick</li>
             <li className='performance-display__inner-tag'>Ambient<br/>Pick</li>
             <li className='performance-display__inner-tag'>Ambient<br/>Replen.</li>
-            <li className='performance-display__inner-tag'>Chill<br/>Receiving</li>
+            <li className='performance-display__inner-tag'>Chill<br/>Scan</li>
             <li className='performance-display__inner-tag'><br/>Loading</li>
             <li className='performance-display__inner-tag'><br/>Overall</li>
           </ul>
