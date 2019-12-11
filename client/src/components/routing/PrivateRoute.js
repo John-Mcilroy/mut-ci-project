@@ -12,7 +12,7 @@ const PrivateRoute = ({ component: Component, auth: { isAuthenticated, loading }
       ) : (
         <Component {...props} />
       )
-    } 
+    }
   />
 );
 

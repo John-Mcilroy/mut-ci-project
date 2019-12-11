@@ -10,7 +10,7 @@ const performanceRecords = require('../../xls_parsing/performanceRecords');
 // @access  Public
 router.get('/', auth, (req, res) => res.send('Upload Route'));
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
 
   if( req.files === null) {
     return res

@@ -1,17 +1,19 @@
 const express = require('express');
+
 const router = express.Router();
 const PartnerRecord = require('../../models/records-models/PartnerRecord');
 const ShiftRecord = require('../../models/records-models/ShiftRecord');
 const Partner = require('../../models/records-models/Partner'); 
 const moment = require('moment');
 const getDateRange = require('./helpers/getDateRange');
+const auth = require('../../middleware/auth');
 
 
 // @route   GET api/performance/search?date-from=:dateFrom&&date-to=:dateTo&&partner=:partner&&work-category=:workCategory
 // @desc    Get overall records from and to a specified date
 // @access  Private
 
-router.get('/search', async (req, res) => {
+router.get('/search', auth,  async (req, res) => {
   
   try {
     // Set Start and End dates, check if is a valid date input and return 'null' if not valid

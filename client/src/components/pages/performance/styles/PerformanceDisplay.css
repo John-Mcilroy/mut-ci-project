@@ -70,6 +70,7 @@
   display: grid;
   width: 84%;
   grid-template-columns: 2fr .9fr .9fr .9fr .9fr .9fr .9fr .9fr;
+  list-style: none;
   text-align: center;
   padding-left: 8.5%;
   margin-bottom: -1em;

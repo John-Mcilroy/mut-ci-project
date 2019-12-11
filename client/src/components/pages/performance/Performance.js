@@ -8,10 +8,15 @@ import Portal from '../../layout/Portal';
 import PropTypes from 'prop-types';
 import { handleUploadModal } from '../../../actions/uploadModal';
 import { logout } from '../../../actions/auth';
+import { Redirect } from 'react-router-dom';
 
 import './styles/Performance.css';
 
-const Performance = ({ handleUploadModal, uploadModal, logout }) => {
+const Performance = ({ handleUploadModal, uploadModal, logout, isAuthenticated }) => {
+
+  if(!isAuthenticated) {
+    return <Redirect exact to='/' />
+  }
 
   return (
     <div className='performance'>
@@ -36,11 +41,13 @@ const Performance = ({ handleUploadModal, uploadModal, logout }) => {
 Performance.propTypes = {
   handleUploadModal: PropTypes.func.isRequired,
   uploadModal: PropTypes.bool.isRequired,
-  logout: PropTypes.func.isRequired
+  logout: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = state =>  ({
-  uploadModal: state.uploadModal
+  uploadModal: state.uploadModal,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { handleUploadModal, logout })(Performance);
