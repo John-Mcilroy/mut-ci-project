@@ -7,10 +7,10 @@ function ShiftDisplay({ setPerformance }) {
   if(!setPerformance.shiftRecords) {
     return;
   }
-  const chill = setPerformance.shiftRecords.find(record => record.workCategory === 'chilledPicking' || record.workCategory === 'chillPick') || '';
-  const frv = setPerformance.shiftRecords.find(record => record.workCategory === 'FRVPicking' || record.workCategory === 'frvPick') || '';
-  const ambient = setPerformance.shiftRecords.find(record => record.workCategory === 'ambientPicking' || record.workCategory === 'ambientPick') || '';
-  const chillReceiving = setPerformance.shiftRecords.find(record => record.workCategory === 'chilledReceiving' || record.workCategory === 'chillReceiving') || '';
+  const chill = setPerformance.shiftRecords.find(record => record.workCategory === 'chillPick') || '';
+  const frv = setPerformance.shiftRecords.find(record => record.workCategory === 'frvPick') || '';
+  const ambient = setPerformance.shiftRecords.find(record => record.workCategory === 'ambientPick') || '';
+  const chillReceiving = setPerformance.shiftRecords.find(record => record.workCategory === 'chillReceiving') || '';
   const ambientReplenishment = setPerformance.shiftRecords.find(record => record.workCategory === 'ambientReplenishment') || '';
   const loading = setPerformance.shiftRecords.find(record => record.workCategory === 'loading') || '';
 

@@ -432,16 +432,16 @@ router.get('/search', async (req, res) => {
 
       totalShiftRecords.forEach(record => {
         switch(record.workCategory) {
-          case 'chilledPicking': 
+          case 'chillPick': 
             shiftResults.chillPick.push(record);
             break;
-          case 'FRVPicking':
+          case 'frvPick':
             shiftResults.frvPick.push(record);
             break;
-          case 'ambientPicking':
+          case 'ambientPick':
             shiftResults.ambientPick.push(record);
             break;
-          case 'chilledReceiving':
+          case 'chillReceiving':
             shiftResults.chillReceiving.push(record);
             break;
           case 'ambientReplenishment':
@@ -490,60 +490,6 @@ router.get('/search', async (req, res) => {
       .status(500)
       .send(err.message);
   }
-
-  // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
-
-    // let combinedPartnerRecords = [];
-    // const partnerRecords = await PartnerRecord.find({ date }).populate('partner');
-    // const shiftRecords = await ShiftRecord.find({ date });
-    
-    // partnerRecords.forEach(record => {
-    //   const { name, number } = record.partner;
-    //   const { workCategory, performance, direct, unitsPerHour, unitsTotal, date } = record;
-    //   const found = combinedPartnerRecords.find(partner => {
-    //     return partner.number == record.partner.number;
-    //   })
-    //   try {
-    //     if(!found) {
-    //       const newRecord = {
-    //         name,
-    //         number,
-    //         records: [
-    //           {
-    //             workCategory,
-    //             performance,
-    //             direct,
-    //             unitsPerHour,
-    //             unitsTotal,
-    //             date
-    //           }
-    //         ]
-    //       }
-
-    //       combinedPartnerRecords.push(newRecord);
-    //     } else {
-    //       found.records.push({
-    //         workCategory,
-    //         performance,
-    //         direct,
-    //         unitsPerHour,
-    //         unitsTotal,
-    //         date
-    //       })
-    //     }
-
-    //   } catch(err) {
-    //     console.error(record);
-    //   }
-    // })
-   
-    // const result = {
-    //   records: combinedPartnerRecords,
-    //   shiftRecords: shiftRecords
-    // }
-
-    // res.json(result);
-
 });
 
 module.exports = router;
