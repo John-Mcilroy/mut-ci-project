@@ -21,6 +21,7 @@
 }
 
 .shift-display__record-item {
+  list-style: none;
   color: var(--blue-light);
   text-align: center;
 }
