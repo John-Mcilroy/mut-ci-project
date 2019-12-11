@@ -20,7 +20,7 @@
   height: 4em;
   z-index: 99;
   border-radius: 0 25px 25px 0;
-  animation: alert-in-out 2000ms ease-in-out;
+  animation: alert-in-out 4000ms ease-in-out;
   opacity: .6;
 }
 
