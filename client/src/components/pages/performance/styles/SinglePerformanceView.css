@@ -1,0 +1,108 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.spv-box {
+
+  margin: 6em 0 0 6em;
+
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  background: var(--blue-dark);
+  color: white;
+  opacity: 0.6;
+  width: 638px;
+  border-radius: 10px;
+  justify-content: center;
+  grid-gap: 10px;
+  align-items: center;
+}
+
+.spv-partner {
+  margin: 1.3em 1.3em 0 1.3em;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  width: 80%;
+  height: 3em;
+  border-radius: 10px;
+  background: #DEDEDE;
+  text-align: center;
+  justify-content: center;
+}
+
+.spv-partner p {
+  color: var(--blue-dark);
+  font-size: 1.1em;
+}
+
+.spv-dates {
+  color: var(--blue-dark);
+  margin: 1.3em 1.3em 0 1.3em;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  width: 80%;
+  height: 3em;
+  border-radius: 10px;
+  background: #DEDEDE;
+  text-align: center;
+  justify-content: center;
+}
+
+.spv-dates p {
+  font-size: .8em;
+}
+
+.spv-performances > div {
+  padding-top: 10px;
+  margin-left: 1.3em;
+}
+
+.spv-performance__labels {
+  display: flex;
+}
+
+.spv-performance__percentage {
+  flex: 1;
+}
+
+.spv-performance {
+  flex: 9;
+}
+
+.spv-performances > div:first-child {
+  padding-top: 0;
+}
+
+.spv-performances p {
+  font-size: .7em;
+}
+
+.spv-chart {
+  margin-left: 2em;
+  height: 14em;
+}
+
+
+.spv-performance__wrapper {
+  width: 12em;
+}
+
+.spv-performance__progress-bar {
+  border: 1px solid #E0E0E0;
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, .2);
+}
+
+.spv-performance__progress-bar-fill {
+  display: block;
+  height: 5px;
+  background-color: green;
+  border-radius: 3px;
+  
+  transition: width 500ms ease-in-out;
+}

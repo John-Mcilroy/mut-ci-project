@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import './styles/PerformanceDisplay.css';
 import ShiftDisplay from './ShiftDisplay';
+import SinglePerformanceView from './SinglePerformanceView';
 
 import PerformanceRecord from './PerformanceRecord';
 
@@ -43,7 +44,7 @@ const PerformanceDisplay = ({ setPerformance }) => {
     <>
       <div className='performance-display'>
           
-    <ShiftDisplay />
+    {setPerformance.records.length === 1 ? '' : <> <ShiftDisplay />
           
           <ul className='performance-display__inner-tags'>
             <li></li>
@@ -55,8 +56,10 @@ const PerformanceDisplay = ({ setPerformance }) => {
             <li className='performance-display__inner-tag'><br/>Loading</li>
             <li className='performance-display__inner-tag'><br/>Overall</li>
           </ul>
+
+  </> }
         <div className='performance-display__inner'>
-          {setPerformance.records.length > 0 ? setPerformance.records.map((record, index) => {
+          {setPerformance.records.length === 1 ? <SinglePerformanceView  partner={setPerformance.records[0]} /> : setPerformance.records.length > 0 ? setPerformance.records.map((record, index) => {
             const { name, number, records } = record;
 
             return (
