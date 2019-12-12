@@ -481,6 +481,9 @@ router.get('/search', auth,  async (req, res) => {
 
       /* ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 
+      // Sort partnerResults alphabetically by first name
+      partnerResults.sort((first, second) => first.name.localeCompare(second.name));
+
       let combinedRecords = [shiftTotals, partnerResults];
 
       res.send(combinedRecords);
