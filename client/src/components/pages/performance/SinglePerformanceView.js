@@ -31,6 +31,13 @@ function SinglePerformanceView(props) {
   //       'red', 'green', 'blue',
   //       'white', 'yellow', 'pink'
   //     ],
+  //     options: {
+  //       labels: {
+  //         legend: {
+  //           display: false
+  //         }
+  //       }
+  //     }
   //   }],
   //   labels: [
   //   ],
@@ -50,8 +57,8 @@ function SinglePerformanceView(props) {
         <p>{number}</p>
       </div>
       <div className="spv-dates">
-        <p>Date from: 1st October 2019</p>
-        <p>Date to: 31st October 2019</p>
+        {/* <p>Date from: 1st October 2019</p>
+        <p>Date to: 31st October 2019</p> */}
       </div>
 
       <div className="spv-performances">
