@@ -157,6 +157,9 @@ router.get('/search', auth,  async (req, res) => {
           console.error(record);
         }
       })
+
+      // Sort partnerResults alphabetically by first name
+      combinedPartnerResults.sort((first, second) => first.name.localeCompare(second.name));
     
       const result = [
         shiftRecords,
