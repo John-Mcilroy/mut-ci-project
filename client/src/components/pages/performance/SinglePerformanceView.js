@@ -17,38 +17,38 @@ function SinglePerformanceView(props) {
   const ambientReplenishment = records.find(record => record.workCategory === 'ambientReplenishment') || 0;
   const loading = records.find(record => record.workCategory === 'loading') || 0;
   
-  // let data = {
-  //   datasets: [{
-  //     data: [ 
-  //       chillPick ? chillPick.direct : 0, 
-  //       frvPick ? frvPick.direct : 0, 
-  //       ambientPick ? ambientPick.direct : 0, 
-  //       chillReceiving ? chillReceiving.direct : 0, 
-  //       ambientReplenishment ? ambientReplenishment.direct : 0, 
-  //       loading ? loading.direct : 0 
-  //     ],
-  //     backgroundColor: [
-  //       'red', 'green', 'blue',
-  //       'white', 'yellow', 'pink'
-  //     ],
-  //     options: {
-  //       labels: {
-  //         legend: {
-  //           display: false
-  //         }
-  //       }
-  //     }
-  //   }],
-  //   labels: [
-  //   ],
-  // };
+  let data = {
+    datasets: [{
+      data: [ 
+        chillPick ? chillPick.direct : null, 
+        frvPick ? frvPick.direct : null, 
+        ambientPick ? ambientPick.direct : null, 
+        chillReceiving ? chillReceiving.direct : null, 
+        ambientReplenishment ? ambientReplenishment.direct : null, 
+        loading ? loading.direct : null 
+      ],
+      backgroundColor: [
+        'pink', 'blue', 'green',
+        'purple', 'red', 'yellow'
+      ],
+      options: {
+        labels: {
+          legend: {
+            display: false
+          }
+        }
+      }
+    }],
+    labels: [
+    ],
+  };
 
-  // if(chillPick !== 0) data.labels.push('Chill Pick');
-  // if(frvPick !== 0) data.labels.push('FRVPick');
-  // if(ambientPick !== 0) data.labels.push('Ambient Pick');
-  // if(chillReceiving !== 0) data.labels.push('Chill Scan');
-  // if(ambientReplenishment !== 0) data.labels.push('Ambient Replen.');
-  // if(loading !== 0) data.labels.push('Loading');
+  if(chillPick !== null) data.labels.push('Chill Pick');
+  if(frvPick !== null) data.labels.push('FRVPick');
+  if(ambientPick !== null) data.labels.push('Ambient Pick');
+  if(chillReceiving !== null) data.labels.push('Chill Scan');
+  if(ambientReplenishment !== null) data.labels.push('Ambient Replen.');
+  if(loading !== null) data.labels.push('Loading');
 
   return (
     <div className="spv-box">
@@ -70,8 +70,8 @@ function SinglePerformanceView(props) {
         <Progress workCategory="Loading" performance={loading.performance} />  
       </div>
 
-      <div className="spv-chart">
-        {/* <Doughnut data={data} /> */}
+      <div className="spv-chart" >
+        <Doughnut data={data} options={{ legend: false }} />
       </div>
     </div>
   )

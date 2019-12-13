@@ -4,19 +4,18 @@
 }
 
 .spv-box {
-
-  margin: 6em 0 0 6em;
-
   display: grid;
   grid-template-columns: 1fr 2fr;
   background: var(--blue-dark);
   color: white;
+  height: 23em;
   opacity: 0.6;
   width: 638px;
   border-radius: 10px;
-  justify-content: center;
-  grid-gap: 10px;
   align-items: center;
+  justify-items: center;
+  padding-left: 2em;
+  overflow: visible;
 }
 
 .spv-partner {
@@ -81,10 +80,9 @@
 }
 
 .spv-chart {
-  margin-left: 2em;
-  height: 14em;
+  margin-top: 1em;
+  height: 13em;
 }
-
 
 .spv-performance__wrapper {
   width: 12em;
