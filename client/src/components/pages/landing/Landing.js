@@ -114,7 +114,7 @@ const Landing = ({ setAlert, register, login, isAuthenticated }) => {
     
     
     <ul className="footer-list">
-      <li className="footer-list__register"><h6>Report a Bug</h6></li>
+      <li className="footer-list__register"><h6>Prototype v. 0.1.0</h6></li>
       <li className="footer-list__copy"><h6>&copy; 2019</h6></li>
     </ul>
     </div>
