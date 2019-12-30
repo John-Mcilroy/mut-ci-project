@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const connectDB = require('./config/connectDB');
 const fileUpload = require('express-fileupload');
+const secure = require('ssl-express-www');
 
 const path = require('path');
 
@@ -13,6 +14,7 @@ const PORT = process.env.PORT || 5000;
 // BodyParsere Middleware
 app.use(bodyParser.json());
 app.use(fileUpload());
+app.use(secure);
 
 // Connect to Database
 connectDB();
