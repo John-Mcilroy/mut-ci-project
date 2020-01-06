@@ -7,7 +7,9 @@ const initialState = {
   viewType: 'day',
   loading: true,
   records: [],
-  shiftRecords: []
+  shiftRecords: [],
+  startDate: '',
+  endDate: ''
 };
 
 export default (state = initialState, action) => {
@@ -23,12 +25,17 @@ export default (state = initialState, action) => {
       };
       case SEARCH_PERFORMANCE:
         const shiftRecords = payload[0] || [];
-        const partnerRecords = payload[1] || payload;
+        const partnerRecords = payload[1] || [];
+        const startDate = payload[2] || '';
+        const endDate = payload[3] || ''
+
         return {
           ...state,
           loading: false,
           records: partnerRecords,
-          shiftRecords: shiftRecords
+          shiftRecords: shiftRecords,
+          startDate,
+          endDate
         }
       default: 
         return state;

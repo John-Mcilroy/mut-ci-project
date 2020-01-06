@@ -2,22 +2,33 @@
   top: 3%;
   border-radius: 20px;
   padding-top: 1em;
-  width: 60%;
+  width: 720px;
   height: 83%;
   margin: 4%;
   background: #235aff35;
   position: relative;
 }
 
+.performance-display h4 {
+  color: var(--blue-dark-hover);
+  position: relative;
+  top: 1rem;
+  left: 4rem;
+}
+
 .performance-display__inner {
   top: 3%;
   border-radius: 20px;
-  width: 680px;
+  width: 100%;
   height: 60%;
   margin: auto;
-  padding: 0;
+  padding: 0 1em;
   position: relative;
   overflow-y: scroll;
+}
+
+.performance-display__inner-tag, h3 {
+  color: var(--blue-dark-hover);
 }
 
 .performance-display__inner::-webkit-scrollbar {

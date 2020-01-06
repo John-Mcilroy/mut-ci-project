@@ -31,19 +31,16 @@ export const uploadPerformance = ({ file }) => async dispatch => {
 
 export const searchPerformance = ({
   partner = null,
-  workCategory = null,
   dateFrom = null,
   dateTo = null
 }) => async dispatch => {
   
   let queryPartner = partner ? `partner=${partner}` : null;
-  let queryWorkCategory = workCategory ? `work-category=${workCategory}` : null;
   let queryDateFrom = dateFrom ? `date-from=${dateFrom}` : null;
   let queryDateTo = dateTo ? `date-to=${dateTo}` : null;
   let queries = [];
 
   if(queryPartner) queries.push(queryPartner);
-  if(queryWorkCategory) queries.push(queryWorkCategory);
   if(queryDateFrom) queries.push(queryDateFrom);
   if(queryDateTo) queries.push(queryDateTo);
 

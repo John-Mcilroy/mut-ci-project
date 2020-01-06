@@ -5,7 +5,7 @@ import Progress from './Progress';
 
 function SinglePerformanceView(props) {
 
-  console.log(props.partner);
+  console.log(props);
   const name = props.partner.name;
   const number = props.partner.number;
   const records = props.partner.records;
@@ -57,8 +57,8 @@ function SinglePerformanceView(props) {
         <p>{number}</p>
       </div>
       <div className="spv-dates">
-        {/* <p>Date from: 1st October 2019</p>
-        <p>Date to: 31st October 2019</p> */}
+        <p><span>Date from:</span> {props.startDate}</p>
+        <p><span>Date to:</span>   {props.endDate}</p>
       </div>
 
       <div className="spv-performances">
@@ -71,6 +71,7 @@ function SinglePerformanceView(props) {
       </div>
 
       <div className="spv-chart" >
+        <h3>Time spent on Function (Hours)</h3>
         <Doughnut data={data} options={{ legend: false }} />
       </div>
     </div>

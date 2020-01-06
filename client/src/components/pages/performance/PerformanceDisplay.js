@@ -42,24 +42,30 @@ const PerformanceDisplay = ({ setPerformance }) => {
 
   return (
     <>
-      <div className='performance-display'>
+      <div className='performance-display'>      
+        {setPerformance.records.length === 1 ? '' : <> <ShiftDisplay />
+        {setPerformance.startDate ? <h4>Displaying records from {setPerformance.startDate} to {setPerformance.endDate}</h4> : setPerformance.startDate === setPerformance.endDate ? <h4>Displaying records from {setPerformance.startDate}</h4> : ''}
           
-    {setPerformance.records.length === 1 ? '' : <> <ShiftDisplay />
-          
-          <ul className='performance-display__inner-tags'>
-            <li></li>
-            <li className='performance-display__inner-tag'>Chill<br/>Pick</li>
-            <li className='performance-display__inner-tag'>FRV<br/>Pick</li>
-            <li className='performance-display__inner-tag'>Ambient<br/>Pick</li>
-            <li className='performance-display__inner-tag'>Ambient<br/>Replen.</li>
-            <li className='performance-display__inner-tag'>Chill<br/>Scan</li>
-            <li className='performance-display__inner-tag'><br/>Loading</li>
-            <li className='performance-display__inner-tag'><br/>Overall</li>
-          </ul>
+        {setPerformance.records.length > 0 && <ul className='performance-display__inner-tags'>
+          <li></li>
+          <li className='performance-display__inner-tag'>Chill<br/>Pick</li>
+          <li className='performance-display__inner-tag'>FRV<br/>Pick</li>
+          <li className='performance-display__inner-tag'>Ambient<br/>Pick</li>
+          <li className='performance-display__inner-tag'>Ambient<br/>Replen.</li>
+          <li className='performance-display__inner-tag'>Chill<br/>Scan</li>
+          <li className='performance-display__inner-tag'><br/>Loading</li>
+          <li className='performance-display__inner-tag'><br/>Overall</li>
+        </ul>}
 
-  </> }
+    </> }
         <div className='performance-display__inner'>
-          {setPerformance.records.length === 1 ? <SinglePerformanceView  partner={setPerformance.records[0]} /> : setPerformance.records.length > 0 ? setPerformance.records.map((record, index) => {
+          {
+            setPerformance.records.length === 1 ? 
+              <SinglePerformanceView  
+                partner={setPerformance.records[0]} 
+                startDate={setPerformance.startDate} 
+                endDate={setPerformance.endDate} 
+              /> : setPerformance.records.length > 0 ? setPerformance.records.map((record, index) => {
             const { name, number, records } = record;
 
             return (

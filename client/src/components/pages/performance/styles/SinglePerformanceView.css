@@ -51,7 +51,11 @@
 }
 
 .spv-dates p {
-  font-size: .8em;
+  font-size: 1.3em;
+}
+
+.spv-dates span {
+  font-weight: 900;
 }
 
 .spv-performances > div {
@@ -82,6 +86,11 @@
 .spv-chart {
   margin-top: 1em;
   height: 13em;
+}
+
+.spv-chart h3 {
+  margin-bottom: .7em;
+  text-align: center;
 }
 
 .spv-performance__wrapper {

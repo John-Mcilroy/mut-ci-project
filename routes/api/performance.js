@@ -14,13 +14,15 @@ const auth = require('../../middleware/auth');
 // @access  Private
 
 router.get('/search', auth,  async (req, res) => {
-  
   try {
     // Set Start and End dates, check if is a valid date input and return 'null' if not valid
 
     const queryStartDate =  moment(req.query['date-from'], 'DD-MM-YYYY').isValid() ? moment(req.query['date-from'], 'DD-MM-YYYY') : null;
     const queryEndDate = moment(req.query['date-to'], 'DD-MM-YYYY').isValid() ? moment(req.query['date-to'], 'DD-MM-YYYY') : null;
     const queryPartner = req.query['partner'] ? await Partner.findOne({number: req.query['partner'] }) : null;
+
+    const formattedStartDate = queryStartDate.format('Do MMMM YYYY');
+    const formattedEndDate = queryEndDate.format('Do MMMM YYYY');
 
     // Check that Start and End dates are valid inputs
     if(!queryStartDate || !queryEndDate) {
@@ -104,10 +106,10 @@ router.get('/search', auth,  async (req, res) => {
         }, {
           name: queryPartner.name,
           number: queryPartner.number, 
-          records: []
+          records: [],
+          startDate: date,
+          endDate: date
         });
-
-        console.log(result);
 
         res.send(result);
 
@@ -119,55 +121,58 @@ router.get('/search', auth,  async (req, res) => {
         const shiftRecords = await ShiftRecord.find({ date });
         
         partnerRecords.forEach(record => {
-        const { name, number } = record.partner;
-        const { workCategory, performance, direct, unitsPerHour, unitsTotal, date } = record;
-        const found = combinedPartnerRecords.find(partner => {
-          return partner.number == record.partner.number;
-        });
-        try {
-          if(!found) {
-            const newRecord = {
-              name,
-              number,
-              records: [
-                {
-                  workCategory,
-                  performance,
-                  direct,
-                  unitsPerHour,
-                  unitsTotal,
-                  date
-                }
-              ]
+          const { name, number } = record.partner;
+          const { workCategory, performance, direct, unitsPerHour, unitsTotal, date } = record;
+          const found = combinedPartnerRecords.find(partner => {
+            return partner.number == record.partner.number;
+          });
+          try {
+            if(!found) {
+              const newRecord = {
+                name,
+                number,
+                records: [
+                  {
+                    workCategory,
+                    performance,
+                    direct,
+                    unitsPerHour,
+                    unitsTotal,
+                    date
+                  }
+                ]
+              }
+
+              combinedPartnerRecords.push(newRecord);
+            } else {
+              found.records.push({
+                workCategory,
+                performance,
+                direct,
+                unitsPerHour,
+                unitsTotal,
+                date
+              })
             }
 
-            combinedPartnerRecords.push(newRecord);
-          } else {
-            found.records.push({
-              workCategory,
-              performance,
-              direct,
-              unitsPerHour,
-              unitsTotal,
-              date
-            })
+          } catch(err) {
+            console.log(err.message);
+
           }
+        })
 
-        } catch(err) {
-          console.error(record);
-        }
-      })
+        // Sort partnerResults alphabetically by first name
+        combinedPartnerRecords.sort((first, second) => first.name.localeCompare(second.name));
+      
+        const result = [
+          shiftRecords,
+          combinedPartnerRecords,
+          formattedStartDate,
+          formattedEndDate
+        ];
 
-      // Sort partnerResults alphabetically by first name
-      combinedPartnerRecords.sort((first, second) => first.name.localeCompare(second.name));
-    
-      const result = [
-        shiftRecords,
-        combinedPartnerRecords
-      ];
-
-      res.json(result);
-    }
+        res.json(result);
+      }
       // Check if Start date is later than the End date
     } else if(queryStartDate.isAfter(queryEndDate)) {
       // If Start Date is Later than End date, send error
@@ -202,6 +207,7 @@ router.get('/search', auth,  async (req, res) => {
         }
 
         data.forEach(record => {
+
           const { name, number } = record.partner;
           const { workCategory, performance, direct, unitsPerHour, unitsTotal, date } = record;
           const currentRecord = totalPartnerRecords.find(partnerResults => number == partnerResults.number);
@@ -487,13 +493,13 @@ router.get('/search', auth,  async (req, res) => {
       // Sort partnerResults alphabetically by first name
       partnerResults.sort((first, second) => first.name.localeCompare(second.name));
 
-      let combinedRecords = [shiftTotals, partnerResults];
+      let combinedRecords = [shiftTotals, partnerResults, formattedStartDate, formattedEndDate];
 
       res.send(combinedRecords);
     }
 
   } catch(err) {
-    
+    console.log(err.message);
     res
       .status(500)
       .send(err.message);

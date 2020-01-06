@@ -22,8 +22,8 @@ const Performance = ({ handleUploadModal, uploadModal, logout, isAuthenticated }
     <div className='performance'>
       <div className='performance-controls'>
       <p className="performance-controls__back-btn" onClick={logout}>{'< '} Logout</p>
-        <PerformanceSearch />
         <Logo />
+        <PerformanceSearch />
       </div>
       <div className='performance-view'>
         <h1 className='performance-view__title'>Performance Overview</h1>
