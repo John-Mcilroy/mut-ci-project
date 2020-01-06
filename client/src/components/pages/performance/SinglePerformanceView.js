@@ -71,7 +71,7 @@ function SinglePerformanceView(props) {
       </div>
 
       <div className="spv-chart" >
-        <h3>Time spent on Function (Hours)</h3>
+        <h3 className="function-time">Time spent on Function (Hours)</h3>
         <Doughnut data={data} options={{ legend: false }} />
       </div>
     </div>
