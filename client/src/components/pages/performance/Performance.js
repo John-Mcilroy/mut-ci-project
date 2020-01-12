@@ -25,9 +25,27 @@ const Performance = ({ handleUploadModal, uploadModal, logout, isAuthenticated }
     <div className='performance'>
       <div className='performance-controls'>
       <p className="performance-controls__back-btn" onClick={logout}>{'< '} Logout</p>
-      <Link to='/progress-tracker' className="sidenav-tracker" style={{position: 'relative', left: '16em', top: '1em', stroke: 'blue' }}>
+      
+      {/* Temporary Graph Link  */}
+      <Link 
+        to='/progress-tracker' 
+        className="sidenav-tracker" 
+        style={{
+          position: 'relative', 
+          left: '1.2em', 
+          top: '4.5em', 
+          stroke: 'blue', 
+          backgroundColor: '#235aff', 
+          display: 'flex', 
+          width: '3em',
+          justifyContent: 'center',
+          borderRadius: '40px'
+        }}
+      >
         <img src={trackerImg} alt='Tracker'></img>
       </Link>
+      {/* End Temporary Graph Link */}
+
         <Logo />
         <PerformanceSearch />
       </div>

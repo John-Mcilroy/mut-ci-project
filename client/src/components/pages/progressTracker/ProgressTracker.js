@@ -6,21 +6,28 @@ import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 
 const ProgressTracker = ({ isAuthenticated }) => {
-  const [ input, setInput ] = useState();
-  const [ data, setData ] = useState([ ]);
-
-
   useEffect(() => {
     const storage = window.localStorage;
     const storageLength = Object.keys(storage);
+
+    storageLength.forEach((key, index) => {
+      if(key === 'token') {
+        storageLength.splice(index, 1);
+      }
+    });
+
     if(storageLength !== 0) {
-      storageLength.sort((first, second) => first - second);
+      storageLength.sort((first, second) => first - second );
       setData(storageLength.map(existingData => {
         return storage.getItem(existingData);
       }))
     }
-
   }, [])
+  
+  const [ input, setInput ] = useState();
+  const [ data, setData ] = useState([  ]);
+
+
 
   if(!isAuthenticated) {
     return <Redirect exact to='/' />
@@ -77,39 +84,30 @@ const ProgressTracker = ({ isAuthenticated }) => {
     
     if(!storage.getItem('1400')) {
       storage.setItem('1400', input)
-      console.log('Data Set - 14:00')
 
     } else if(!storage.getItem('1500')) {
       storage.setItem('1500', input)
-      console.log('Data Set - 15:00')
 
     } else if(!storage.getItem('1600')) {
       storage.setItem('1600', input)
-      console.log('Data Set - 16:00')
 
     } else if(!storage.getItem('1700')) {
       storage.setItem('1700', input)
-      console.log('Data Set - 17:00')
 
     } else if(!storage.getItem('1800')) {
       storage.setItem('1800', input)
-      console.log('Data Set - 18:00')
 
     } else if(!storage.getItem('1900')) {
       storage.setItem('1900', input)
-      console.log('Data Set - 19:00')
 
     } else if(!storage.getItem('2000')) {
       storage.setItem('2000', input)
-      console.log('Data Set - 20:00')
 
     } else if(!storage.getItem('2100')) {
       storage.setItem('2100', input)
-      console.log('Data Set - 21:00')
 
     } else if(!storage.getItem('2200')) {
       storage.setItem('2200', input)
-      console.log('Data Set - 22:00')
 
     } else {
       console.log('Error?');
@@ -126,15 +124,23 @@ const ProgressTracker = ({ isAuthenticated }) => {
   }
 
   const clearStorage = () => {
-    window.localStorage.clear();
+    window.localStorage.removeItem('1400');
+    window.localStorage.removeItem('1500');
+    window.localStorage.removeItem('1600');
+    window.localStorage.removeItem('1700');
+    window.localStorage.removeItem('1800');
+    window.localStorage.removeItem('1900');
+    window.localStorage.removeItem('2000');
+    window.localStorage.removeItem('2100');
+    window.localStorage.removeItem('2200');
     setData('');
     return;
   }
   
   return (
-    <div>
+    <div style={{background: '#dae3ff', height: '100vh', margin: '0', padding: '0', position: 'absolute', width: '100vw'}}>
       <Link to='/performance' className="sidenav-tracker">
-        <p className="performance-controls__back-btn" style={{display: 'absolute', left: '0', width: '12em', marginLeft: '3em'}}>Back to Performance</p>
+        <p className="performance-controls__back-btn" style={{display: 'relative', left: '0', width: '12em', marginLeft: '3em'}}>Back to Performance</p>
       </Link>
       
       <h1 
@@ -181,7 +187,7 @@ const ProgressTracker = ({ isAuthenticated }) => {
 
           <label htmlFor='chill-value'>
             Data Input 
-            <input style={{marginLeft: '1em'}} id='chill-value' placeholder='Enter Value' value={input} onChange={onInputChange} autoComplete='off' />
+            <input style={{margin: '0 1em'}} id='chill-value' placeholder='Enter Value' value={input} onChange={onInputChange} autoComplete='off' />
             <button type='submit'>Submit</button>
           </label>
         </form>
@@ -199,7 +205,6 @@ Performance.propTypes = {
 }
 
 const mapStateToProps = state =>  ({
-  uploadModal: state.uploadModal,
   isAuthenticated: state.auth.isAuthenticated,
 });
 
