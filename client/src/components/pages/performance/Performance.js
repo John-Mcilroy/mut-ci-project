@@ -9,8 +9,11 @@ import PropTypes from 'prop-types';
 import { handleUploadModal } from '../../../actions/uploadModal';
 import { logout } from '../../../actions/auth';
 import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import './styles/Performance.css';
+
+import trackerImg from '../progressTracker/assets/graph.svg';
 
 const Performance = ({ handleUploadModal, uploadModal, logout, isAuthenticated }) => {
 
@@ -22,6 +25,9 @@ const Performance = ({ handleUploadModal, uploadModal, logout, isAuthenticated }
     <div className='performance'>
       <div className='performance-controls'>
       <p className="performance-controls__back-btn" onClick={logout}>{'< '} Logout</p>
+      <Link to='/progress-tracker' className="sidenav-tracker" style={{position: 'relative', left: '16em', top: '1em', stroke: 'blue' }}>
+        <img src={trackerImg} alt='Tracker'></img>
+      </Link>
         <Logo />
         <PerformanceSearch />
       </div>

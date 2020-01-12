@@ -10,6 +10,7 @@ import { loadUser } from './actions/auth';
 // Components
 import Landing from './components/pages/landing/Landing';
 import Performance from './components/pages/performance/Performance';
+import ProgressTracker from './components/pages/progressTracker/ProgressTracker';
 import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './components/routing/PrivateRoute';
 
@@ -33,9 +34,9 @@ const App = ({ match }) =>{
           <Alert />
           <Switch>
             <Route exact path='/' component={Landing} />
-            
-            {/* <PrivateRoute path='/profile' component={Profile} /> */}
+      
             <PrivateRoute path='/performance' component={Performance} />
+            <PrivateRoute path='/progress-tracker' component={ProgressTracker} />
           </Switch>
         </Fragment>
       </Router>
